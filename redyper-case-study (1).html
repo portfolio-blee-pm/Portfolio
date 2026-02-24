@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReDYPER Case Study · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #000000;
+  --gray-85: #D1D1D6;
+  --gray-60: #8E8E93;
+  --gray-20: #2C2C2E;
+  --gray-12: #1C1C1E;
+  --gray-08: #141416;
+  --blue:    #0A84FF;
+  --blue-lt: #409CFF;
+  --green:   #30D158;
+  --green-dk:#25A244;
+  --amber:   #FF9F0A;
+  --red:     #FF453A;
+  --mono:    'JetBrains Mono', monospace;
+  --display: 'Rajdhani', sans-serif;
+  --body:    'DM Sans', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:#F5F5F7;font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);}
+.nav-back{display:flex;align-items:center;gap:0.4rem;color:var(--blue-lt);text-decoration:none;font-size:0.82rem;transition:opacity 0.2s;}
+.nav-back:hover{opacity:0.7;}
+.nav-center{font-size:0.82rem;font-weight:500;color:#F5F5F7;}
+.nav-badge{font-family:var(--mono);font-size:0.65rem;color:var(--gray-60);letter-spacing:0.06em;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 8rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 50% 30%,rgba(10,132,255,0.2) 0%,transparent 65%),radial-gradient(ellipse 50% 40% at 80% 60%,rgba(48,209,88,0.07) 0%,transparent 60%);}
+.hero-map{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0.15;pointer-events:none;}
+.hero-content{position:relative;z-index:2;max-width:960px;}
+.hero-eyebrow{display:flex;align-items:center;gap:0.9rem;margin-bottom:2.5rem;opacity:0;animation:fadeUp 0.8s 0.2s ease forwards;}
+.eyebrow-chip{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);border:1px solid rgba(48,209,88,0.35);padding:0.3rem 0.9rem;border-radius:999px;}
+.eyebrow-co{font-size:0.82rem;color:var(--gray-60);}
+.hero-h1{font-family:var(--display);font-size:clamp(4rem,11vw,9.5rem);font-weight:700;line-height:0.88;letter-spacing:-0.01em;margin-bottom:0.5rem;opacity:0;animation:fadeUp 0.8s 0.35s ease forwards;}
+.word-re{color:#F5F5F7;}.word-dy{color:var(--blue-lt);}.word-per{color:var(--gray-60);}
+.hero-h1-sub{font-family:var(--display);font-size:clamp(1.4rem,3vw,2.6rem);font-weight:500;color:var(--gray-60);letter-spacing:0.03em;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.45s ease forwards;}
+.hero-sub{font-size:clamp(0.95rem,1.8vw,1.15rem);color:var(--gray-60);max-width:660px;line-height:1.65;margin-bottom:4rem;opacity:0;animation:fadeUp 0.8s 0.55s ease forwards;}
+.hero-kpi{display:flex;gap:0;flex-wrap:nowrap;border:1px solid rgba(255,255,255,0.1);border-radius:18px;overflow:hidden;max-width:900px;opacity:0;animation:fadeUp 0.8s 0.7s ease forwards;}
+.kpi-cell{flex:1;padding:1.4rem 1.5rem;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
+.kpi-cell:last-child{border-right:none;}
+.kpi-num{font-family:var(--display);font-size:2rem;font-weight:700;line-height:1;display:block;margin-bottom:0.3rem;color:#F5F5F7;}
+.kpi-num.blue{color:var(--blue-lt);}.kpi-num.green{color:var(--green);}
+.kpi-label{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;}
+
+/* ── LAYOUT ── */
+.divider{height:1px;background:rgba(255,255,255,0.06);}
+.sw{padding:7rem 5vw;max-width:1200px;margin:0 auto;}
+.sw-bg{background:var(--gray-08);}
+.sw-bg .sw{max-width:1200px;}
+.sw-bg-green{background:linear-gradient(180deg,#050f07 0%,#020a03 100%);}
+.sw-bg-green .sw{max-width:1200px;}
+
+.sec-label{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.8rem;}
+.sec-num{font-family:var(--mono);font-size:0.65rem;color:var(--blue-lt);letter-spacing:0.1em;border:1px solid rgba(64,156,255,0.3);padding:0.25rem 0.6rem;border-radius:4px;}
+.sec-rule{flex:1;height:1px;background:rgba(255,255,255,0.07);}
+.sec-title{font-family:var(--display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;}
+.sec-desc{font-size:1rem;color:var(--gray-60);max-width:600px;margin-bottom:3.5rem;line-height:1.7;}
+
+/* ── CARDS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+
+.c{background:var(--gray-12);padding:2.5rem;position:relative;overflow:hidden;transition:background 0.25s;}
+.c:hover{background:#1e1e21;}
+.c.tall{min-height:320px;display:flex;flex-direction:column;gap:1.1rem;}
+.c.wide{grid-column:1/-1;}
+.c.wide-row{grid-column:1/-1;display:flex;flex-direction:row;align-items:center;gap:3rem;min-height:220px;}
+
+.c-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+.icon-red{background:rgba(255,69,58,0.14);}.icon-amber{background:rgba(255,159,10,0.14);}.icon-blue{background:rgba(10,132,255,0.14);}.icon-green{background:rgba(48,209,88,0.14);}
+
+.c h3{font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;line-height:1.15;}
+.c h4{font-family:var(--mono);font-size:0.65rem;font-weight:500;color:var(--blue-lt);letter-spacing:0.1em;text-transform:uppercase;margin:1.3rem 0 0.6rem;}
+.c p{font-size:0.88rem;color:var(--gray-60);line-height:1.7;}
+.c ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;}
+.c ul li{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.85rem;color:var(--gray-85);line-height:1.55;}
+.c ul li::before{content:'→';color:var(--blue-lt);flex-shrink:0;}
+
+/* ── PROB CARD ── */
+.prob-text{display:flex;flex-direction:column;gap:0.9rem;flex:1;}
+.prob-vis{flex-shrink:0;width:320px;height:170px;}
+.prob-vis svg{width:100%;height:100%;}
+
+/* ── ROLE ── */
+.role-grid{display:grid;grid-template-columns:270px 1fr;gap:4rem;align-items:start;}
+.role-sticky{position:sticky;top:5rem;}
+.role-sticky h3{font-family:var(--display);font-size:0.95rem;font-weight:600;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.2rem;}
+.comp-list{display:flex;flex-direction:column;gap:0.35rem;}
+.comp-item{display:flex;align-items:center;gap:0.75rem;padding:0.6rem 0.9rem;background:var(--gray-12);border-radius:10px;font-size:0.8rem;color:#F5F5F7;border:1px solid rgba(255,255,255,0.06);transition:border-color 0.2s;}
+.comp-item:hover{border-color:rgba(64,156,255,0.3);}
+.comp-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-lt);flex-shrink:0;}
+.appr-list{display:flex;flex-direction:column;gap:2px;}
+.appr-block{padding:2.2rem 2.5rem;background:var(--gray-12);border-radius:16px;position:relative;overflow:hidden;transition:background 0.25s;}
+.appr-block:hover{background:#1e1e21;}
+.appr-block::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--blue-lt),var(--green));}
+.appr-block h3{font-family:var(--display);font-size:1.25rem;font-weight:600;color:#F5F5F7;margin-bottom:0.7rem;}
+.appr-block p{font-size:0.88rem;color:var(--gray-60);margin-bottom:0.9rem;}
+.appr-block ul li::before{content:'→';color:var(--blue-lt);}
+
+/* ── PHASES ── */
+.phase-tile{background:var(--gray-12);padding:2.5rem;display:flex;flex-direction:column;gap:0.9rem;position:relative;overflow:hidden;transition:background 0.25s;}
+.phase-tile:hover{background:#1e1e21;}
+.phase-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);opacity:0;transition:opacity 0.3s;}
+.phase-tile:hover::before{opacity:1;}
+.phase-top{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;}
+.phase-badge{font-family:var(--mono);font-size:0.62rem;background:rgba(10,132,255,0.12);color:var(--blue-lt);border:1px solid rgba(10,132,255,0.22);padding:0.2rem 0.65rem;border-radius:6px;letter-spacing:0.08em;}
+.phase-timing{font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);margin-left:auto;}
+.phase-name{font-family:var(--display);font-size:1.4rem;font-weight:600;color:#F5F5F7;line-height:1.1;}
+.phase-outcome{font-family:var(--mono);font-size:0.62rem;color:var(--green);border:1px solid rgba(48,209,88,0.22);padding:0.2rem 0.65rem;border-radius:6px;width:fit-content;letter-spacing:0.06em;}
+.phase-desc{font-size:0.86rem;color:var(--gray-60);line-height:1.7;}
+.phase-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.8rem;}
+.p-chip{font-family:var(--mono);font-size:0.62rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--gray-85);padding:0.22rem 0.6rem;border-radius:6px;letter-spacing:0.04em;}
+
+/* ── TECH / ARCHITECTURE ── */
+.arch-flow{display:flex;align-items:stretch;gap:0;margin:1.5rem 0;overflow-x:auto;}
+.arch-node{display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.5rem;padding:1.2rem 1rem;background:rgba(10,132,255,0.07);border:1px solid rgba(10,132,255,0.18);border-radius:12px;min-width:110px;flex-shrink:0;}
+.arch-node.source{background:rgba(48,209,88,0.07);border-color:rgba(48,209,88,0.25);}
+.arch-node.dest{background:rgba(255,159,10,0.07);border-color:rgba(255,159,10,0.25);}
+.arch-node-icon{font-size:1.4rem;}
+.arch-node-label{font-family:var(--mono);font-size:0.62rem;color:var(--gray-85);letter-spacing:0.04em;line-height:1.4;}
+.arch-node-sub{font-family:var(--mono);font-size:0.55rem;color:var(--gray-60);letter-spacing:0.03em;}
+.arch-arrow{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 0.6rem;gap:0.2rem;flex-shrink:0;}
+.arch-arrow-line{width:32px;height:1px;background:linear-gradient(90deg,rgba(64,156,255,0.5),rgba(64,156,255,0.2));}
+.arch-arrow-label{font-family:var(--mono);font-size:0.5rem;color:var(--gray-60);letter-spacing:0.04em;white-space:nowrap;}
+.arch-arrow-head{color:rgba(64,156,255,0.5);font-size:0.8rem;margin-top:-4px;}
+
+.tool-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;}
+.tool-tag{font-family:var(--mono);font-size:0.62rem;background:rgba(10,132,255,0.08);border:1px solid rgba(10,132,255,0.2);color:var(--blue-lt);padding:0.22rem 0.65rem;border-radius:6px;letter-spacing:0.04em;}
+.tool-tag.green{background:rgba(48,209,88,0.08);border-color:rgba(48,209,88,0.2);color:var(--green);}
+.tool-tag.amber{background:rgba(255,159,10,0.08);border-color:rgba(255,159,10,0.2);color:var(--amber);}
+
+/* ── FLOW DIAGRAM (gig ops) ── */
+.flow-row{display:flex;align-items:center;gap:0;flex-wrap:nowrap;overflow-x:auto;padding:1.2rem 0;}
+.flow-step{display:flex;flex-direction:column;align-items:center;gap:0.4rem;flex-shrink:0;min-width:90px;text-align:center;}
+.flow-icon{width:48px;height:48px;border-radius:13px;background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.flow-label{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.04em;line-height:1.4;}
+.flow-arrow{flex-shrink:0;padding:0 0.4rem;color:rgba(64,156,255,0.35);font-size:1.1rem;margin-bottom:1.4rem;}
+
+/* ── ENV IMPACT (green section) ── */
+.env-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(48,209,88,0.08);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.env-cell{background:rgba(5,20,8,0.9);padding:3rem 2.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1rem;position:relative;overflow:hidden;min-height:300px;transition:background 0.25s;}
+.env-cell:hover{background:rgba(10,30,14,0.95);}
+.env-cell::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.env-big{font-family:var(--display);font-weight:700;font-size:3.8rem;line-height:1;color:#F5F5F7;letter-spacing:-0.02em;}
+.env-big .unit{font-size:2rem;color:var(--green);}
+.env-label{font-size:0.84rem;color:rgba(255,255,255,0.5);line-height:1.5;max-width:200px;}
+.env-sub{font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em;}
+.env-vis{width:100px;height:100px;flex-shrink:0;}
+
+.metro-grid{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem;}
+.metro-chip{font-family:var(--mono);font-size:0.65rem;background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.2);color:rgba(255,255,255,0.7);padding:0.3rem 0.75rem;border-radius:6px;letter-spacing:0.04em;}
+
+.env-impact-row{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem;}
+.env-impact-card{background:rgba(5,15,8,0.9);border:1px solid rgba(48,209,88,0.12);border-radius:18px;padding:2rem;}
+.env-impact-card h3{font-family:var(--display);font-size:1.2rem;font-weight:600;color:var(--green);margin-bottom:1rem;}
+.env-impact-card ul{list-style:none;display:flex;flex-direction:column;gap:0.5rem;}
+.env-impact-card ul li{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.86rem;color:rgba(255,255,255,0.6);line-height:1.55;}
+.env-impact-card ul li::before{content:'🌿';flex-shrink:0;font-size:0.75rem;margin-top:0.15rem;}
+
+/* ── RESULTS ── */
+.res-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.rh-cell{background:var(--gray-12);padding:3rem 2.5rem;display:flex;flex-direction:column;align-items:center;text-align:center;gap:1rem;position:relative;overflow:hidden;min-height:320px;transition:background 0.25s;}
+.rh-cell:hover{background:#1e1e21;}
+.rh-cell::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);}
+.res-vis{width:110px;height:110px;flex-shrink:0;}
+.res-big{font-family:var(--display);font-weight:700;font-size:3.8rem;line-height:1;color:#F5F5F7;letter-spacing:-0.02em;}
+.res-big .unit{font-size:2rem;color:var(--blue-lt);}
+.res-label{font-size:0.84rem;color:var(--gray-60);line-height:1.5;max-width:200px;}
+.res-sub{font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em;}
+
+.res-secondary{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.res-mini{background:var(--gray-12);padding:2rem 1.6rem;display:flex;flex-direction:column;gap:0.7rem;position:relative;overflow:hidden;transition:background 0.25s;}
+.res-mini:hover{background:#1e1e21;}
+.res-mini-icon{font-size:1.4rem;}
+.res-mini-num{font-family:var(--display);font-size:2.5rem;font-weight:700;color:#F5F5F7;line-height:1;letter-spacing:-0.02em;}
+.res-mini-num .acc{color:var(--blue-lt);}
+.res-mini-label{font-size:0.8rem;color:var(--gray-60);line-height:1.5;}
+.rms{position:absolute;right:0.8rem;bottom:0.8rem;opacity:0.1;width:70px;height:55px;}
+
+.impact-box{background:var(--gray-12);border-radius:20px;padding:3rem;border:1px solid rgba(255,255,255,0.07);}
+.impact-box h3{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--green);margin-bottom:2rem;}
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.impact-row{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.86rem;color:var(--gray-85);line-height:1.55;}
+.impact-check{width:20px;height:20px;border-radius:50%;background:rgba(48,209,88,0.12);border:1px solid rgba(48,209,88,0.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.62rem;color:var(--green);margin-top:0.15rem;}
+
+/* ── CTA ── */
+.cta-wrap{background:var(--gray-08);padding:8rem 5vw;text-align:center;position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(10,132,255,0.13),transparent);}
+.cta-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,5rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;position:relative;z-index:1;}
+.cta-sub{font-size:1rem;color:var(--gray-60);max-width:460px;margin:0 auto 3rem;line-height:1.7;position:relative;z-index:1;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+.btn-blue{background:var(--blue);color:#fff;padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.2s;border:none;cursor:pointer;}
+.btn-blue:hover{background:#0070e0;transform:scale(1.02);}
+.btn-outline{background:transparent;color:var(--blue-lt);padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;border:1px solid rgba(64,156,255,0.35);transition:border-color 0.2s,transform 0.2s;}
+.btn-outline:hover{border-color:var(--blue-lt);transform:scale(1.02);}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── SAAS SECTION ── */
+.saas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.saas-card{background:var(--gray-12);padding:2rem 1.8rem;display:flex;flex-direction:column;gap:0.8rem;transition:background 0.25s;}
+.saas-card:hover{background:#1e1e21;}
+.saas-trait-label{font-family:var(--mono);font-size:0.6rem;color:var(--blue-lt);letter-spacing:0.1em;text-transform:uppercase;}
+.saas-icon-wrap{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.saas-what{font-size:0.82rem;color:#F5F5F7;line-height:1.5;font-weight:400;}
+.saas-why{font-size:0.78rem;color:var(--gray-60);line-height:1.6;border-top:1px solid rgba(255,255,255,0.06);padding-top:0.8rem;margin-top:auto;}
+.saas-bottom{display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:2rem;background:var(--gray-12);border:1px solid rgba(255,255,255,0.07);border-radius:20px;padding:2.5rem 3rem;align-items:start;}
+.saas-bottom-divider{background:rgba(255,255,255,0.07);height:100%;}
+.saas-bottom-label{font-family:var(--mono);font-size:0.62rem;color:var(--blue-lt);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.7rem;}
+.saas-bottom-text{font-size:0.86rem;color:var(--gray-60);line-height:1.7;}
+.saas-bottom-text em{color:var(--gray-85);font-style:normal;font-weight:400;}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.modal-box{position:relative;z-index:1;background:var(--gray-12);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:3rem;max-width:480px;width:100%;transform:translateY(20px) scale(0.97);transition:transform 0.3s ease;box-shadow:0 40px 80px rgba(0,0,0,0.6);}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:1.2rem;right:1.4rem;background:rgba(255,255,255,0.06);border:none;color:var(--gray-60);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s,color 0.2s;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#F5F5F7;}
+.modal-eyebrow{font-family:var(--mono);font-size:0.62rem;color:var(--blue-lt);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;}
+.modal-title{font-family:var(--display);font-size:2rem;font-weight:700;color:#F5F5F7;line-height:1;margin-bottom:0.4rem;}
+.modal-sub{font-size:0.85rem;color:var(--gray-60);margin-bottom:2rem;}
+.modal-contacts{display:flex;flex-direction:column;gap:0.7rem;}
+.modal-contact-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;text-decoration:none;transition:background 0.2s,border-color 0.2s;}
+.modal-contact-item:hover{background:rgba(255,255,255,0.07);border-color:rgba(64,156,255,0.3);}
+.modal-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-contact-label{font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:0.15rem;}
+.modal-contact-value{font-size:0.88rem;color:#F5F5F7;font-weight:400;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-kpi{flex-wrap:wrap;border-radius:16px;}
+  .kpi-cell{min-width:calc(50% - 1px);}
+  .grid-2,.grid-3,.grid-4,.env-hero,.res-hero,.res-secondary,.env-impact-row,.saas-grid{grid-template-columns:1fr;}
+  .c.wide-row{flex-direction:column;}
+  .prob-vis{width:100%;height:160px;}
+  .role-grid{grid-template-columns:1fr;}
+  .role-sticky{position:static;}
+  nav{padding:0 1.2rem;}
+  .sw{padding:5rem 1.4rem;}
+  .cta-wrap{padding:5rem 1.4rem;}
+  .hero{padding:0 1.4rem 5rem;}
+  .arch-flow{flex-wrap:wrap;}
+  .saas-bottom{grid-template-columns:1fr;gap:1.5rem;}
+  .saas-bottom-divider{height:1px;width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Portfolio
+  </a>
+  <span class="nav-center">ReDYPER Case Study</span>
+  <span class="nav-badge">Recyclops × DYPER · 2021–Present</span>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-map">
+    <svg width="960" height="520" viewBox="0 0 960 520" fill="none">
+      <path d="M110,215 L155,162 L215,142 L305,120 L410,110 L520,102 L638,98 L726,112 L800,140 L830,178 L840,222 L828,270 L808,312 L776,344 L734,368 L682,384 L614,398 L530,408 L446,412 L364,405 L282,388 L206,365 L152,334 L118,294 L100,258 Z" stroke="#0A84FF" stroke-width="1" fill="rgba(10,132,255,0.04)"/>
+      <circle cx="390" cy="220" r="8" fill="#30D158"><animate attributeName="r" values="8;13;8" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/></circle>
+      <text x="404" y="216" fill="#30D158" font-size="10" font-family="monospace" font-weight="500">HQ</text>
+      <!-- Named metros from DYPER site -->
+      <circle cx="768" cy="196" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.1s" repeatCount="indefinite"/></circle>
+      <text x="776" y="193" fill="#8E8E93" font-size="8" font-family="monospace">NYC</text>
+      <circle cx="726" cy="232" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.4s" repeatCount="indefinite"/></circle>
+      <text x="734" y="229" fill="#8E8E93" font-size="8" font-family="monospace">DC</text>
+      <circle cx="196" cy="290" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="1.9s" repeatCount="indefinite"/></circle>
+      <text x="174" y="306" fill="#8E8E93" font-size="8" font-family="monospace">LA</text>
+      <circle cx="150" cy="210" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.7s" repeatCount="indefinite"/></circle>
+      <text x="122" y="207" fill="#8E8E93" font-size="8" font-family="monospace">SEA</text>
+      <circle cx="298" cy="268" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite"/></circle>
+      <text x="308" y="266" fill="#8E8E93" font-size="8" font-family="monospace">PHX</text>
+      <circle cx="470" cy="192" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.5s" repeatCount="indefinite"/></circle>
+      <text x="480" y="190" fill="#8E8E93" font-size="8" font-family="monospace">DEN</text>
+      <circle cx="638" cy="286" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite"/></circle>
+      <text x="648" y="284" fill="#8E8E93" font-size="8" font-family="monospace">ATL</text>
+      <circle cx="554" cy="192" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite"/></circle>
+      <text x="564" y="190" fill="#8E8E93" font-size="8" font-family="monospace">CHI</text>
+      <circle cx="524" cy="308" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/></circle>
+      <text x="534" y="306" fill="#8E8E93" font-size="8" font-family="monospace">DAL/AUS</text>
+      <circle cx="356" cy="374" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.3s" repeatCount="indefinite"/></circle>
+      <text x="332" y="389" fill="#8E8E93" font-size="8" font-family="monospace">HOU</text>
+      <circle cx="158" cy="168" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.6s" repeatCount="indefinite"/></circle>
+      <text x="136" y="165" fill="#8E8E93" font-size="8" font-family="monospace">POR</text>
+      <circle cx="706" cy="166" r="5" fill="#409CFF"><animate attributeName="opacity" values="1;0.3;1" dur="2.8s" repeatCount="indefinite"/></circle>
+      <text x="716" y="164" fill="#8E8E93" font-size="8" font-family="monospace">PHI</text>
+      <g stroke="#0A84FF" stroke-width="0.7" stroke-dasharray="5,4" opacity="0.4">
+        <line x1="390" y1="220" x2="768" y2="196"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.2s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="726" y2="232"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.4s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="196" y2="290"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.0s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="150" y2="210"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.6s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="298" y2="268"><animate attributeName="stroke-dashoffset" values="0;-18" dur="0.9s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="470" y2="192"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.3s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="638" y2="286"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.1s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="554" y2="192"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.5s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="524" y2="308"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.7s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="356" y2="374"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.2s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="158" y2="168"><animate attributeName="stroke-dashoffset" values="0;-18" dur="0.8s" repeatCount="indefinite"/></line>
+        <line x1="390" y1="220" x2="706" y2="166"><animate attributeName="stroke-dashoffset" values="0;-18" dur="1.9s" repeatCount="indefinite"/></line>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-chip">⭐ Flagship Case Study</span>
+      <span class="eyebrow-co">Recyclops × DYPER · Enterprise Gig-Aggregation · Climate-Tech · Series A→B</span>
+    </div>
+    <h1 class="hero-h1"><span class="word-re">Re</span><span class="word-dy">DY</span><span class="word-per">PER</span></h1>
+    <div class="hero-h1-sub">National Launch Program</div>
+    <p class="hero-sub">How I designed, built, and scaled the Enterprise Gig-Aggregation layer powering DYPER's REDYPER™ program — from a manual 3-market pilot to 25+ live metro markets, zero critical failures, 15M+ pounds diverted, and a Series B raise.</p>
+    <div class="hero-kpi">
+      <div class="kpi-cell">
+        <span class="kpi-num blue">25+</span>
+        <span class="kpi-label">Metro Markets Live-Launches</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num green">15M+</span>
+        <span class="kpi-label">Lbs Diverted</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num">Zero</span>
+        <span class="kpi-label">P0/P1 Incidents</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num">95%+</span>
+        <span class="kpi-label">Platform Uptime</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num blue">10×</span>
+        <span class="kpi-label">Subscriber Scale</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num green">Series B</span>
+        <span class="kpi-label">Funding Enabled</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 01 PROBLEM ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">01</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">The Problem</h2>
+    <p class="sec-desc reveal">DYPER had launched REDYPER™ nationally via mail-back in 2020. The next phase — weekly curbside pickup at scale — demanded an entirely new Enterprise Gig-Aggregation layer. No infrastructure existed. No playbook. No precedent. Series B depended on proving it could work across 25+ markets.</p>
+
+    <div class="grid-2 reveal">
+      <!-- Wide: mandate -->
+      <div class="c wide-row">
+        <div class="prob-text">
+          <div class="c-icon icon-blue"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.8 7.7L20 8.6L15.5 13L16.6 19.5L11 16.5L5.4 19.5L6.5 13L2 8.6L8.2 7.7Z" stroke="#409CFF" stroke-width="1.4" stroke-linejoin="round"/><circle cx="11" cy="11" r="2.2" fill="#409CFF"/></svg></div>
+          <h3>Build the Pickup Layer from Zero</h3>
+          <p>DYPER's mail-back model hit its ceiling. Scaling to weekly curbside pickup across 25+ metro areas required a full gig-aggregation engine — driver networks, real-time dispatch, regional aggregation infrastructure, multi-jurisdictional compliance, and a tech platform to tie it all together. None of it existed. Brandon Lee joined in July 2021 to build it.</p>
+        </div>
+        <div class="prob-vis">
+          <svg viewBox="0 0 320 170" fill="none">
+            <line x1="40" y1="15" x2="40" y2="150" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <line x1="40" y1="150" x2="300" y2="150" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+            <line x1="40" y1="100" x2="300" y2="100" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
+            <line x1="40" y1="55" x2="300" y2="55" stroke="rgba(255,255,255,0.04)" stroke-width="1" stroke-dasharray="3,4"/>
+            <text x="8" y="154" fill="#8E8E93" font-size="8" font-family="monospace">0</text>
+            <text x="4" y="104" fill="#8E8E93" font-size="8" font-family="monospace">10</text>
+            <text x="4" y="59" fill="#8E8E93" font-size="8" font-family="monospace">20</text>
+            <text x="4" y="22" fill="#8E8E93" font-size="8" font-family="monospace">25+</text>
+            <rect x="55" y="140" width="26" height="10" rx="3" fill="rgba(255,69,58,0.55)"/>
+            <rect x="105" y="130" width="26" height="20" rx="3" fill="rgba(255,159,10,0.45)"/>
+            <rect x="158" y="108" width="26" height="42" rx="3" fill="rgba(64,156,255,0.5)"/>
+            <rect x="210" y="74" width="26" height="76" rx="3" fill="rgba(64,156,255,0.7)"/>
+            <rect x="262" y="22" width="26" height="128" rx="3" fill="rgba(48,209,88,0.8)">
+              <animate attributeName="height" from="0" to="128" dur="1.2s" fill="freeze"/>
+              <animate attributeName="y" from="150" to="22" dur="1.2s" fill="freeze"/>
+            </rect>
+            <text x="48" y="167" fill="#8E8E93" font-size="7" font-family="monospace">Jul'21</text>
+            <text x="100" y="167" fill="#8E8E93" font-size="7" font-family="monospace">Q4'21</text>
+            <text x="152" y="167" fill="#8E8E93" font-size="7" font-family="monospace">Q1'22</text>
+            <text x="204" y="167" fill="#8E8E93" font-size="7" font-family="monospace">Q3'22</text>
+            <text x="256" y="167" fill="#30D158" font-size="7" font-family="monospace">Mar'23</text>
+            <line x1="40" y1="22" x2="300" y2="22" stroke="#30D158" stroke-width="1.2" stroke-dasharray="5,4" opacity="0.5"/>
+            <text x="196" y="16" fill="#30D158" font-size="8" font-family="monospace">25+ market target</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Infrastructure -->
+      <div class="c tall">
+        <div class="c-icon icon-red"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M8 14L4.5 17.5" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 9.5L6 6" stroke="#FF453A" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2,1.5"/><rect x="7" y="6.5" width="5" height="8" rx="1.5" stroke="#FF453A" stroke-width="1.4" transform="rotate(-45 7 6.5)"/><rect x="10" y="9.5" width="5" height="8" rx="1.5" stroke="#FF453A" stroke-width="1.4" transform="rotate(-45 10 9.5)"/><circle cx="4" cy="18" r="1.2" fill="#FF453A" opacity="0.5"/><circle cx="18" cy="4" r="1.2" fill="#FF453A" opacity="0.5"/></svg></div>
+        <h3>No Unified Infrastructure</h3>
+        <p>No layer to bridge DYPER subscriber data into Recyclops operations. Billing, routing, comms, and subscriber sync all ran through manual CSV exports — fragile, slow, and unscalable.</p>
+        <svg viewBox="0 0 240 110" fill="none" style="width:100%;height:100px;margin-top:auto;">
+          <line x1="40" y1="55" x2="100" y2="32" stroke="rgba(255,69,58,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="100" y1="32" x2="162" y2="55" stroke="rgba(255,69,58,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="162" y1="55" x2="204" y2="32" stroke="rgba(255,69,58,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="40" y1="55" x2="80" y2="88" stroke="rgba(255,69,58,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="162" y1="55" x2="140" y2="90" stroke="rgba(255,69,58,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <circle cx="40" cy="55" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="40" y="59" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">DYPER</text>
+          <circle cx="100" cy="32" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="100" y="36" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">BILL</text>
+          <circle cx="162" cy="55" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="162" y="59" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">ROUTE</text>
+          <circle cx="204" cy="32" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="204" y="36" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">OPS</text>
+          <circle cx="80" cy="88" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="80" y="92" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">CSV</text>
+          <circle cx="140" cy="90" r="13" fill="rgba(255,69,58,0.1)" stroke="rgba(255,69,58,0.3)" stroke-width="1.5"/><text x="140" y="94" fill="#FF453A" font-size="7" font-family="monospace" text-anchor="middle">MANUAL</text>
+          <text x="64" y="40" fill="rgba(255,69,58,0.65)" font-size="10">✕</text>
+          <text x="128" y="46" fill="rgba(255,69,58,0.65)" font-size="10">✕</text>
+          <text x="180" y="42" fill="rgba(255,69,58,0.65)" font-size="10">✕</text>
+        </svg>
+      </div>
+
+      <!-- Regulatory -->
+      <div class="c tall">
+        <div class="c-icon icon-amber"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="8" height="8" rx="1.5" stroke="#FF9F0A" stroke-width="1.4"/><rect x="12" y="2" width="8" height="8" rx="1.5" stroke="#FF9F0A" stroke-width="1.4" opacity="0.5"/><rect x="2" y="12" width="8" height="8" rx="1.5" stroke="#FF9F0A" stroke-width="1.4" opacity="0.5"/><rect x="12" y="12" width="8" height="8" rx="1.5" stroke="#FF9F0A" stroke-width="1.4" opacity="0.7"/><circle cx="11" cy="11" r="1.5" fill="#FF9F0A"/></svg></div>
+        <h3>25+ Regulatory Environments</h3>
+        <p>Each metro required distinct waste permits, carrier licensing, and compliance standards. No framework existed. Multi-state gig-labor laws added another layer of ambiguity at national scale.</p>
+        <svg viewBox="0 0 240 110" fill="none" style="width:100%;height:100px;margin-top:auto;">
+          <path d="M20,65 L42,40 L78,28 L122,23 L168,20 L208,28 L228,50 L222,76 L206,96 L172,108 L122,114 L78,108 L38,94 L18,78 Z" stroke="rgba(255,159,10,0.18)" stroke-width="1" fill="rgba(255,159,10,0.03)"/>
+          <text x="56" y="58" font-size="11">📍</text><text x="86" y="46" font-size="11">📍</text><text x="116" y="50" font-size="11">📍</text>
+          <text x="146" y="53" font-size="11">📍</text><text x="174" y="62" font-size="11">📍</text><text x="94" y="72" font-size="10">📍</text>
+          <text x="134" y="78" font-size="10">📍</text><text x="62" y="82" font-size="10">📍</text><text x="40" y="72" font-size="10">📍</text><text x="160" y="86" font-size="10">📍</text>
+          <text x="122" y="16" fill="rgba(255,159,10,0.55)" font-size="8" font-family="monospace" text-anchor="middle">25+ UNIQUE JURISDICTIONS</text>
+        </svg>
+      </div>
+
+      <!-- No process -->
+      <div class="c tall">
+        <div class="c-icon icon-amber"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 11 Q6 5 9 11 Q12 17 15 11 Q18 5 20 9" stroke="#FF9F0A" stroke-width="1.5" stroke-linecap="round" fill="none"/><line x1="3" y1="17" x2="20" y2="17" stroke="#FF9F0A" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.35"/><circle cx="7" cy="8" r="1.5" fill="#FF453A" opacity="0.8"/><circle cx="13" cy="14" r="1.5" fill="#FF453A" opacity="0.8"/></svg></div>
+        <h3>Manual Pilot, No Repeatable Process</h3>
+        <p>The pilot ran on CSV exports, scripted geocoding, and manual deduplication. No Go/No-Go gates, no dependency maps, no standardized launch playbook — impossible to scale without complete rebuilding.</p>
+        <svg viewBox="0 0 240 110" fill="none" style="width:100%;height:100px;margin-top:auto;">
+          <path d="M18,58 Q44,25 72,58 Q100,92 128,48 Q156,15 184,64 Q210,104 228,44" stroke="rgba(255,159,10,0.45)" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+          <text x="50" y="34" fill="rgba(255,69,58,0.7)" font-size="12">✕</text>
+          <text x="108" y="40" fill="rgba(255,69,58,0.7)" font-size="12">✕</text>
+          <text x="168" y="48" fill="rgba(255,69,58,0.7)" font-size="12">✕</text>
+          <text x="24" y="108" fill="rgba(255,255,255,0.18)" font-size="7.5" font-family="monospace">CSV exports</text>
+          <text x="90" y="108" fill="rgba(255,255,255,0.18)" font-size="7.5" font-family="monospace">manual geo</text>
+          <text x="160" y="108" fill="rgba(255,255,255,0.18)" font-size="7.5" font-family="monospace">no gates</text>
+        </svg>
+      </div>
+
+      <!-- Runway -->
+      <div class="c tall">
+        <div class="c-icon icon-red"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="14" width="18" height="4" rx="2" stroke="#FF453A" stroke-width="1.3" opacity="0.3"/><rect x="2" y="14" width="7" height="4" rx="2" fill="#FF453A" opacity="0.7"/><polyline points="5,12 9,7 13,9 18,4" stroke="#FF453A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><polyline points="15,4 18,4 18,7" stroke="#FF453A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Runway Pressure &amp; Cost Ceiling</h3>
+        <p>Series A constraints meant every inefficiency had a dollar cost. Manual route planning was expensive and slow. No market readiness scoring existed. Cost-per-market-launch was unsustainably high.</p>
+        <svg viewBox="0 0 240 110" fill="none" style="width:100%;height:100px;margin-top:auto;">
+          <rect x="18" y="34" width="196" height="15" rx="4" fill="rgba(255,255,255,0.05)"/>
+          <rect x="18" y="34" width="72" height="15" rx="4" fill="rgba(255,69,58,0.45)"><animate attributeName="width" values="196;72" dur="2s" fill="freeze"/></rect>
+          <text x="18" y="28" fill="rgba(255,255,255,0.25)" font-size="7.5" font-family="monospace">SERIES A RUNWAY</text>
+          <text x="96" y="46" fill="rgba(255,255,255,0.45)" font-size="8" font-family="monospace">37% remaining</text>
+          <polyline points="28,100 58,88 92,92 124,74 158,62 190,48" stroke="rgba(255,69,58,0.45)" stroke-width="1.5" fill="none"/>
+          <polygon points="190,48 183,56 191,56" fill="rgba(255,69,58,0.45)"/>
+          <text x="26" y="110" fill="rgba(255,255,255,0.18)" font-size="7.5" font-family="monospace">cost-per-launch ↑ unsustainable</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 02 ROLE ══ -->
+<div class="sw">
+  <div class="sec-label reveal"><span class="sec-num">02</span><div class="sec-rule"></div></div>
+  <h2 class="sec-title reveal">My Role &amp; Approach</h2>
+  <p class="sec-desc reveal">Owned the full program lifecycle as Program Manager — vision, requirements, cross-functional build, technical architecture, operational rollout, governance, risk management, and continuous optimization. Starting from a manual pilot, built an unproven high-density model into a 25+ market national operation with zero critical failures.</p>
+
+  <div class="role-grid">
+    <div class="role-sticky reveal">
+      <h3>Core PM Competencies</h3>
+      <div class="comp-list">
+        <div class="comp-item"><span class="comp-dot"></span>0→1 PMO Architecture</div>
+        <div class="comp-item"><span class="comp-dot"></span>Full-Stack Technical Infra Design</div>
+        <div class="comp-item"><span class="comp-dot"></span>DYPER→Recyclops API Integration</div>
+        <div class="comp-item"><span class="comp-dot"></span>Gig-Methodology Expansion &amp; Scaling</div>
+        <div class="comp-item"><span class="comp-dot"></span>Systems Thinking &amp; Data Architecture</div>
+        <div class="comp-item"><span class="comp-dot"></span>Command Hub / Dashboard Development</div>
+        <div class="comp-item"><span class="comp-dot"></span>Launch Governance &amp; Go/No-Go Authority</div>
+        <div class="comp-item"><span class="comp-dot"></span>AI-Assisted Analytics &amp; Predictive Modeling</div>
+        <div class="comp-item"><span class="comp-dot"></span>Risk &amp; Dependency Management</div>
+        <div class="comp-item"><span class="comp-dot"></span>Cross-Functional &amp; Executive Leadership</div>
+        <div class="comp-item"><span class="comp-dot"></span>Earned Value Management</div>
+        <div class="comp-item"><span class="comp-dot"></span>SQL / Python Modeling</div>
+        <div class="comp-item"><span class="comp-dot"></span>Stackable-Services Architecture</div>
+      </div>
+    </div>
+    <div class="appr-list reveal d1">
+      <div class="appr-block">
+        <h3>Bridged DYPER to Recyclops — End to End</h3>
+        <p>Partnered with DYPER leadership to align on program requirements, then owned the entire Recyclops-side build: the API bridge, subscriber data pipeline, gig-driver network, operational infrastructure, and command hub — all from scratch.</p>
+        <ul class="c ul">
+          <li>Designed the DYPER→Recyclops data integration: subscriber onboarding, address validation, and real-time sync replacing manual CSV workflows</li>
+          <li>Engineered predictive routing core and gig-driver dispatch platform on top of Cigo Tracker</li>
+          <li>Expanded gig-aggregation methodology nationally: independent contractors, app-based routing, regional aggregation points</li>
+          <li>Built 50+ KPI Monday.com Command Hub as the real-time operational nerve center</li>
+          <li>Formalized launch governance with dependency mapping, Go/No-Go gates, and playbooks — reducing launch overhead ~60%</li>
+        </ul>
+      </div>
+      <div class="appr-block">
+        <h3>Formalized the Launch System</h3>
+        <p>Turned ad hoc, tribal-knowledge execution into a documented, repeatable, audit-ready national launch engine.</p>
+        <ul class="c ul">
+          <li>Dependency mapping across regulatory, logistics, tech, gig-ops, and DYPER integration workstreams</li>
+          <li>Formal Go/No-Go gates with market-specific criteria across all 25+ jurisdictions</li>
+          <li>Operational readiness checklists compressing launch prep cycles 50%</li>
+          <li>Governed 2.7–3 market launches per month with zero critical failures throughout</li>
+        </ul>
+      </div>
+      <div class="appr-block">
+        <h3>Data-Driven Market Intelligence</h3>
+        <p>Replaced gut instinct with quantified market scoring — enabling faster, more capital-efficient market sequencing at national scale.</p>
+        <ul class="c ul">
+          <li>SQL/Python models for density mapping, geofencing, boundary decisioning, and market readiness scoring</li>
+          <li>Claude/GPT-4 agentic workflows (prompt chaining) for routing optimization and decision support</li>
+          <li>Delivered 18% cost reduction and sub-4-month ROI across all new market launches</li>
+        </ul>
+      </div>
+      <div class="appr-block">
+        <h3>Built for Reuse — Not Just for One Client</h3>
+        <p>Every component was deliberately engineered as a stackable, reusable module — not a one-off build. The same Cigo API layer, Command Hub templates, pay engine, aggregation protocols, and density optimizer now serve as the repeatable template for all Recyclops enterprise programs.</p>
+        <ul class="c ul">
+          <li>Reusable API/webhook architecture across any enterprise program layered onto the Recyclops network</li>
+          <li>Modular gig-aggregation playbook adaptable to any specialized compostable or recyclable stream</li>
+          <li>Stackable-services model validated: additional enterprise partners can launch on existing driver footprint for greater density and margin</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 03 PHASES ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">03</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">The ReDYPER Launch Phases</h2>
+    <p class="sec-desc reveal">Four deliberate phases — each delivering incremental market launches while building the scalable foundation for national acceleration.</p>
+    <div class="grid-2 reveal">
+      <div class="phase-tile">
+        <div class="phase-top"><span class="phase-badge">PHASE 01</span><span class="phase-timing">Months 1–2</span></div>
+        <div class="phase-name">De-Risk &amp; Foundation</div>
+        <span class="phase-outcome">3 pilot market launches validated</span>
+        <p class="phase-desc">Manual CSV ingestion, geocoding, and deduplication proved feasibility. Applied systems thinking to map the full problem space, audit tech and regulatory landscape, and validate gig-aggregation basics with DYPER. Defined MVP scope and architectural blueprint for the full program build.</p>
+        <div class="phase-chips"><span class="p-chip">Systems Thinking</span><span class="p-chip">Stakeholder Discovery</span><span class="p-chip">DYPER Alignment</span><span class="p-chip">MVP Scoping</span><span class="p-chip">Gig-Model Validation</span></div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-top"><span class="phase-badge">PHASE 02</span><span class="phase-timing">Months 2–4</span></div>
+        <div class="phase-name">Infrastructure &amp; Integration Build</div>
+        <span class="phase-outcome">~60% overhead reduction per launch</span>
+        <p class="phase-desc">Built full-stack infrastructure using Hybrid Agile@Scale. Architected the DYPER→Recyclops API bridge and real-time ETL pipeline. Deployed Cigo Tracker with custom geofencing and dispatch logic. Expanded gig-methodology: driver app assignments, aggregation and transloading workflows. Established SLA thresholds and release governance.</p>
+        <div class="phase-chips"><span class="p-chip">API Bridge Build</span><span class="p-chip">ETL Pipeline</span><span class="p-chip">Cigo Tracker Config</span><span class="p-chip">Gig-Aggregation Build</span><span class="p-chip">SLA Governance</span></div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-top"><span class="phase-badge">PHASE 03</span><span class="phase-timing">Months 4–6</span></div>
+        <div class="phase-name">Pilot Expansion &amp; Iteration</div>
+        <span class="phase-outcome">8 market launches validated</span>
+        <p class="phase-desc">Launched new markets with hypothesis testing at every Go/No-Go gate. Refined routing algorithms, compliance checklists, and command hub dashboards under real-world load. Optimized gig-aggregation for load balancing and market density. Each launch tightened the playbook for national acceleration ahead.</p>
+        <div class="phase-chips"><span class="p-chip">Hypothesis Testing</span><span class="p-chip">Go/No-Go Gates</span><span class="p-chip">Market Readiness Scoring</span><span class="p-chip">Gig Load Balancing</span><span class="p-chip">AI-Assisted Analysis</span></div>
+      </div>
+      <div class="phase-tile">
+        <div class="phase-top"><span class="phase-badge">PHASE 04</span><span class="phase-timing">Months 6–9</span></div>
+        <div class="phase-name">National Acceleration</div>
+        <span class="phase-outcome">25+ markets · 4-week cycles · Series B</span>
+        <p class="phase-desc">Scaled to 2.7–3 market launches per month with 4-week cycles. Maintained 95%+ uptime and zero P0/P1 across all 25+ jurisdictions. Deployed full gig-methodology: driver training portals, aggregation hubs, real-time dispatch, automated pay engine. Series B unlocked. Stackable-services foundation handed off as a reusable platform.</p>
+        <div class="phase-chips"><span class="p-chip">Critical Path Mgmt</span><span class="p-chip">Earned Value Mgmt</span><span class="p-chip">Driver Training Portals</span><span class="p-chip">Automated Pay Engine</span><span class="p-chip">Series B Enablement</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 04 TECHNICAL ARCHITECTURE ══ -->
+<div class="sw">
+  <div class="sec-label reveal"><span class="sec-num">04</span><div class="sec-rule"></div></div>
+  <h2 class="sec-title reveal">Technical Architecture</h2>
+  <p class="sec-desc reveal">A PM-level view of what was actually built — the DYPER→Recyclops integration layer, the real-time operational platform, and the gig-execution engine that made national scale possible.</p>
+
+  <!-- API Bridge - the centrepiece -->
+  <div class="grid-2 reveal" style="margin-bottom:1.5rem;">
+
+    <div class="c" style="grid-column:1/-1;padding:3rem;">
+      <div class="c-icon icon-blue" style="margin-bottom:1.2rem;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="5" cy="11" r="3" stroke="#409CFF" stroke-width="1.4"/><circle cx="17" cy="11" r="3" stroke="#409CFF" stroke-width="1.4"/><line x1="8" y1="11" x2="14" y2="11" stroke="#409CFF" stroke-width="1.4" stroke-dasharray="2,1.5"/><line x1="5" y1="7" x2="5" y2="4" stroke="#409CFF" stroke-width="1.4" stroke-linecap="round"/><line x1="7" y1="7" x2="7" y2="4" stroke="#409CFF" stroke-width="1.4" stroke-linecap="round"/><line x1="15" y1="15" x2="15" y2="18" stroke="#409CFF" stroke-width="1.4" stroke-linecap="round"/><line x1="17" y1="15" x2="17" y2="18" stroke="#409CFF" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+      <h3>The DYPER → Recyclops API Bridge</h3>
+      <p style="max-width:700px;margin-bottom:2rem;">The foundational integration layer — a custom-built pipeline that replaced manual CSV hand-offs with a real-time, event-driven data flow. DYPER subscriber data enters; Recyclops executes the pickup. No human in the loop.</p>
+
+      <!-- Architecture flow diagram -->
+      <div class="arch-flow">
+        <div class="arch-node source">
+          <span class="arch-node-icon">🏢</span>
+          <span class="arch-node-label">DYPER<br>Platform</span>
+          <span class="arch-node-sub">Subscriber data</span>
+        </div>
+        <div class="arch-arrow">
+          <span class="arch-arrow-line"></span>
+          <span class="arch-arrow-label">Webhook /<br>REST API</span>
+          <span class="arch-arrow-head">→</span>
+        </div>
+        <div class="arch-node">
+          <span class="arch-node-icon">⚙️</span>
+          <span class="arch-node-label">Custom<br>Microservices</span>
+          <span class="arch-node-sub">Node.js / Python</span>
+        </div>
+        <div class="arch-arrow">
+          <span class="arch-arrow-line"></span>
+          <span class="arch-arrow-label">ETL<br>Pipeline</span>
+          <span class="arch-arrow-head">→</span>
+        </div>
+        <div class="arch-node">
+          <span class="arch-node-icon">🔄</span>
+          <span class="arch-node-label">Address Validation<br>+ Geocoding</span>
+          <span class="arch-node-sub">Real-time ETL</span>
+        </div>
+        <div class="arch-arrow">
+          <span class="arch-arrow-line"></span>
+          <span class="arch-arrow-label">Parsed &amp;<br>enriched</span>
+          <span class="arch-arrow-head">→</span>
+        </div>
+        <div class="arch-node">
+          <span class="arch-node-icon">📱</span>
+          <span class="arch-node-label">Cigo Tracker<br>(Live App)</span>
+          <span class="arch-node-sub">Gig-driver execution</span>
+        </div>
+        <div class="arch-arrow">
+          <span class="arch-arrow-line"></span>
+          <span class="arch-arrow-label">Events +<br>status sync</span>
+          <span class="arch-arrow-head">→</span>
+        </div>
+        <div class="arch-node dest">
+          <span class="arch-node-icon">📊</span>
+          <span class="arch-node-label">Monday.com<br>Command Hub</span>
+          <span class="arch-node-sub">50+ KPI dashboards</span>
+        </div>
+      </div>
+
+      <ul class="c ul" style="margin-top:1.5rem;">
+        <li>DYPER subscriber data flows in via RESTful webhooks — address validation, geocoding, and deduplication run automatically in the ETL layer before any data reaches the driver app</li>
+        <li>Custom Node.js/Python microservices handle billing, comms, routing assignment, and subscriber status sync — zero manual hand-offs at steady state</li>
+        <li>Parsed, enriched job data populates the Cigo Tracker proprietary driver app in real time — drivers receive optimized routes without dispatcher intervention</li>
+        <li>All events (pickups completed, photos, flags, exceptions) sync back through webhooks into the Monday.com Command Hub for real-time ops visibility</li>
+        <li>Zapier layer connects to 7,000+ tools for rapid workflow automation across the broader Recyclops ecosystem</li>
+      </ul>
+
+      <div class="tool-tags">
+        <span class="tool-tag">RESTful APIs</span><span class="tool-tag">Webhooks</span><span class="tool-tag">Node.js</span><span class="tool-tag">Python</span><span class="tool-tag">ETL Pipeline</span><span class="tool-tag">Cigo Tracker</span><span class="tool-tag">Zapier</span><span class="tool-tag">Real-Time Sync</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Three secondary tech cards -->
+  <div class="grid-2 reveal d1" style="margin-bottom:1.5rem;">
+
+    <div class="c">
+      <span class="c-icon icon-blue" style="margin-bottom:1rem;display:block;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="6" y="2" width="10" height="18" rx="2.5" stroke="#409CFF" stroke-width="1.4"/><circle cx="11" cy="10" r="2.5" stroke="#409CFF" stroke-width="1.3"/><path d="M11 12.5 C11 12.5 7.5 15.5 7.5 17" stroke="#409CFF" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/><path d="M11 12.5 C11 12.5 14.5 15.5 14.5 17" stroke="#409CFF" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/><circle cx="11" cy="18.5" r="0.8" fill="#409CFF" opacity="0.5"/></svg></span>
+      <h3>Cigo Tracker — Proprietary Driver App</h3>
+      <p>Fully adapted and extended Cigo Tracker as the single source of truth for every gig-driver interaction — from route receipt to proof-of-pickup to storage-unit photo.</p>
+      <h4>Key Capabilities Implemented</h4>
+      <ul class="c ul">
+        <li>Sequential GPS-guided routing with real-time re-optimization mid-route</li>
+        <li>Geofence-triggered proof-of-pickup: photo + timestamp auto-captured on arrival</li>
+        <li>One-tap stop actions (Complete / Damaged / Incomplete) with required photo evidence</li>
+        <li>Offline sync capability — routes execute even without cell signal</li>
+        <li>Mandatory haul and storage-unit photos upon route completion for audit trail</li>
+        <li>Custom notes field for access issues, flagged addresses, and driver observations</li>
+      </ul>
+      <div class="tool-tags"><span class="tool-tag">Cigo Tracker API</span><span class="tool-tag">iOS / Android</span><span class="tool-tag">Geofencing</span><span class="tool-tag">Offline Sync</span></div>
+    </div>
+
+    <div class="c">
+      <span class="c-icon icon-green" style="margin-bottom:1rem;display:block;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="14" rx="2" stroke="#30D158" stroke-width="1.4"/><line x1="2" y1="12" x2="20" y2="12" stroke="#30D158" stroke-width="1" opacity="0.3"/><rect x="5" y="6" width="3" height="5" rx="1" fill="#30D158" opacity="0.7"/><rect x="10" y="8" width="3" height="3" rx="1" fill="#30D158" opacity="0.5"/><rect x="15" y="5" width="3" height="6" rx="1" fill="#30D158" opacity="0.9"/><line x1="9" y1="19" x2="13" y2="19" stroke="#30D158" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/><line x1="11" y1="16" x2="11" y2="19" stroke="#30D158" stroke-width="1.4" stroke-linecap="round" opacity="0.5"/></svg></span>
+      <h3>Monday.com Command Hub</h3>
+      <p>50+ KPI dashboards serving as the real-time operational command center for all 25+ markets simultaneously — covering gig-driver performance, bag aggregation, market readiness, and incident escalation.</p>
+      <h4>Integrations Configured</h4>
+      <ul class="c ul">
+        <li>Slack — predictive alerts triggered when any metric deviates &gt;5% from baseline</li>
+        <li>Jira — full technical backlog, bug tracking, release management, and compliance updates</li>
+        <li>Cigo Tracker — real-time driver performance and route completion data</li>
+        <li>Stripe — billing event sync and subscriber status tracking</li>
+        <li>DYPER proprietary apps — subscriber data and program-level reporting</li>
+      </ul>
+      <h4>Additional Platforms</h4>
+      <ul class="c ul">
+        <li>React frontend for internal onboarding, scheduling, and partner visibility</li>
+        <li>Paylocity — automated 1099 pay with custom algorithm: stops + miles + capacity + unload effort + local market factors</li>
+        <li>SQL / Python — analytics, density mapping, forecasting, and performance reporting</li>
+      </ul>
+      <div class="tool-tags"><span class="tool-tag">Monday.com</span><span class="tool-tag">Slack</span><span class="tool-tag">Jira</span><span class="tool-tag">Stripe</span><span class="tool-tag amber">Paylocity</span><span class="tool-tag green">React</span><span class="tool-tag">SQL/Python</span></div>
+    </div>
+
+  </div>
+
+  <!-- Gig ops flow card -->
+  <div class="grid-2 reveal d2">
+    <div class="c" style="grid-column:1/-1;">
+      <span class="c-icon icon-amber" style="margin-bottom:1rem;display:block;"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="4" cy="11" r="2" stroke="#FF9F0A" stroke-width="1.3"/><circle cx="18" cy="5" r="2" stroke="#FF9F0A" stroke-width="1.3"/><circle cx="18" cy="17" r="2" stroke="#FF9F0A" stroke-width="1.3"/><circle cx="11" cy="11" r="1.5" fill="#FF9F0A" opacity="0.6"/><line x1="6" y1="11" x2="9.5" y2="11" stroke="#FF9F0A" stroke-width="1.2" stroke-dasharray="2,1.5"/><line x1="12.5" y1="10" x2="16" y2="6" stroke="#FF9F0A" stroke-width="1.2" stroke-dasharray="2,1.5"/><line x1="12.5" y1="12" x2="16" y2="16" stroke="#FF9F0A" stroke-width="1.2" stroke-dasharray="2,1.5"/></svg></span>
+      <h3>End-to-End Gig-Aggregation Flow</h3>
+      <p style="margin-bottom:0;">Expanded Recyclops' gig-methodology into a national-scale engine — enabling 10× subscriber growth with no headcount increase. Independent contractors, app-driven dispatch, and regional aggregation hubs do the work at margin.</p>
+      <div class="flow-row">
+        <div class="flow-step"><div class="flow-icon">🟢</div><div class="flow-label">DYPER<br>subscribes</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">📦</div><div class="flow-label">Bag kit<br>shipped</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">🚪</div><div class="flow-label">Weekly<br>curbside</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">📱</div><div class="flow-label">Cigo app<br>dispatch</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">📸</div><div class="flow-label">Geofenced<br>pickup</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">🗃️</div><div class="flow-label">Aggregate</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">🚛</div><div class="flow-label">Transload</div></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><div class="flow-icon">♻️</div><div class="flow-label">Industrial<br>compost</div></div>
+      </div>
+      <h4>Infrastructure Built</h4>
+      <ul class="c ul">
+        <li>Independent contractor network with onboarding pipeline: DL/insurance/MVR/vehicle checks, backup driver pools, and market-density optimization</li>
+        <li>Region-specific aggregation architecture: West Coast bulk bags; Central/East Coast sealed Gaylords on 48×40 pallets with weekly photo reporting</li>
+        <li>Driver training portals with mandatory compliance modules, program rules, and jurisdiction-specific requirements per market</li>
+        <li>Paylocity automated 1099 pay with custom algorithm accounting for stops, miles, capacity, unload effort, and local market factors</li>
+        <li>Incident response cycle with quality gates, escalation workflows, and zero-tolerance protocols for compliance violations</li>
+      </ul>
+      <div class="tool-tags"><span class="tool-tag">Cigo Tracker</span><span class="tool-tag">Gaylord Aggregation</span><span class="tool-tag amber">Paylocity</span><span class="tool-tag">Driver Portals</span><span class="tool-tag">Real-Time Dispatch</span><span class="tool-tag">Geofencing</span><span class="tool-tag">1099 Compliance</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 05 SAAS PLATFORM ══ -->
+<div class="sw">
+  <div class="sec-label reveal"><span class="sec-num">05</span><div class="sec-rule"></div></div>
+  <h2 class="sec-title reveal">Enterprise SaaS Platform</h2>
+  <p class="sec-desc reveal">ReDYPER isn't just an operations program — it's a textbook Enterprise SaaS gig-aggregation backbone. Designed from day one for reuse: any brand with a hard-to-recycle stream can plug into the same platform, driver network, and infrastructure. DYPER is client one. The architecture supports many more.</p>
+
+  <!-- Positioning statement -->
+  <div class="saas-statement reveal" style="background:linear-gradient(135deg,rgba(10,132,255,0.07),rgba(48,209,88,0.05));border:1px solid rgba(10,132,255,0.2);border-radius:20px;padding:2.5rem 3rem;margin-bottom:2rem;">
+    <p style="font-family:var(--mono);font-size:0.65rem;color:var(--blue-lt);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;">Platform Definition</p>
+    <p style="font-size:1.05rem;color:#F5F5F7;line-height:1.7;font-weight:400;max-width:860px;">"Designed and built the reusable <strong style="color:var(--blue-lt);">Enterprise SaaS gig-aggregation platform</strong> powering DYPER's national ReDYPER program — API-first microservices, real-time command hub, and stackable services architecture that scaled to 25+ markets and is now the <strong style="color:var(--green);">template for all Recyclops enterprise clients</strong>."</p>
+  </div>
+
+  <!-- SaaS traits table -->
+  <div class="saas-grid reveal d1">
+    <div class="saas-card">
+      <div class="saas-trait-label">API-First Integration</div>
+      <div class="saas-icon-wrap icon-blue">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="4" cy="10" r="2.5" stroke="#409CFF" stroke-width="1.3"/><circle cx="16" cy="10" r="2.5" stroke="#409CFF" stroke-width="1.3"/><line x1="6.5" y1="10" x2="13.5" y2="10" stroke="#409CFF" stroke-width="1.3" stroke-dasharray="2,1.5"/><line x1="4" y1="6.5" x2="4" y2="4" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="6" y1="6.5" x2="6" y2="4" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="14" y1="13.5" x2="14" y2="16" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="16" y1="13.5" x2="16" y2="16" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </div>
+      <div class="saas-what">DYPER→Recyclops API bridge + webhooks + Node.js/Python microservices + ETL pipeline</div>
+      <div class="saas-why">Event-driven data flow replaces manual CSV. Any enterprise partner plugs in via REST/webhooks — zero human touch at scale.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Centralized Command &amp; Control</div>
+      <div class="saas-icon-wrap icon-green">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="12" rx="2" stroke="#30D158" stroke-width="1.3"/><line x1="2" y1="10" x2="18" y2="10" stroke="#30D158" stroke-width="0.9" opacity="0.3"/><rect x="4.5" y="5" width="2.5" height="4" rx="0.8" fill="#30D158" opacity="0.7"/><rect x="9" y="6.5" width="2.5" height="2.5" rx="0.8" fill="#30D158" opacity="0.5"/><rect x="13.5" y="4.5" width="2.5" height="5" rx="0.8" fill="#30D158" opacity="0.9"/><line x1="8" y1="17" x2="12" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/><line x1="10" y1="14" x2="10" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/></svg>
+      </div>
+      <div class="saas-what">50+ KPI Monday.com Command Hub + Slack / Jira / Stripe / Zapier / React integrations</div>
+      <div class="saas-why">Real-time multi-market operational nerve center accessible from anywhere. Classic SaaS dashboard — 25+ markets, one screen.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Cloud App Delivery</div>
+      <div class="saas-icon-wrap icon-blue">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="6" y="2" width="8" height="14" rx="2" stroke="#409CFF" stroke-width="1.3"/><circle cx="10" cy="9" r="2" stroke="#409CFF" stroke-width="1.2"/><circle cx="10" cy="16.5" r="0.8" fill="#409CFF" opacity="0.5"/></svg>
+      </div>
+      <div class="saas-what">Customized Cigo Tracker iOS/Android with geofencing, offline sync, real-time dispatch</div>
+      <div class="saas-why">Gig drivers receive the SaaS experience — routes auto-delivered, no deploy per market. Software scales; headcount doesn't.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Automation &amp; Intelligence</div>
+      <div class="saas-icon-wrap icon-amber">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#FF9F0A" stroke-width="1.3"/><line x1="10" y1="2" x2="10" y2="5" stroke="#FF9F0A" stroke-width="1.3" stroke-linecap="round"/><line x1="10" y1="15" x2="10" y2="18" stroke="#FF9F0A" stroke-width="1.3" stroke-linecap="round"/><line x1="2" y1="10" x2="5" y2="10" stroke="#FF9F0A" stroke-width="1.3" stroke-linecap="round"/><line x1="15" y1="10" x2="18" y2="10" stroke="#FF9F0A" stroke-width="1.3" stroke-linecap="round"/><line x1="4.2" y1="4.2" x2="6.3" y2="6.3" stroke="#FF9F0A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/><line x1="13.7" y1="13.7" x2="15.8" y2="15.8" stroke="#FF9F0A" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/></svg>
+      </div>
+      <div class="saas-what">SQL/Python density models, market readiness scoring, Claude/GPT-4 agentic workflows, automated Paylocity 1099 engine</div>
+      <div class="saas-why">Predictive, rules-based SaaS intelligence that reduced cost 18% and launch overhead 60% — running continuously, not on-demand.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Multi-Tenant Architecture</div>
+      <div class="saas-icon-wrap icon-blue">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2" fill="#409CFF" opacity="0.7"/><circle cx="4" cy="5" r="1.8" stroke="#409CFF" stroke-width="1.2"/><circle cx="16" cy="5" r="1.8" stroke="#409CFF" stroke-width="1.2"/><circle cx="4" cy="15" r="1.8" stroke="#409CFF" stroke-width="1.2"/><circle cx="16" cy="15" r="1.8" stroke="#409CFF" stroke-width="1.2"/><line x1="5.8" y1="6.5" x2="8.5" y2="8.8" stroke="#409CFF" stroke-width="1" stroke-dasharray="1.5,1.2" opacity="0.6"/><line x1="14.2" y1="6.5" x2="11.5" y2="8.8" stroke="#409CFF" stroke-width="1" stroke-dasharray="1.5,1.2" opacity="0.6"/><line x1="5.8" y1="13.5" x2="8.5" y2="11.2" stroke="#409CFF" stroke-width="1" stroke-dasharray="1.5,1.2" opacity="0.6"/><line x1="14.2" y1="13.5" x2="11.5" y2="11.2" stroke="#409CFF" stroke-width="1" stroke-dasharray="1.5,1.2" opacity="0.6"/></svg>
+      </div>
+      <div class="saas-what">Stackable-services model — reusable API layer, Command Hub templates, gig playbook, aggregation protocols</div>
+      <div class="saas-why">Built so additional enterprise partners launch on the existing driver footprint. One platform, multiple clients, increasing density and margin.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Recurring Service Delivery</div>
+      <div class="saas-icon-wrap icon-green">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16 10 A6 6 0 1 1 10 4" stroke="#30D158" stroke-width="1.3" stroke-linecap="round"/><polyline points="10,1 10,5 14,5" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="10" r="1.5" fill="#30D158" opacity="0.6"/></svg>
+      </div>
+      <div class="saas-what">Powers ongoing weekly curbside pickups with SLA governance, automated billing sync, and 95%+ uptime</div>
+      <div class="saas-why">Not a project — a recurring revenue engine. The software runs the service continuously at national scale, not per-engagement.</div>
+    </div>
+
+    <div class="saas-card">
+      <div class="saas-trait-label">Scalability &amp; Governance Engine</div>
+      <div class="saas-icon-wrap icon-amber">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="13" width="4" height="5" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="8" y="9" width="4" height="9" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="14" y="5" width="4" height="13" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><polyline points="3,12 9,8 15,4" stroke="#FF9F0A" stroke-width="1" stroke-linecap="round" stroke-dasharray="1.5,1.5" opacity="0.4"/></svg>
+      </div>
+      <div class="saas-what">Launch governance engine, Go/No-Go gates, dependency mapping, earned value management, multi-jurisdictional compliance</div>
+      <div class="saas-why">Turns ad-hoc ops into a repeatable SaaS-style product that scaled 3→25+ markets at 2.7–3 launches/month with zero critical failures.</div>
+    </div>
+
+  </div>
+
+  <!-- Bottom line -->
+  <div class="saas-bottom reveal d2">
+    <div class="saas-bottom-col">
+      <p class="saas-bottom-label">Why It Enabled Series B</p>
+      <p class="saas-bottom-text">Investors didn't fund manual operations — they funded the <em>scalable platform</em>. The API-first architecture, reusable templates, and stackable-services model meant growth required no proportional headcount increase. That's the SaaS story that unlocked the raise.</p>
+    </div>
+    <div class="saas-bottom-divider"></div>
+    <div class="saas-bottom-col">
+      <p class="saas-bottom-label">The Stackable-Services Flywheel</p>
+      <p class="saas-bottom-text">Every component was deliberately engineered for reuse. The same Cigo API layer, Command Hub templates, pay engine, and aggregation protocols now serve as the repeatable template for all future Recyclops enterprise clients — additional streams, greater driver density, higher margin per route.</p>
+    </div>
+    <div class="saas-bottom-divider"></div>
+    <div class="saas-bottom-col">
+      <p class="saas-bottom-label">Bottom Line</p>
+      <p class="saas-bottom-text">This isn't "we sell seats" SaaS — it's modern Enterprise Climate-Tech SaaS: a platform enabling a high-margin recurring service at national scale, replicable across any brand with a hard-to-recycle stream.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 06 ENVIRONMENTAL IMPACT ══ -->
+<div class="sw-bg-green">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">06</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal" style="color:#F5F5F7;">Environmental Impact</h2>
+    <p class="sec-desc reveal" style="color:rgba(255,255,255,0.45);">This program doesn't just deliver operational metrics — it delivers measurable planetary impact. The gig-aggregation layer Brandon built is the primary engine driving the jump from 11.5M to 15M+ pounds diverted.</p>
+
+    <div class="env-hero reveal">
+      <div class="env-cell">
+        <svg class="env-vis" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="44" stroke="rgba(48,209,88,0.12)" stroke-width="6"/>
+          <circle cx="50" cy="50" r="44" stroke="#30D158" stroke-width="6"
+            stroke-dasharray="276" stroke-dashoffset="276" stroke-linecap="round"
+            transform="rotate(-90 50 50)">
+            <animate attributeName="stroke-dashoffset" from="276" to="0" dur="2s" fill="freeze"/>
+          </circle>
+          <text x="50" y="46" text-anchor="middle" fill="#F5F5F7" font-family="Rajdhani,sans-serif" font-size="18" font-weight="700">15M+</text>
+          <text x="50" y="62" text-anchor="middle" fill="#30D158" font-family="monospace" font-size="7">lbs diverted</text>
+        </svg>
+        <div class="env-big">15<span class="unit">M+</span></div>
+        <div class="env-label">Pounds of compostable diapers &amp; wipes diverted from landfill — total cumulative</div>
+        <div class="env-sub">LIVE ON DYPER.COM · VERIFIED</div>
+      </div>
+
+      <div class="env-cell">
+        <svg class="env-vis" viewBox="0 0 100 100" fill="none">
+          <!-- Bar chart showing 11.5M → 15M jump -->
+          <rect x="15" y="55" width="24" height="40" rx="3" fill="rgba(48,209,88,0.2)" stroke="rgba(48,209,88,0.3)" stroke-width="1"/>
+          <rect x="60" y="20" width="24" height="75" rx="3" fill="rgba(48,209,88,0.7)">
+            <animate attributeName="height" from="0" to="75" dur="1.2s" fill="freeze"/>
+            <animate attributeName="y" from="95" to="20" dur="1.2s" fill="freeze"/>
+          </rect>
+          <text x="27" y="50" fill="rgba(255,255,255,0.4)" font-size="7" font-family="monospace" text-anchor="middle">11.5M</text>
+          <text x="72" y="14" fill="#30D158" font-size="7" font-family="monospace" text-anchor="middle">15M+</text>
+          <text x="27" y="100" fill="rgba(255,255,255,0.3)" font-size="6" font-family="monospace" text-anchor="middle">Nov'22</text>
+          <text x="72" y="100" fill="#30D158" font-size="6" font-family="monospace" text-anchor="middle">Now</text>
+          <path d="M39,45 L60,24" stroke="#30D158" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+          <polygon points="60,24 53,28 57,32" fill="#30D158" opacity="0.5"/>
+        </svg>
+        <div class="env-big">3.5<span class="unit">M+</span></div>
+        <div class="env-label">Additional pounds diverted — the jump from 11.5M to 15M+ driven by the gig-aggregation layer built in ~9 months</div>
+        <div class="env-sub">DIRECTLY ATTRIBUTED TO THIS PROGRAM</div>
+      </div>
+
+      <div class="env-cell">
+        <svg class="env-vis" viewBox="0 0 100 100" fill="none">
+          <!-- Leaf / growth icon -->
+          <path d="M50 80 C50 80 20 65 20 40 C20 22 34 12 50 12 C66 12 80 22 80 40 C80 65 50 80 50 80Z" fill="rgba(48,209,88,0.1)" stroke="#30D158" stroke-width="1.5"/>
+          <path d="M50 80 L50 40" stroke="#30D158" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M50 55 C50 55 38 48 35 38" stroke="#30D158" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          <path d="M50 65 C50 65 62 58 65 48" stroke="#30D158" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="50" cy="40" r="30" stroke="rgba(48,209,88,0.1)" stroke-width="1">
+            <animate attributeName="r" values="28;36;28" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.4;0;0.4" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <div class="env-big">201<span class="unit">T</span></div>
+        <div class="env-label">Tons processed in 2025 operational year — converted to commercial compost or biochar</div>
+        <div class="env-sub">~402,000 LBS IN ONE YEAR · GROWING</div>
+      </div>
+    </div>
+
+    <!-- Metro footprint -->
+    <div class="c reveal d1" style="background:rgba(5,15,8,0.9);border:1px solid rgba(48,209,88,0.12);border-radius:20px;padding:2.5rem;margin-bottom:1.5rem;">
+      <h3 style="font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;margin-bottom:0.6rem;">25+ Active Metro Markets</h3>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.45);margin-bottom:1.2rem;">Weekly curbside pickup live across major US metros — each one launched, governed, and scaled by this program. DYPER's public site lists 20 core metros with daily expansion.</p>
+      <div class="metro-grid">
+        <span class="metro-chip">Atlanta</span><span class="metro-chip">Austin</span><span class="metro-chip">Boston</span><span class="metro-chip">Chicago</span><span class="metro-chip">Denver/Boulder</span><span class="metro-chip">Los Angeles</span><span class="metro-chip">Minneapolis</span><span class="metro-chip">Nashville</span><span class="metro-chip">New York City</span><span class="metro-chip">Newark</span><span class="metro-chip">Philadelphia</span><span class="metro-chip">Phoenix</span><span class="metro-chip">Portland</span><span class="metro-chip">Raleigh</span><span class="metro-chip">Sacramento</span><span class="metro-chip">Salt Lake City</span><span class="metro-chip">San Diego</span><span class="metro-chip">San Francisco</span><span class="metro-chip">Seattle</span><span class="metro-chip">Washington D.C.</span><span class="metro-chip" style="opacity:0.5;">+ Expanding Daily</span>
+      </div>
+    </div>
+
+    <!-- End product split -->
+    <div class="env-impact-row reveal d2">
+      <div class="env-impact-card">
+        <h3>♻️ What Happens to the Material</h3>
+        <ul>
+          <li>14-week accelerated industrial composting under controlled temperature and moisture conditions</li>
+          <li>ByoChar pyrolysis conversion in select markets — transforming material into biochar for carbon sequestration</li>
+          <li>Non-compostable residuals filtered and diverted separately — zero contamination of end product</li>
+          <li>End product used as commercial topsoil and biochar for agriculture and landscaping</li>
+        </ul>
+      </div>
+      <div class="env-impact-card">
+        <h3>📈 Program Growth Trajectory</h3>
+        <ul>
+          <li>Feb 2020 — REDYPER™ launched nationwide via mail-back (TerraCycle)</li>
+          <li>Feb 2022 — 10M+ lbs diverted (all channels combined)</li>
+          <li>Nov 2022 — 11.5M+ lbs diverted</li>
+          <li>Jul 2021 — Brandon Lee joins; gig-aggregation layer build begins</li>
+          <li>Mar 2023 — 25+ markets live; gig layer now primary growth engine</li>
+          <li>2025 — 15M+ lbs diverted; 201 tons processed in single year</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 07 RESULTS ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">07</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">Results &amp; Impact</h2>
+    <p class="sec-desc reveal">Every launch succeeded. Every metric moved. Zero critical failures. One Series B. And a reusable platform that keeps delivering.</p>
+
+    <div class="res-hero reveal">
+      <div class="rh-cell">
+        <svg class="res-vis" viewBox="0 0 110 110" fill="none">
+          <circle cx="55" cy="55" r="46" stroke="rgba(255,255,255,0.06)" stroke-width="7"/>
+          <circle cx="55" cy="55" r="46" stroke="#409CFF" stroke-width="7"
+            stroke-dasharray="289" stroke-dashoffset="289" stroke-linecap="round"
+            transform="rotate(-90 55 55)">
+            <animate attributeName="stroke-dashoffset" from="289" to="58" dur="1.5s" fill="freeze"/>
+          </circle>
+          <text x="55" y="50" text-anchor="middle" fill="#F5F5F7" font-family="Rajdhani,sans-serif" font-size="22" font-weight="700">25+</text>
+          <text x="55" y="66" text-anchor="middle" fill="#8E8E93" font-family="monospace" font-size="7">markets</text>
+        </svg>
+        <div class="res-big">25<span class="unit">+</span></div>
+        <div class="res-label">Successful market launches — from 3 pilots in just 9 months</div>
+        <div class="res-sub">60% AHEAD OF INTERNAL SCHEDULE</div>
+      </div>
+      <div class="rh-cell">
+        <svg class="res-vis" viewBox="0 0 110 110" fill="none">
+          <path d="M55 14 L88 28 L88 62 C88 80 55 96 55 96 C55 96 22 80 22 62 L22 28 Z" fill="rgba(48,209,88,0.07)" stroke="#30D158" stroke-width="1.5"/>
+          <path d="M40 58 L51 69 L73 47" stroke="#30D158" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <animate attributeName="stroke-dasharray" from="0 60" to="60 0" dur="0.9s" begin="0.5s" fill="freeze"/>
+          </path>
+          <circle cx="55" cy="55" r="50" stroke="rgba(48,209,88,0.1)" stroke-width="1">
+            <animate attributeName="r" values="38;52;38" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <div class="res-big">Zero</div>
+        <div class="res-label">P0/P1 critical incidents across the entire national program</div>
+        <div class="res-sub">95%+ PLATFORM UPTIME SUSTAINED</div>
+      </div>
+      <div class="rh-cell">
+        <svg class="res-vis" viewBox="0 0 110 110" fill="none">
+          <line x1="18" y1="92" x2="96" y2="92" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <line x1="18" y1="18" x2="18" y2="92" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <path d="M18,84 Q36,80 50,66 Q66,48 80,34 L96,24 L96,92 L18,92 Z" fill="rgba(10,132,255,0.06)"/>
+          <path d="M18,84 Q36,80 50,66 Q66,48 80,34 L96,24" stroke="#409CFF" stroke-width="2.5" fill="none" stroke-linecap="round"
+            stroke-dasharray="200" stroke-dashoffset="200">
+            <animate attributeName="stroke-dashoffset" from="200" to="0" dur="1.5s" fill="freeze"/>
+          </path>
+          <circle cx="96" cy="24" r="5" fill="#409CFF"><animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze"/></circle>
+          <text x="18" y="106" fill="#8E8E93" font-size="8" font-family="monospace">Series A</text>
+          <text x="78" y="106" fill="#409CFF" font-size="8" font-family="monospace">Ser. B ▲</text>
+        </svg>
+        <div class="res-big">Series B</div>
+        <div class="res-label">Fundraising round directly enabled by demonstrated national-scale execution</div>
+        <div class="res-sub">OPERATIONAL PROOF UNLOCKED INVESTOR CONFIDENCE</div>
+      </div>
+    </div>
+
+    <div class="res-secondary reveal d1">
+      <div class="res-mini">
+        <span class="res-mini-icon">⚡</span>
+        <span class="res-mini-num"><span class="acc">60</span>%</span>
+        <span class="res-mini-label">Reduction in launch overhead via full-stack infra &amp; gig standardization</span>
+        <svg class="rms" viewBox="0 0 70 55"><rect x="5" y="8" width="14" height="47" rx="2" fill="rgba(255,255,255,0.18)"/><rect x="24" y="24" width="14" height="31" rx="2" fill="rgba(64,156,255,0.5)"/></svg>
+      </div>
+      <div class="res-mini">
+        <span class="res-mini-icon">💰</span>
+        <span class="res-mini-num"><span class="acc">18</span>%</span>
+        <span class="res-mini-label">Cost reduction via AI-assisted routing and market readiness scoring</span>
+        <svg class="rms" viewBox="0 0 70 55"><polyline points="5,48 20,40 35,36 50,24 65,14" stroke="rgba(48,209,88,0.5)" stroke-width="2" fill="none"/><polygon points="65,14 58,20 66,22" fill="rgba(48,209,88,0.5)"/></svg>
+      </div>
+      <div class="res-mini">
+        <span class="res-mini-icon">🛡️</span>
+        <span class="res-mini-num"><span class="acc">50</span>%</span>
+        <span class="res-mini-label">Reduction in launch prep cycles via Go/No-Go governance</span>
+        <svg class="rms" viewBox="0 0 70 55"><circle cx="35" cy="27" r="20" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/><line x1="35" y1="27" x2="35" y2="12" stroke="rgba(64,156,255,0.5)" stroke-width="2" stroke-linecap="round"/><line x1="35" y1="27" x2="46" y2="27" stroke="rgba(64,156,255,0.5)" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="res-mini">
+        <span class="res-mini-icon">📉</span>
+        <span class="res-mini-num"><span class="acc">30</span>%</span>
+        <span class="res-mini-label">Decrease in post-launch issues via command hub and quality gates</span>
+        <svg class="rms" viewBox="0 0 70 55"><rect x="4" y="12" width="11" height="43" rx="2" fill="rgba(255,69,58,0.35)"/><rect x="19" y="20" width="11" height="35" rx="2" fill="rgba(255,159,10,0.35)"/><rect x="34" y="28" width="11" height="27" rx="2" fill="rgba(255,159,10,0.3)"/><rect x="49" y="36" width="11" height="19" rx="2" fill="rgba(48,209,88,0.5)"/></svg>
+      </div>
+      <div class="res-mini">
+        <span class="res-mini-icon">📈</span>
+        <span class="res-mini-num"><span class="acc">10</span>×</span>
+        <span class="res-mini-label">Subscriber scale achieved with no headcount increase</span>
+        <svg class="rms" viewBox="0 0 70 55"><rect x="4" y="44" width="11" height="11" rx="2" fill="rgba(255,255,255,0.15)"/><rect x="19" y="34" width="11" height="21" rx="2" fill="rgba(64,156,255,0.25)"/><rect x="34" y="22" width="11" height="33" rx="2" fill="rgba(64,156,255,0.45)"/><rect x="49" y="8" width="11" height="47" rx="2" fill="rgba(64,156,255,0.7)"/></svg>
+      </div>
+    </div>
+
+    <div class="impact-box reveal d2">
+      <h3>Complete Impact Summary</h3>
+      <div class="impact-grid">
+        <div class="impact-row"><div class="impact-check">✓</div>Architected DYPER→Recyclops API bridge + ETL pipeline replacing all manual CSV hand-offs</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Built and deployed proprietary Cigo Tracker driver app with geofencing, offline sync, and proof-of-pickup</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Expanded gig-aggregation model nationally — 10× subscriber scale, no headcount increase</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Formalized launch governance across 25+ jurisdictions with zero compliance failures</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Delivered 50+ KPI Command Hub (Monday, Slack, Jira, Cigo, Stripe, DYPER apps)</div>
+        <div class="impact-row"><div class="impact-check">✓</div>SQL/Python + AI-assisted scoring for density modeling, market readiness, and route forecasting</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Sustained 2.7–3 market launches/month with zero P0/P1 incidents throughout</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Enabled Series B through proven national-scale operational execution</div>
+        <div class="impact-row"><div class="impact-check">✓</div>15M+ lbs diverted from landfill — gig-aggregation layer is the primary growth engine</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Built stackable-services architecture now reusable for all future Recyclops enterprise programs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-wrap">
+  <h2 class="cta-title">Want to see what<br><span style="color:var(--blue-lt)">I'd build for you?</span></h2>
+  <p class="cta-sub">This is mission-critical program execution at national scale. Let's talk about your challenge.</p>
+  <div class="cta-btns">
+    <a href="index.html" class="btn-blue">← Back to Portfolio</a>
+    <button onclick="openModal()" class="btn-outline" style="cursor:pointer;">Get in Touch</button>
+  </div>
+</div>
+
+<!-- ══ CONTACT MODAL ══ -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="modal-eyebrow">Let's Connect</p>
+    <h2 class="modal-title">Brandon Lee</h2>
+    <p class="modal-sub">Strategic Program Manager · PMO Architect · AI Operations<br>Austin, TX · Open to Remote / Hybrid</p>
+    <div class="modal-contacts">
+      <a href="mailto:lee.brandon.anthony@gmail.com" class="modal-contact-item">
+        <div class="modal-contact-icon icon-blue">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#409CFF" stroke-width="1.3"/><polyline points="2,6 9,11 16,6" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Email</span>
+          <span class="modal-contact-value">lee.brandon.anthony@gmail.com</span>
+        </div>
+      </a>
+      <a href="tel:4254456259" class="modal-contact-item">
+        <div class="modal-contact-icon icon-green">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 3h3l1.5 3.5-2 1.5c.9 2 2.5 3.6 4.5 4.5l1.5-2L16 12v3c0 1.1-.9 2-2 2C6.3 17 1 11.7 1 5c0-1.1.9-2 2-2h1z" stroke="#30D158" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Phone</span>
+          <span class="modal-contact-value">425.445.6259</span>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/brandonl33" target="_blank" class="modal-contact-item">
+        <div class="modal-contact-icon icon-blue">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="3" stroke="#409CFF" stroke-width="1.3"/><line x1="5" y1="7" x2="5" y2="13" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="5" r="1" fill="#409CFF"/><path d="M8 13V10c0-1.1.9-2 2-2s2 .9 2 2v3" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="7" x2="8" y2="9" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">LinkedIn</span>
+          <span class="modal-contact-value">linkedin.com/in/brandonl33</span>
+        </div>
+      </a>
+      <a href="https://docs.google.com/document/d/1q0kl5eXczE8FOX7IKKFjAgLCimTtumP4wiJUIcw0-3g/export?format=pdf" target="_blank" class="modal-contact-item">
+        <div class="modal-contact-icon icon-amber">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="1" width="10" height="13" rx="1.5" stroke="#FF9F0A" stroke-width="1.3"/><line x1="6" y1="5" x2="11" y2="5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="7.5" x2="11" y2="7.5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="10" x2="9" y2="10" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><path d="M10 13v4l2-1.5 2 1.5V13" stroke="#FF9F0A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Resume PDF</span>
+          <span class="modal-contact-value">Download Resume</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  }, { threshold: 0.07 });
+  reveals.forEach(el => io.observe(el));
+
+  // Modal
+  function openModal(){
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
