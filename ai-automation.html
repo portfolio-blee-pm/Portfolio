@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI & Automation · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #000000;
+  --gray-85: #D1D1D6;
+  --gray-60: #8E8E93;
+  --gray-30: #3A3A3C;
+  --gray-20: #2C2C2E;
+  --gray-12: #1C1C1E;
+  --gray-08: #141416;
+  --blue:    #0A84FF;
+  --blue-lt: #409CFF;
+  --green:   #30D158;
+  --amber:   #FF9F0A;
+  --red:     #FF453A;
+  --purple:  #BF5AF2;
+  --mono:    'JetBrains Mono', monospace;
+  --display: 'Rajdhani', sans-serif;
+  --body:    'DM Sans', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:#F5F5F7;font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);}
+.nav-back{display:flex;align-items:center;gap:0.4rem;color:var(--blue-lt);text-decoration:none;font-size:0.82rem;transition:opacity 0.2s;}
+.nav-back:hover{opacity:0.7;}
+.nav-center{font-size:0.82rem;font-weight:500;color:#F5F5F7;}
+.nav-badge{font-family:var(--mono);font-size:0.65rem;color:var(--gray-60);letter-spacing:0.06em;}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 8rem;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 55% at 30% 40%, rgba(191,90,242,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 75% 55%, rgba(10,132,255,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 35% at 50% 85%, rgba(48,209,88,0.08) 0%, transparent 55%);}
+
+/* Animated neural network bg */
+.hero-neural{position:absolute;inset:0;opacity:0.12;pointer-events:none;}
+
+.hero-content{position:relative;z-index:2;max-width:900px;}
+.hero-eyebrow{display:flex;align-items:center;gap:0.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.2s ease forwards;}
+.eyebrow-chip{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple);border:1px solid rgba(191,90,242,0.35);padding:0.3rem 0.9rem;border-radius:999px;}
+.eyebrow-co{font-size:0.82rem;color:var(--gray-60);}
+
+.hero-kicker{font-family:var(--mono);font-size:0.75rem;color:var(--purple);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s 0.3s ease forwards;}
+
+.hero-h1{font-family:var(--display);font-size:clamp(3.5rem,10vw,9rem);font-weight:700;line-height:0.88;letter-spacing:-0.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.4s ease forwards;}
+.h1-ai{color:#F5F5F7;}
+.h1-amp{color:var(--gray-60);font-weight:500;}
+.h1-auto{
+  background:linear-gradient(135deg, var(--blue-lt) 0%, var(--purple) 60%, var(--blue-lt) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:gradShift 4s ease infinite 1.2s;
+}
+@keyframes gradShift{0%,100%{background-position:0% center;}50%{background-position:100% center;}}
+
+.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--gray-60);max-width:600px;line-height:1.65;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.55s ease forwards;}
+.hero-tagline{font-family:var(--display);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:600;color:#F5F5F7;margin-bottom:3.5rem;opacity:0;animation:fadeUp 0.8s 0.65s ease forwards;}
+.hero-tagline span{color:var(--purple);}
+
+.hero-kpi{display:flex;gap:0;flex-wrap:nowrap;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;max-width:700px;opacity:0;animation:fadeUp 0.8s 0.75s ease forwards;}
+.kpi-cell{flex:1;padding:1.4rem 1.6rem;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
+.kpi-cell:last-child{border-right:none;}
+.kpi-num{font-family:var(--display);font-size:2.2rem;font-weight:700;line-height:1;display:block;margin-bottom:0.3rem;color:#F5F5F7;}
+.kpi-num.purple{color:var(--purple);}
+.kpi-num.blue{color:var(--blue-lt);}
+.kpi-num.green{color:var(--green);}
+.kpi-label{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;}
+
+/* ── LAYOUT ── */
+.divider{height:1px;background:rgba(255,255,255,0.06);}
+.sw{padding:7rem 5vw;max-width:1200px;margin:0 auto;}
+.sw-bg{background:var(--gray-08);}
+.sw-bg .sw{max-width:1200px;}
+
+.sec-label{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.8rem;}
+.sec-num{font-family:var(--mono);font-size:0.65rem;color:var(--purple);letter-spacing:0.1em;border:1px solid rgba(191,90,242,0.3);padding:0.25rem 0.6rem;border-radius:4px;}
+.sec-rule{flex:1;height:1px;background:rgba(255,255,255,0.07);}
+.sec-title{font-family:var(--display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;}
+.sec-desc{font-size:1rem;color:var(--gray-60);max-width:600px;margin-bottom:3.5rem;line-height:1.7;}
+
+/* ── CARDS ── */
+.c{background:var(--gray-12);transition:background 0.25s;}
+.c:hover{background:#1e1e21;}
+.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+.card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+.card-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+
+.c-pad{padding:2.5rem;}
+.c-tall{min-height:280px;display:flex;flex-direction:column;gap:1rem;}
+.c-wide{grid-column:1/-1;}
+.c-wide-row{grid-column:1/-1;display:flex;align-items:center;gap:3rem;padding:2.5rem 3rem;}
+
+.c-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.icon-purple{background:rgba(191,90,242,0.14);}
+.icon-blue{background:rgba(10,132,255,0.14);}
+.icon-green{background:rgba(48,209,88,0.14);}
+.icon-amber{background:rgba(255,159,10,0.14);}
+.icon-red{background:rgba(255,69,58,0.14);}
+
+.c h3{font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;line-height:1.15;margin-bottom:0.6rem;}
+.c h4{font-family:var(--mono);font-size:0.63rem;font-weight:500;color:var(--purple);letter-spacing:0.1em;text-transform:uppercase;margin:1.2rem 0 0.6rem;}
+.c p{font-size:0.88rem;color:var(--gray-60);line-height:1.7;}
+.c ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;margin-top:0.8rem;}
+.c ul li{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.85rem;color:var(--gray-85);line-height:1.55;}
+.c ul li::before{content:'→';color:var(--purple);flex-shrink:0;}
+
+.tag{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:6px;letter-spacing:0.05em;}
+.tag-purple{background:rgba(191,90,242,0.1);border:1px solid rgba(191,90,242,0.2);color:var(--purple);}
+.tag-blue{background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);color:var(--blue-lt);}
+.tag-green{background:rgba(48,209,88,0.1);border:1px solid rgba(48,209,88,0.2);color:var(--green);}
+.tag-amber{background:rgba(255,159,10,0.1);border:1px solid rgba(255,159,10,0.2);color:var(--amber);}
+.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;}
+
+/* ── ARCHITECTURE DIAGRAM ── */
+.arch-wrap{background:var(--gray-12);border-radius:22px;padding:3rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.06);}
+.arch-title{font-family:var(--display);font-size:1.5rem;font-weight:600;color:#F5F5F7;margin-bottom:0.5rem;}
+.arch-sub{font-size:0.86rem;color:var(--gray-60);margin-bottom:2.5rem;max-width:640px;}
+
+/* The 5-layer stack diagram */
+.arch-layers{display:flex;flex-direction:column;gap:3px;}
+.arch-layer{display:flex;align-items:stretch;gap:3px;min-height:72px;}
+.arch-layer-label{width:160px;flex-shrink:0;display:flex;align-items:center;padding:0 1.2rem;background:rgba(255,255,255,0.03);border-radius:10px 0 0 10px;font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.05);border-right:none;}
+.arch-layer-body{flex:1;display:flex;align-items:center;gap:2px;overflow:hidden;}
+.arch-block{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0.8rem 1rem;border-radius:0;font-size:0.8rem;color:#F5F5F7;line-height:1.4;position:relative;overflow:hidden;min-height:72px;}
+.arch-block:first-child{border-radius:0;}
+.arch-block:last-child{border-radius:0 10px 10px 0;}
+.arch-block-title{font-weight:500;font-size:0.82rem;color:#F5F5F7;margin-bottom:0.15rem;}
+.arch-block-sub{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.04em;}
+
+.layer-data .arch-block{background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.15);}
+.layer-data .arch-block-title{color:var(--blue-lt);}
+.layer-agent .arch-block{background:rgba(191,90,242,0.1);border:1px solid rgba(191,90,242,0.15);}
+.layer-agent .arch-block-title{color:var(--purple);}
+.layer-eval .arch-block{background:rgba(255,159,10,0.08);border:1px solid rgba(255,159,10,0.15);}
+.layer-eval .arch-block-title{color:var(--amber);}
+.layer-action .arch-block{background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.15);}
+.layer-action .arch-block-title{color:var(--green);}
+.layer-oversight .arch-block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
+.layer-oversight .arch-block-title{color:#F5F5F7;}
+
+/* Flow arrows between layers */
+.arch-flow-arrow{display:flex;align-items:center;justify-content:center;height:18px;gap:0.5rem;}
+.arch-flow-arrow span{font-family:var(--mono);font-size:0.55rem;color:rgba(255,255,255,0.2);letter-spacing:0.08em;}
+.arch-flow-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);}
+
+/* ── PHASE TIMELINE ── */
+.phase-timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.pt-tile{background:var(--gray-12);padding:2.5rem;display:flex;flex-direction:column;gap:0.9rem;position:relative;transition:background 0.25s;}
+.pt-tile:hover{background:#1e1e21;}
+.pt-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity 0.3s;}
+.pt-tile:hover::before{opacity:1;}
+.pt-tile.p1::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.pt-tile.p2::before{background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);}
+.pt-tile.p3::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.pt-badge{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.65rem;border-radius:6px;letter-spacing:0.08em;width:fit-content;}
+.pt-badge.purple{background:rgba(191,90,242,0.12);color:var(--purple);border:1px solid rgba(191,90,242,0.22);}
+.pt-badge.blue{background:rgba(10,132,255,0.12);color:var(--blue-lt);border:1px solid rgba(10,132,255,0.22);}
+.pt-badge.green{background:rgba(48,209,88,0.12);color:var(--green);border:1px solid rgba(48,209,88,0.22);}
+.pt-timing{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);}
+.pt-name{font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;line-height:1.1;}
+.pt-outcome{font-family:var(--mono);font-size:0.6rem;color:var(--green);border:1px solid rgba(48,209,88,0.2);padding:0.2rem 0.65rem;border-radius:6px;width:fit-content;letter-spacing:0.05em;}
+.pt-desc{font-size:0.85rem;color:var(--gray-60);line-height:1.7;}
+.pt-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.8rem;}
+.pt-chip{font-family:var(--mono);font-size:0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--gray-85);padding:0.2rem 0.6rem;border-radius:6px;letter-spacing:0.04em;}
+
+/* ── AGENT LOOP VISUAL ── */
+.agent-loop{background:var(--gray-12);border-radius:22px;padding:3rem;border:1px solid rgba(255,255,255,0.06);}
+.agent-loop-title{font-family:var(--display);font-size:1.4rem;font-weight:600;color:#F5F5F7;margin-bottom:0.5rem;}
+.agent-loop-sub{font-size:0.86rem;color:var(--gray-60);margin-bottom:2rem;}
+.loop-steps{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:0.5rem;}
+.loop-step{display:flex;flex-direction:column;align-items:center;gap:0.6rem;flex-shrink:0;width:120px;text-align:center;}
+.loop-node{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;}
+.loop-node.purple{background:rgba(191,90,242,0.12);border:1px solid rgba(191,90,242,0.3);}
+.loop-node.blue{background:rgba(10,132,255,0.12);border:1px solid rgba(10,132,255,0.3);}
+.loop-node.amber{background:rgba(255,159,10,0.12);border:1px solid rgba(255,159,10,0.3);}
+.loop-node.green{background:rgba(48,209,88,0.12);border:1px solid rgba(48,209,88,0.3);}
+.loop-node.gray{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
+.loop-step-num{font-family:var(--mono);font-size:0.55rem;color:var(--gray-60);letter-spacing:0.1em;}
+.loop-step-label{font-family:var(--mono);font-size:0.62rem;color:#F5F5F7;line-height:1.4;}
+.loop-step-sub{font-size:0.7rem;color:var(--gray-60);line-height:1.3;}
+.loop-arrow{flex-shrink:0;padding:0 0.3rem;margin-bottom:2.5rem;}
+.loop-arrow svg{opacity:0.35;}
+
+/* ── RESULTS ── */
+.res-hero{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
+.rh-cell{background:var(--gray-12);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:0.8rem;position:relative;overflow:hidden;transition:background 0.25s;}
+.rh-cell:hover{background:#1e1e21;}
+.rh-cell::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;}
+.rh-cell:nth-child(1)::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+.rh-cell:nth-child(2)::before{background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);}
+.rh-cell:nth-child(3)::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
+.rh-cell:nth-child(4)::before{background:linear-gradient(90deg,transparent,var(--amber),transparent);}
+.rh-icon{font-size:1.5rem;}
+.rh-num{font-family:var(--display);font-size:3.2rem;font-weight:700;line-height:1;letter-spacing:-0.02em;}
+.rh-num.purple{color:var(--purple);}
+.rh-num.blue{color:var(--blue-lt);}
+.rh-num.green{color:var(--green);}
+.rh-num.amber{color:var(--amber);}
+.rh-label{font-size:0.84rem;color:var(--gray-60);line-height:1.5;}
+.rh-sub{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.07em;text-transform:uppercase;margin-top:auto;}
+
+/* Mini vis */
+.rh-vis{position:absolute;right:1rem;bottom:1rem;opacity:0.08;pointer-events:none;}
+
+/* ── IMPACT BOX ── */
+.impact-box{background:var(--gray-12);border-radius:20px;padding:3rem;border:1px solid rgba(255,255,255,0.07);}
+.impact-box h3{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--purple);margin-bottom:2rem;}
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
+.impact-row{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.86rem;color:var(--gray-85);line-height:1.55;}
+.impact-check{width:20px;height:20px;border-radius:50%;background:rgba(191,90,242,0.12);border:1px solid rgba(191,90,242,0.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:var(--purple);margin-top:0.15rem;}
+
+/* ── CTA ── */
+.cta-wrap{background:var(--gray-08);padding:8rem 5vw;text-align:center;position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(191,90,242,0.1),transparent);}
+.cta-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,5rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;position:relative;z-index:1;}
+.cta-sub{font-size:1rem;color:var(--gray-60);max-width:460px;margin:0 auto 3rem;line-height:1.7;position:relative;z-index:1;}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+.btn-purple{background:var(--purple);color:#fff;padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;transition:filter 0.2s,transform 0.2s;border:none;cursor:pointer;}
+.btn-purple:hover{filter:brightness(1.15);transform:scale(1.02);}
+.btn-outline{background:transparent;color:var(--purple);padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;border:1px solid rgba(191,90,242,0.35);transition:border-color 0.2s,transform 0.2s;cursor:pointer;}
+.btn-outline:hover{border-color:var(--purple);transform:scale(1.02);}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+.modal-box{position:relative;z-index:1;background:var(--gray-12);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:3rem;max-width:480px;width:100%;transform:translateY(20px) scale(0.97);transition:transform 0.3s ease;box-shadow:0 40px 80px rgba(0,0,0,0.6);}
+.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
+.modal-close{position:absolute;top:1.2rem;right:1.4rem;background:rgba(255,255,255,0.06);border:none;color:var(--gray-60);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s,color 0.2s;}
+.modal-close:hover{background:rgba(255,255,255,0.12);color:#F5F5F7;}
+.modal-eyebrow{font-family:var(--mono);font-size:0.62rem;color:var(--purple);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;}
+.modal-title{font-family:var(--display);font-size:2rem;font-weight:700;color:#F5F5F7;line-height:1;margin-bottom:0.4rem;}
+.modal-sub{font-size:0.85rem;color:var(--gray-60);margin-bottom:2rem;}
+.modal-contacts{display:flex;flex-direction:column;gap:0.7rem;}
+.modal-contact-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;text-decoration:none;transition:background 0.2s,border-color 0.2s;}
+.modal-contact-item:hover{background:rgba(255,255,255,0.07);border-color:rgba(191,90,242,0.3);}
+.modal-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-contact-label{font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:0.15rem;}
+.modal-contact-value{font-size:0.88rem;color:#F5F5F7;font-weight:400;}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 1.2rem;}
+  .hero{padding:0 1.4rem 5rem;}
+  .sw{padding:5rem 1.4rem;}
+  .hero-kpi{flex-wrap:wrap;border-radius:16px;}
+  .kpi-cell{min-width:calc(50% - 1px);}
+  .card-grid-2,.card-grid-3,.card-grid-4,.phase-timeline,.res-hero{grid-template-columns:1fr;}
+  .c-wide-row{flex-direction:column;}
+  .arch-layer{flex-direction:column;}
+  .arch-layer-label{width:100%;border-radius:10px 10px 0 0;border-right:1px solid rgba(255,255,255,0.05);border-bottom:none;}
+  .arch-layer-body{flex-wrap:wrap;}
+  .loop-steps{flex-wrap:wrap;justify-content:center;}
+  .impact-grid{grid-template-columns:1fr;}
+  .cta-wrap{padding:5rem 1.4rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Portfolio
+  </a>
+  <span class="nav-center">AI & Automation</span>
+  <span class="nav-badge">Recyclops · 2021–2022</span>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+
+  <!-- Animated neural net SVG background -->
+  <div class="hero-neural">
+    <svg width="100%" height="100%" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
+      <!-- Nodes -->
+      <g fill="none">
+        <circle cx="120" cy="180" r="4" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.1s" repeatCount="indefinite"/></circle>
+        <circle cx="300" cy="120" r="3" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
+        <circle cx="480" cy="200" r="5" fill="#BF5AF2" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.8s" repeatCount="indefinite"/></circle>
+        <circle cx="660" cy="140" r="3" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.5s" repeatCount="indefinite"/></circle>
+        <circle cx="840" cy="220" r="4" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.2s" repeatCount="indefinite"/></circle>
+        <circle cx="1020" cy="160" r="3" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.8s" repeatCount="indefinite"/></circle>
+        <circle cx="200" cy="360" r="3" fill="#409CFF" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.7s" repeatCount="indefinite"/></circle>
+        <circle cx="420" cy="400" r="5" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.3s" repeatCount="indefinite"/></circle>
+        <circle cx="600" cy="340" r="3" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="2.5s" repeatCount="indefinite"/></circle>
+        <circle cx="780" cy="420" r="4" fill="#409CFF" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.0s" repeatCount="indefinite"/></circle>
+        <circle cx="960" cy="380" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.9s" repeatCount="indefinite"/></circle>
+        <circle cx="1100" cy="300" r="5" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.6s" repeatCount="indefinite"/></circle>
+        <circle cx="320" cy="560" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.3s" repeatCount="indefinite"/></circle>
+        <circle cx="540" cy="520" r="4" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.2s" repeatCount="indefinite"/></circle>
+        <circle cx="720" cy="600" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.6s" repeatCount="indefinite"/></circle>
+        <circle cx="900" cy="560" r="5" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.4s" repeatCount="indefinite"/></circle>
+      </g>
+      <!-- Connecting lines -->
+      <g stroke="#BF5AF2" stroke-width="0.7" opacity="0.3">
+        <line x1="120" y1="180" x2="300" y2="120"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3s" repeatCount="indefinite"/></line>
+        <line x1="300" y1="120" x2="480" y2="200"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.5s" repeatCount="indefinite"/></line>
+        <line x1="480" y1="200" x2="660" y2="140"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.2s" repeatCount="indefinite"/></line>
+        <line x1="660" y1="140" x2="840" y2="220"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.8s" repeatCount="indefinite"/></line>
+        <line x1="840" y1="220" x2="1020" y2="160"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.5s" repeatCount="indefinite"/></line>
+        <line x1="120" y1="180" x2="200" y2="360"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.7s" repeatCount="indefinite"/></line>
+        <line x1="480" y1="200" x2="420" y2="400"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.1s" repeatCount="indefinite"/></line>
+        <line x1="660" y1="140" x2="600" y2="340"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.4s" repeatCount="indefinite"/></line>
+        <line x1="840" y1="220" x2="780" y2="420"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.3s" repeatCount="indefinite"/></line>
+        <line x1="1020" y1="160" x2="960" y2="380"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.9s" repeatCount="indefinite"/></line>
+        <line x1="200" y1="360" x2="420" y2="400"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.6s" repeatCount="indefinite"/></line>
+        <line x1="420" y1="400" x2="600" y2="340"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.4s" repeatCount="indefinite"/></line>
+        <line x1="600" y1="340" x2="780" y2="420"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.2s" repeatCount="indefinite"/></line>
+        <line x1="780" y1="420" x2="960" y2="380"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.6s" repeatCount="indefinite"/></line>
+        <line x1="420" y1="400" x2="320" y2="560"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.8s" repeatCount="indefinite"/></line>
+        <line x1="600" y1="340" x2="540" y2="520"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.0s" repeatCount="indefinite"/></line>
+        <line x1="780" y1="420" x2="720" y2="600"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.5s" repeatCount="indefinite"/></line>
+        <line x1="960" y1="380" x2="900" y2="560"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.2s" repeatCount="indefinite"/></line>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-chip">⚡ Production AI</span>
+      <span class="eyebrow-co">Recyclops · 2021–2022 · GPT-3 Era</span>
+    </div>
+    <p class="hero-kicker">Agentic AI &amp; Automation</p>
+    <h1 class="hero-h1">
+      <span class="h1-ai">AI</span> <span class="h1-amp">&amp;</span><br>
+      <span class="h1-auto">Automation</span>
+    </h1>
+    <p class="hero-tagline">Agentic AI. <span>Real results.</span></p>
+    <p class="hero-sub">A production-grade, hybrid agentic AI layer built on top of live logistics infrastructure — not a demo, not a prototype. GPT-3 prompt chaining, real-time data pipelines, and human-in-the-loop governance at national scale.</p>
+    <div class="hero-kpi">
+      <div class="kpi-cell">
+        <span class="kpi-num purple">~50%</span>
+        <span class="kpi-label">Overhead Eliminated</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num blue">2–3×</span>
+        <span class="kpi-label">Deployment Speed</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num green">18%</span>
+        <span class="kpi-label">Cost Reduction</span>
+      </div>
+      <div class="kpi-cell">
+        <span class="kpi-num">Zero</span>
+        <span class="kpi-label">Critical AI Failures</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 01 WHAT WE BUILT ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">01</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">What We Actually Built</h2>
+    <p class="sec-desc reveal">Not a standalone AI tool — a carefully engineered agentic overlay on top of live operational infrastructure. DYPER customer data arrived as CSV files, crossed our custom-built bridge into our proprietary app, and was managed and monitored inside Monday.com dashboards. The AI layer made sense of it all at national scale: density forecasting, predictive market readiness scoring, automated aggregation decisions, and downstream processing alerts.</p>
+
+    <div class="card-grid-2 reveal">
+      <!-- Context card -->
+      <div class="c c-pad c-tall">
+        <div class="c-icon icon-purple">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#BF5AF2" stroke-width="1.3"/><line x1="10" y1="2" x2="10" y2="5" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="10" y1="15" x2="10" y2="18" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="2" y1="10" x2="5" y2="10" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="15" y1="10" x2="18" y2="10" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="4.2" y1="4.2" x2="6.3" y2="6.3" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/><line x1="13.7" y1="13.7" x2="15.8" y2="15.8" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/></svg>
+        </div>
+        <h3>Hybrid Augmentation — Not Replacement</h3>
+        <p>The design principle was deliberate: the data already existed — DYPER's customer information lived in CSV files. The job was to bridge that data into our proprietary app, enrich it with AI reasoning, and surface actionable intelligence inside Monday.com. The agents handled everything the raw CSVs couldn't: national-scale density scoring, regulatory risk, and market readiness.</p>
+        <ul>
+          <li>Multi-market density forecasting across 25+ simultaneous metros</li>
+          <li>Automated aggregation hub decisions — when Gaylords fill, trigger transload</li>
+          <li>Predictive market readiness scoring across 40+ factors per launch</li>
+          <li>Downstream processing alerts and escalation cadences</li>
+        </ul>
+        <div class="tags">
+          <span class="tag tag-purple">GPT-3 API</span>
+          <span class="tag tag-blue">Prompt Chaining</span>
+          <span class="tag tag-blue">Hybrid Augmentation</span>
+        </div>
+      </div>
+
+      <!-- The gap card -->
+      <div class="c c-pad c-tall">
+        <div class="c-icon icon-amber">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="13" width="4" height="5" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="8" y="9" width="4" height="9" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="14" y="5" width="4" height="13" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><polyline points="3,12 9,8 15,4" stroke="#FF9F0A" stroke-width="1" stroke-linecap="round" stroke-dasharray="1.5,1.5" opacity="0.4"/></svg>
+        </div>
+        <h3>The Gaps the Pilot Exposed</h3>
+        <p>At 3 pilot markets, manual analysis was slow but survivable. At 25+ simultaneous markets, the same manual approach became the primary bottleneck — costing time, money, and precision at every step.</p>
+        <ul>
+          <li>No multi-market density forecasting → gut-based market sequencing</li>
+          <li>No automated aggregation hub triggers → manual monitoring and reroutes</li>
+          <li>No predictive market readiness scoring → reactive Go/No-Go decisions</li>
+          <li>Manual GIS/analysis taking 6–8 weeks per market → blocked the launch cadence</li>
+        </ul>
+        <div class="tags">
+          <span class="tag tag-amber">Manual GIS</span>
+          <span class="tag tag-amber">6–8 Week Cycles</span>
+          <span class="tag tag-amber">Gut-Based Decisions</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 02 ARCHITECTURE ══ -->
+<div class="sw">
+  <div class="sec-label reveal"><span class="sec-num">02</span><div class="sec-rule"></div></div>
+  <h2 class="sec-title reveal">System Architecture</h2>
+  <p class="sec-desc reveal">Five layers working together — data ingestion, agentic reasoning, hybrid evaluation, action execution, and human oversight. Every agent output was audited before auto-execution. Zero blind automation.</p>
+
+  <div class="arch-wrap reveal">
+    <div class="arch-title">The Agentic AI Stack</div>
+    <div class="arch-sub">Built 2021–2022 on GPT-3 era infrastructure. Production-grade, modular, fully auditable.</div>
+
+    <div class="arch-layers">
+
+      <!-- Layer 1: Data -->
+      <div class="arch-layer layer-data">
+        <div class="arch-layer-label">01 · Data Layer</div>
+        <div class="arch-layer-body">
+          <div class="arch-block">
+            <div class="arch-block-title">DYPER Subscriber Data</div>
+            <div class="arch-block-sub">CSV → ETL middleware → SQL</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">DYPER Customer CSVs</div>
+            <div class="arch-block-sub">Raw subscriber data → custom bridge</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Spatial Analysis</div>
+            <div class="arch-block-sub">Google Maps · geofence design</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Historical Performance</div>
+            <div class="arch-block-sub">Scikit-learn · forecasting</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Regulatory Overlays</div>
+            <div class="arch-block-sub">Per-jurisdiction compliance data</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>feeds agents</span><div class="arch-flow-line"></div></div>
+
+      <!-- Layer 2: Agent -->
+      <div class="arch-layer layer-agent">
+        <div class="arch-layer-label">02 · Agent Layer</div>
+        <div class="arch-layer-body">
+          <div class="arch-block">
+            <div class="arch-block-title">Agent 1: Density Clustering</div>
+            <div class="arch-block-sub">Subscriber density → geofence boundaries (Google Maps)</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Agent 2: Regulatory Scoring</div>
+            <div class="arch-block-sub">Risk score per jurisdiction</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Agent 3: Route Simulation</div>
+            <div class="arch-block-sub">Route simulation → constraint recommendations</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Agent 4: Go/No-Go Synthesis</div>
+            <div class="arch-block-sub">40+ factor market readiness score</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>structured JSON output</span><div class="arch-flow-line"></div></div>
+
+      <!-- Layer 3: Evaluation -->
+      <div class="arch-layer layer-eval">
+        <div class="arch-layer-label">03 · Eval Layer</div>
+        <div class="arch-layer-body">
+          <div class="arch-block">
+            <div class="arch-block-title">Agent Output Review</div>
+            <div class="arch-block-sub">Recommendations scored, validated against SLA thresholds</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Confidence Scoring</div>
+            <div class="arch-block-sub">Low confidence → flag for ops review</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Constraint Validation</div>
+            <div class="arch-block-sub">Check against SLA thresholds + compliance rules</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>route to action or review</span><div class="arch-flow-line"></div></div>
+
+      <!-- Layer 4: Action -->
+      <div class="arch-layer layer-action">
+        <div class="arch-layer-label">04 · Action Layer</div>
+        <div class="arch-layer-body">
+          <div class="arch-block">
+            <div class="arch-block-title">Push to Proprietary App</div>
+            <div class="arch-block-sub">Enriched data + routing recommendations surfaced</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Monday.com Command Hub</div>
+            <div class="arch-block-sub">Project boards · timelines · sprints · KPI dashboards · alerts</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Aggregation Hub Decisions</div>
+            <div class="arch-block-sub">Gaylord full → schedule transload automatically</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Escalation Workflows</div>
+            <div class="arch-block-sub">Threshold exceeded → Slack alert + Jira ticket</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>human review loop</span><div class="arch-flow-line"></div></div>
+
+      <!-- Layer 5: Oversight -->
+      <div class="arch-layer layer-oversight">
+        <div class="arch-layer-label">05 · Oversight</div>
+        <div class="arch-layer-body">
+          <div class="arch-block">
+            <div class="arch-block-title">Slack Review Dashboard</div>
+            <div class="arch-block-sub">Every agent output reviewed in &lt;15 min before execution</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Jira Release Management</div>
+            <div class="arch-block-sub">All agent outputs versioned + audited</div>
+          </div>
+          <div class="arch-block">
+            <div class="arch-block-title">Human-in-the-Loop</div>
+            <div class="arch-block-sub">Zero blind automation — agents propose, humans confirm</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Agent loop visual -->
+  <div class="agent-loop reveal d1">
+    <div class="agent-loop-title">The Prompt-Chaining Loop</div>
+    <div class="agent-loop-sub">Multi-step reasoning chains — each agent's structured JSON output becomes the next agent's input. GPT-3 era, production grade.</div>
+    <div class="loop-steps">
+      <div class="loop-step">
+        <div class="loop-node blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h10" stroke="#409CFF" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 01</div>
+        <div class="loop-step-label">Ingest</div>
+        <div class="loop-step-sub">DYPER CSVs → custom bridge → proprietary app</div>
+      </div>
+      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="loop-step">
+        <div class="loop-node purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#BF5AF2" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 02</div>
+        <div class="loop-step-label">Reason</div>
+        <div class="loop-step-sub">GPT-3 agents cluster, score, simulate</div>
+      </div>
+      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="loop-step">
+        <div class="loop-node purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4"/><rect x="13" y="3" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.5"/><rect x="3" y="13" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.5"/><rect x="13" y="13" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.7"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 03</div>
+        <div class="loop-step-label">JSON Output</div>
+        <div class="loop-step-sub">Structured outputs → geofence boundaries built in Google Maps</div>
+      </div>
+      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="loop-step">
+        <div class="loop-node amber">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L20 8V16L12 21L4 16V8L12 3Z" stroke="#FF9F0A" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#FF9F0A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 04</div>
+        <div class="loop-step-label">Evaluate</div>
+        <div class="loop-step-sub">Validate outputs against SLA thresholds + compliance rules</div>
+      </div>
+      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="loop-step">
+        <div class="loop-node gray">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#F5F5F7" stroke-width="1.4"/><path d="M6 20v-1a6 6 0 0112 0v1" stroke="#F5F5F7" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 05</div>
+        <div class="loop-step-label">Human Review</div>
+        <div class="loop-step-sub">Slack + dashboard · &lt;15 min · confirm or override</div>
+      </div>
+      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="loop-step">
+        <div class="loop-node green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="#30D158" stroke-width="1.4"/><path d="M8 12l3 3 5-5" stroke="#30D158" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="loop-step-num">STEP 06</div>
+        <div class="loop-step-label">Execute</div>
+        <div class="loop-step-sub">Proprietary app updated + Monday.com cadences fire</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 03 PHASED ROLLOUT ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">03</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">Phased Rollout</h2>
+    <p class="sec-desc reveal">Three phases from prototype to full national production — each one proving value before expanding scope. No big-bang deployment. No blind trust in the models.</p>
+
+    <div class="phase-timeline reveal">
+      <div class="pt-tile p1">
+        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+          <span class="pt-badge purple">PHASE 01</span>
+          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q3–Q4 2021</span>
+        </div>
+        <div class="pt-name">Prototype &amp; Validation</div>
+        <span class="pt-outcome">Pilot markets · Value proven</span>
+        <p class="pt-desc">DYPER CSV exports fed GPT-3 scripts for density scoring. Geofence boundaries designed and validated inside Google Maps. All outputs human-reviewed before any operational changes. Proved the concept — faster decisions, fewer reroutes, better market sequencing — before any automation was introduced.</p>
+        <div class="pt-chips">
+          <span class="pt-chip">GPT-3 API</span><span class="pt-chip">CSV → Python</span><span class="pt-chip">Density Scoring</span><span class="pt-chip">Human Review</span>
+        </div>
+      </div>
+
+      <div class="pt-tile p2">
+        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+          <span class="pt-badge blue">PHASE 02</span>
+          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q1 2022</span>
+        </div>
+        <div class="pt-name">Automated ETL &amp; Event Loops</div>
+        <span class="pt-outcome">Real pickup data · Monday.com cadences live</span>
+        <p class="pt-desc">Replaced manual CSV hand-offs with the custom DYPER→Recyclops bridge, feeding subscriber data directly into our proprietary app. Agent outputs flowed into Monday.com — aggregation alerts, transload scheduling, threshold notifications. First fully automated loops in production.</p>
+        <div class="pt-chips">
+          <span class="pt-chip">DYPER Bridge</span><span class="pt-chip">Automated ETL</span><span class="pt-chip">Monday.com Cadences</span><span class="pt-chip">Proprietary App</span>
+        </div>
+      </div>
+
+      <div class="pt-tile p3">
+        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+          <span class="pt-badge green">PHASE 03</span>
+          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q2–Q3 2022</span>
+        </div>
+        <div class="pt-name">Full National Production</div>
+        <span class="pt-outcome">25+ markets · 40-factor scoring · zero failures</span>
+        <p class="pt-desc">Agents scored market readiness across 40+ factors, directly informing every Go/No-Go gate. Enriched routing recommendations surfaced inside the proprietary app and managed through Monday.com dashboards. Aggregation and transload scheduling ran on autopilot. Full production AI at national scale — modular, versioned, auditable throughout.</p>
+        <div class="pt-chips">
+          <span class="pt-chip">40-Factor Scoring</span><span class="pt-chip">Proprietary App Integration</span><span class="pt-chip">Auto Transload</span><span class="pt-chip">Go/No-Go Integration</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 04 TECH STACK ══ -->
+<div class="sw">
+  <div class="sec-label reveal"><span class="sec-num">04</span><div class="sec-rule"></div></div>
+  <h2 class="sec-title reveal">The Tech Stack</h2>
+  <p class="sec-desc reveal">Every tool chosen deliberately — built for the 2021–2022 constraint environment, designed for reuse across any future Recyclops enterprise program.</p>
+
+  <div class="card-grid-2 reveal" style="margin-bottom:1.5rem;">
+
+    <div class="c c-pad c-tall">
+      <div class="c-icon icon-purple">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#BF5AF2" stroke-width="1.3"/><path d="M10 2C10 2 14 5 14 10C14 15 10 18 10 18C10 18 6 15 6 10C6 5 10 2 10 2Z" stroke="#BF5AF2" stroke-width="1.3"/><line x1="2" y1="10" x2="18" y2="10" stroke="#BF5AF2" stroke-width="1.2" opacity="0.4"/></svg>
+      </div>
+      <h3>Intelligence Layer</h3>
+      <h4>LLM & Reasoning</h4>
+      <ul>
+        <li>GPT-3 via OpenAI API — the only viable LLM for prompt chaining and tool use in 2021</li>
+        <li>Multi-step prompt chaining: Agent 1 clusters → Agent 2 scores → Agent 3 simulates → Agent 4 synthesizes</li>
+        <li>Structured JSON outputs informed geofence boundaries built and managed directly inside Google Maps</li>
+        <li>Tool calls: agents pulled live SQL data and pushed enriched recommendations into the proprietary app</li>
+      </ul>
+      <h4>Data Science & Spatial</h4>
+      <ul>
+        <li>Google Maps — geofence design, boundary decisioning, and market territory definition per metro</li>
+        <li>Python / Pandas — data wrangling and pipeline transforms</li>
+        <li>Scikit-learn — density forecasting and load balancing models</li>
+        <li>SQL — subscriber/driver density queries fed directly into agent prompts</li>
+      </ul>
+      <div class="tags">
+        <span class="tag tag-purple">GPT-3</span><span class="tag tag-purple">Prompt Chaining</span><span class="tag tag-blue">Python</span><span class="tag tag-blue">Google Maps</span><span class="tag tag-blue">Scikit-learn</span><span class="tag tag-blue">SQL</span>
+      </div>
+    </div>
+
+    <div class="c c-pad c-tall">
+      <div class="c-icon icon-green">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="12" rx="2" stroke="#30D158" stroke-width="1.3"/><rect x="4.5" y="5" width="2.5" height="4" rx="0.8" fill="#30D158" opacity="0.7"/><rect x="9" y="6.5" width="2.5" height="2.5" rx="0.8" fill="#30D158" opacity="0.5"/><rect x="13.5" y="4.5" width="2.5" height="5" rx="0.8" fill="#30D158" opacity="0.9"/><line x1="8" y1="17" x2="12" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/><line x1="10" y1="14" x2="10" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/></svg>
+      </div>
+      <h3>Orchestration &amp; Integration</h3>
+      <h4>Monday.com — Full Operational & Technical Command</h4>
+      <ul>
+        <li>DYPER customer data arrived as CSV files — custom bridge parsed, cleaned, and routed it into our proprietary app automatically</li>
+        <li>Project boards tracking all 25+ market launches with full dependency mapping, status, and ownership per workstream</li>
+        <li>Sprint planning and timeline management — Agile-style boards governing every phase of the build and rollout</li>
+        <li>50+ KPI dashboards for real-time visibility: velocity, compliance, aggregation rates, driver performance, market readiness</li>
+        <li>Automated cadences: data ingested → agent analysis → threshold alert → ops action, all without manual triggers</li>
+        <li>Slack predictive alerts fired when any KPI deviated more than 5% from baseline</li>
+        <li>Escalation workflows, incident response tracking, and Go/No-Go gate status all managed in-board</li>
+      </ul>
+      <h4>Governance & Audit</h4>
+      <ul>
+        <li>Jira tracked all agent outputs as versioned releases — full technical backlog</li>
+        <li>Slack review dashboard — every agent action reviewed in under 15 minutes</li>
+        <li>No critical failures — agents enhanced operational decisions, always with human confirmation before execution</li>
+        <li>Modular GPT-3 prompts and Python models versioned for reuse across markets</li>
+      </ul>
+      <div class="tags">
+        <span class="tag tag-green">Monday.com</span><span class="tag tag-green">Project Boards</span><span class="tag tag-green">Sprint Planning</span><span class="tag tag-green">KPI Dashboards</span><span class="tag tag-green">Proprietary App</span><span class="tag tag-blue">DYPER Bridge</span><span class="tag tag-amber">Zapier</span><span class="tag tag-blue">Jira</span><span class="tag tag-blue">Slack</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ 05 RESULTS ══ -->
+<div class="sw-bg">
+  <div class="sw">
+    <div class="sec-label reveal"><span class="sec-num">05</span><div class="sec-rule"></div></div>
+    <h2 class="sec-title reveal">Results</h2>
+    <p class="sec-desc reveal">Real production numbers. No demos, no benchmarks — measured against the manual baseline in live national logistics.</p>
+
+    <div class="res-hero reveal">
+      <div class="rh-cell">
+        <div class="rh-icon">⚡</div>
+        <div class="rh-num purple">~50%</div>
+        <div class="rh-label">Launch overhead eliminated — manual GIS and analysis replaced by agent-assisted workflows</div>
+        <div class="rh-sub">6–8 WK CYCLES → 2–3 WEEKS</div>
+        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><rect x="5" y="8" width="14" height="47" rx="2" fill="white"/><rect x="24" y="24" width="14" height="31" rx="2" fill="#BF5AF2"/></svg>
+      </div>
+      <div class="rh-cell">
+        <div class="rh-icon">🚀</div>
+        <div class="rh-num blue">2–3×</div>
+        <div class="rh-label">Faster market deployment — prep cycles compressed from 6–8 weeks to 2–3 weeks per market</div>
+        <div class="rh-sub">SUSTAINED ACROSS ALL 25+ MARKETS</div>
+        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><polyline points="5,48 20,38 35,28 50,18 65,8" stroke="#409CFF" stroke-width="2" fill="none"/><polygon points="65,8 58,14 66,16" fill="#409CFF"/></svg>
+      </div>
+      <div class="rh-cell">
+        <div class="rh-icon">💰</div>
+        <div class="rh-num green">18%</div>
+        <div class="rh-label">Cost reduction via AI-optimized routing, mileage efficiency, and aggregation timing</div>
+        <div class="rh-sub">SUB-4-MONTH ROI IN SCALED MARKETS</div>
+        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><rect x="4" y="12" width="11" height="43" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="19" y="20" width="11" height="35" rx="2" fill="rgba(48,209,88,0.5)"/><rect x="34" y="28" width="11" height="27" rx="2" fill="rgba(48,209,88,0.7)"/><rect x="49" y="36" width="11" height="19" rx="2" fill="#30D158"/></svg>
+      </div>
+      <div class="rh-cell">
+        <div class="rh-icon">🛡️</div>
+        <div class="rh-num amber">Zero</div>
+        <div class="rh-label">Critical AI failures — every agent output audited, human-confirmed before execution</div>
+        <div class="rh-sub">FULL NATIONAL ROLLOUT · NO INCIDENTS</div>
+        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><path d="M35 5L58 16V32C58 44 35 52 35 52C35 52 12 44 12 32V16L35 5Z" stroke="#FF9F0A" stroke-width="1.5" fill="none"/></svg>
+      </div>
+    </div>
+
+    <div class="impact-box reveal d1">
+      <h3>Complete Delivery Summary</h3>
+      <div class="impact-grid">
+        <div class="impact-row"><div class="impact-check">✓</div>Designed and built agentic AI layer on live production logistics infrastructure — GPT-3 era, 2021–2022</div>
+        <div class="impact-row"><div class="impact-check">✓</div>4-agent prompt-chaining loop: density clustering → regulatory scoring → route simulation → Go/No-Go synthesis</div>
+        <div class="impact-row"><div class="impact-check">✓</div>DYPER customer CSVs bridged into proprietary app automatically — no manual hand-offs at steady state</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Agent JSON outputs informed geofence boundaries built and managed directly inside Google Maps</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Monday.com as full ops + tech command center — project boards, sprint planning, timelines, KPI dashboards, and automated cadences in one platform</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Human-in-the-loop governance: every output Slack-reviewed in under 15 minutes before execution</div>
+        <div class="impact-row"><div class="impact-check">✓</div>Modular and versioned — GPT-3 prompts and Python models reusable across all future Recyclops markets</div>
+        <div class="impact-row"><div class="impact-check">✓</div>~50% overhead cut · 2–3× deployment speed · 18% cost reduction · zero critical failures at national scale</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-wrap">
+  <h2 class="cta-title">Want to see what<br><span style="color:var(--purple)">I'd build for you?</span></h2>
+  <p class="cta-sub">Production AI, not PowerPoint AI. Let's talk about your challenge.</p>
+  <div class="cta-btns">
+    <a href="index.html" class="btn-purple">← Back to Portfolio</a>
+    <button onclick="openModal()" class="btn-outline">Get in Touch</button>
+  </div>
+</div>
+
+<!-- ══ CONTACT MODAL ══ -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="modal-eyebrow">Let's Connect</p>
+    <h2 class="modal-title">Brandon Lee</h2>
+    <p class="modal-sub">Strategic Program Manager · PMO Architect · AI Operations<br>Austin, TX · Open to Remote / Hybrid</p>
+    <div class="modal-contacts">
+      <a href="mailto:lee.brandon.anthony@gmail.com" class="modal-contact-item">
+        <div class="modal-contact-icon icon-purple">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#BF5AF2" stroke-width="1.3"/><polyline points="2,6 9,11 16,6" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Email</span>
+          <span class="modal-contact-value">lee.brandon.anthony@gmail.com</span>
+        </div>
+      </a>
+      <a href="tel:4254456259" class="modal-contact-item">
+        <div class="modal-contact-icon icon-green">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 3h3l1.5 3.5-2 1.5c.9 2 2.5 3.6 4.5 4.5l1.5-2L16 12v3c0 1.1-.9 2-2 2C6.3 17 1 11.7 1 5c0-1.1.9-2 2-2h1z" stroke="#30D158" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Phone</span>
+          <span class="modal-contact-value">425.445.6259</span>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/brandonl33" target="_blank" class="modal-contact-item">
+        <div class="modal-contact-icon icon-blue">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="3" stroke="#409CFF" stroke-width="1.3"/><line x1="5" y1="7" x2="5" y2="13" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="5" r="1" fill="#409CFF"/><path d="M8 13V10c0-1.1.9-2 2-2s2 .9 2 2v3" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="7" x2="8" y2="9" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">LinkedIn</span>
+          <span class="modal-contact-value">linkedin.com/in/brandonl33</span>
+        </div>
+      </a>
+      <a href="https://docs.google.com/document/d/1q0kl5eXczE8FOX7IKKFjAgLCimTtumP4wiJUIcw0-3g/export?format=pdf" target="_blank" class="modal-contact-item">
+        <div class="modal-contact-icon icon-amber">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="1" width="10" height="13" rx="1.5" stroke="#FF9F0A" stroke-width="1.3"/><line x1="6" y1="5" x2="11" y2="5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="7.5" x2="11" y2="7.5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="10" x2="9" y2="10" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><path d="M10 13v4l2-1.5 2 1.5V13" stroke="#FF9F0A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <span class="modal-contact-label">Resume</span>
+          <span class="modal-contact-value">Download PDF</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
+  }, { threshold: 0.07 });
+  reveals.forEach(el => io.observe(el));
+
+  function openModal(){
+    document.getElementById('contactModal').classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    document.getElementById('contactModal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+</script>
+</body>
+</html>
