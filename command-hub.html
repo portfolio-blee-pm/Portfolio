@@ -201,7 +201,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;ali
 .btn-outline:hover{border-color:var(--amber);transform:scale(1.02);}
 
 /* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
+.modal-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
 .modal-overlay.open{opacity:1;pointer-events:all;}
 .modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);}
 .modal-box{position:relative;z-index:1;background:var(--gray-12);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:3rem;max-width:480px;width:100%;transform:translateY(20px) scale(0.97);transition:transform 0.3s ease;box-shadow:0 40px 80px rgba(0,0,0,0.6);}
