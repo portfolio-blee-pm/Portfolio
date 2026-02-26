@@ -25,6 +25,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:9999;height:48px;background:rgba
 .nav-links a{font-size:12px;color:rgba(255,255,255,.72);text-decoration:none;padding:0 10px;height:48px;display:flex;align-items:center;transition:color .18s;}
 .nav-links a:hover{color:#fff;}
 .nav-cta{color:var(--blue)!important;}
+.nav-hub-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
+  padding: 6px 16px;
+  background: rgba(0, 113, 227, 0.15);
+  color: #0071e3 !important;
+  border: 1px solid rgba(0, 113, 227, 0.35);
+  border-radius: 980px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .2s ease;
+}
+.nav-hub-btn:hover {
+  background: rgba(0, 113, 227, 0.28);
+  border-color: rgba(0, 113, 227, 0.7);
+  transform: translateY(-1px);
+}
 
 .hnp{min-height:100vh;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 20px;position:relative;overflow:hidden;}
 .hnp-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:1000px;height:700px;background:radial-gradient(ellipse,rgba(0,113,227,.22) 0%,rgba(0,60,180,.06) 45%,transparent 70%);pointer-events:none;animation:glowB 6s ease-in-out infinite;}
@@ -237,7 +257,8 @@ footer{background:#1d1d1f;padding:12px 20px;display:flex;align-items:center;just
       <a href="#pmo" onclick="document.getElementById('pmo').scrollIntoView({behavior:'smooth'});return false;">PMO</a>
       <a href="#skills" onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'});return false;">Skills</a>
       <a href="#experience" onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'});return false;">Experience</a>
-      <a href="#contact" class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact →</a>
+      <a href="#contact" class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});return false;">Contact →</a> <a href="hub.html" class="nav-hub-btn">⚙️ Command Hub</a>
+<a href="hub.html" class="nav-hub-btn">⚙️ Command Hub</a>
     </div>
   </div>
 </nav>
