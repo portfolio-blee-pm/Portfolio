@@ -585,7 +585,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;ali
   
   /* 8-card gallery grid */
   .modal-cards-8 {
-    grid-template-columns: repeat(4, 1fr);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
   }
   @media (max-width: 1200px) { .modal-cards-8 { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 900px)  { .modal-cards-8 { grid-template-columns: repeat(2, 1fr); } }
