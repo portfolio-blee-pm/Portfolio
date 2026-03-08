@@ -1,875 +1,1260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>AI & Automation · Brandon Lee</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --black:   #000000;
-  --gray-85: #D1D1D6;
-  --gray-60: #8E8E93;
-  --gray-30: #3A3A3C;
-  --gray-20: #2C2C2E;
-  --gray-12: #1C1C1E;
-  --gray-08: #141416;
-  --blue:    #0A84FF;
-  --blue-lt: #409CFF;
-  --green:   #30D158;
-  --amber:   #FF9F0A;
-  --red:     #FF453A;
-  --purple:  #BF5AF2;
-  --mono:    'JetBrains Mono', monospace;
-  --display: 'Rajdhani', sans-serif;
-  --body:    'DM Sans', sans-serif;
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0d12;--bg2:#13131a;--bg3:#1a1a24;--bg4:#22222e;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --pink:#f72585;--lavender:#b5a0ff;
+  --white:#f0eeff;--muted:#7a7390;--muted2:#4a4560;
+  --font-h:'Figtree',sans-serif;--font-b:'Figtree',sans-serif;--font-m:'JetBrains Mono',monospace;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{background:var(--black);color:#F5F5F7;font-family:var(--body);font-weight:300;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--font-b);font-size:16px;font-weight:400;line-height:1.7;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;opacity:.35;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(0,0,0,0.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,0.08);}
-.nav-back{display:flex;align-items:center;gap:0.4rem;color:var(--blue-lt);text-decoration:none;font-size:0.82rem;transition:opacity 0.2s;}
-.nav-back:hover{opacity:0.7;}
-.nav-center{font-size:0.82rem;font-weight:500;color:#F5F5F7;}
-.nav-badge{font-family:var(--mono);font-size:0.65rem;color:var(--gray-60);letter-spacing:0.06em;}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:54px;background:rgba(13,13,18,0.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--font-h);font-weight:700;font-size:.9rem;color:var(--white);text-decoration:none;letter-spacing:.03em}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-size:.7rem;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.active{color:var(--pink)}
 
-/* ── HERO ── */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5vw 8rem;position:relative;overflow:hidden;}
-.hero-glow{position:absolute;inset:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse 70% 55% at 30% 40%, rgba(191,90,242,0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 75% 55%, rgba(10,132,255,0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 35% at 50% 85%, rgba(48,209,88,0.08) 0%, transparent 55%);}
+.breadcrumb{position:relative;z-index:1;display:flex;align-items:center;gap:.5rem;font-family:var(--font-m);font-size:.65rem;color:var(--muted);letter-spacing:.1em;padding:.9rem 2rem;border-bottom:1px solid var(--border);margin-top:54px;background:var(--bg)}
+.breadcrumb a{color:var(--muted);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--white)}
+.breadcrumb .sep{color:rgba(255,255,255,.15)}
+.breadcrumb .cur{color:var(--pink)}
 
-/* Animated neural network bg */
-.hero-neural{position:absolute;inset:0;opacity:0.12;pointer-events:none;}
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:7rem 2rem 5rem;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 70% 60% at 65% 20%,rgba(247,37,133,.1) 0%,transparent 65%),radial-gradient(ellipse 50% 70% at 20% 80%,rgba(181,160,255,.07) 0%,transparent 60%)}
+.city-nodes{position:absolute;inset:0;z-index:0;pointer-events:none}
+.city-node{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px}
+.city-node .dot{width:6px;height:6px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink);animation:cityPulse var(--d,3s) ease-in-out infinite var(--delay,0s)}
+.city-node .dot.lav{background:var(--lavender);box-shadow:0 0 10px var(--lavender)}
+.city-node .ring{position:absolute;width:6px;height:6px;border-radius:50%;border:1px solid var(--pink);animation:ringOut var(--d,3s) ease-out infinite var(--delay,0s);opacity:0}
+.city-node .ring.lav{border-color:var(--lavender)}
+.city-node .lbl{font-family:var(--font-m);font-size:.5rem;color:var(--muted);letter-spacing:.1em;opacity:.7}
+@keyframes cityPulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+@keyframes ringOut{0%{transform:scale(1);opacity:.7}100%{transform:scale(4.5);opacity:0}}
+.hero-inner{position:relative;z-index:1}
+.eyebrow{font-family:var(--font-m);font-size:.68rem;color:var(--pink);letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.1rem}
+.hero-title{font-family:var(--font-h);font-size:clamp(3.5rem,9vw,8.5rem);font-weight:900;line-height:.9;letter-spacing:-.03em;margin-bottom:1.6rem;color:var(--white)}
+.hero-title .pk{color:var(--pink)}
+.hero-subtitle{font-family:var(--font-b);font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:500;color:var(--white);margin-bottom:1.8rem;line-height:1.4}
+.hero-subtitle .hl{color:var(--pink);font-weight:600}
+.hero-body{font-size:1rem;color:var(--muted);max-width:520px;line-height:1.8;margin-bottom:3rem}
 
-.hero-content{position:relative;z-index:2;max-width:900px;}
-.hero-eyebrow{display:flex;align-items:center;gap:0.9rem;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.2s ease forwards;}
-.eyebrow-chip{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--purple);border:1px solid rgba(191,90,242,0.35);padding:0.3rem 0.9rem;border-radius:999px;}
-.eyebrow-co{font-size:0.82rem;color:var(--gray-60);}
+/* STAT BOX */
+.stat-box{border:1px solid var(--border2);border-radius:12px;display:grid;grid-template-columns:repeat(4,1fr);overflow:hidden;max-width:860px}
+.stat-cell{padding:1.5rem 1.75rem;border-right:1px solid var(--border2)}
+.stat-cell:last-child{border-right:none}
+.stat-val{font-family:var(--font-h);font-size:2.4rem;font-weight:800;line-height:1;margin-bottom:.4rem}
+.stat-val.pk{color:var(--pink)}
+.stat-val.lv{color:var(--lavender)}
+.stat-lbl{font-family:var(--font-m);font-size:.58rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.scroll-hint{position:absolute;bottom:2rem;right:2rem;z-index:1;font-family:var(--font-m);font-size:.58rem;color:var(--muted);letter-spacing:.14em;writing-mode:vertical-rl;display:flex;align-items:center;gap:.5rem}
+.scroll-hint::after{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,var(--muted),transparent);animation:sd 2s ease-in-out infinite}
+@keyframes sd{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(.5)}}
 
-.hero-kicker{font-family:var(--mono);font-size:0.75rem;color:var(--purple);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s 0.3s ease forwards;}
+/* LAYOUT */
+section{position:relative;z-index:1}
+.container{max-width:1080px;margin:0 auto;padding:0 2rem}
+.sp{padding:6rem 0}
+hr.div{border:none;border-top:1px solid var(--border)}
+.sec-num{display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-m);font-size:.65rem;font-weight:500;letter-spacing:.1em;color:var(--pink);border:1px solid var(--pink);border-radius:6px;padding:.2rem .6rem;margin-bottom:1.5rem}
+.sec-h{font-family:var(--font-h);font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:1rem;color:var(--white)}
+.sec-h .pk{color:var(--pink)}
+.sec-h .lv{color:var(--lavender)}
+.sec-p{font-size:1rem;color:var(--muted);max-width:600px;line-height:1.8;margin-bottom:3rem}
 
-.hero-h1{font-family:var(--display);font-size:clamp(3.5rem,10vw,9rem);font-weight:700;line-height:0.88;letter-spacing:-0.02em;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.4s ease forwards;}
-.h1-ai{color:#F5F5F7;}
-.h1-amp{color:var(--gray-60);font-weight:500;}
-.h1-auto{
-  background:linear-gradient(135deg, var(--blue-lt) 0%, var(--purple) 60%, var(--blue-lt) 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:gradShift 4s ease infinite 1.2s;
-}
-@keyframes gradShift{0%,100%{background-position:0% center;}50%{background-position:100% center;}}
+/* STAR CALLOUT */
+.star-callout{border-left:3px solid var(--pink);padding:1.75rem 2rem;background:rgba(247,37,133,.04);margin:3rem 0;position:relative;border-radius:0 8px 8px 0}
+.star-callout::before{content:'⭐';position:absolute;top:-13px;left:1.5rem;font-size:.85rem;background:var(--bg);padding:0 .4rem}
+.star-callout p{font-family:var(--font-h);font-size:1.05rem;font-weight:600;line-height:1.65;color:var(--white)}
+.star-callout p strong{color:var(--pink)}
+.star-callout cite{display:block;font-family:var(--font-m);font-size:.62rem;color:var(--muted);letter-spacing:.12em;margin-top:.8rem;font-style:normal}
 
-.hero-sub{font-size:clamp(1rem,2vw,1.2rem);color:var(--gray-60);max-width:600px;line-height:1.65;margin-bottom:1.5rem;opacity:0;animation:fadeUp 0.8s 0.55s ease forwards;}
-.hero-tagline{font-family:var(--display);font-size:clamp(1.1rem,2.2vw,1.6rem);font-weight:600;color:#F5F5F7;margin-bottom:3.5rem;opacity:0;animation:fadeUp 0.8s 0.65s ease forwards;}
-.hero-tagline span{color:var(--purple);}
+/* prompt-block removed — see .app-prompt */
 
-.hero-kpi{display:flex;gap:0;flex-wrap:nowrap;border:1px solid rgba(255,255,255,0.08);border-radius:18px;overflow:hidden;max-width:700px;opacity:0;animation:fadeUp 0.8s 0.75s ease forwards;}
-.kpi-cell{flex:1;padding:1.4rem 1.6rem;border-right:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);}
-.kpi-cell:last-child{border-right:none;}
-.kpi-num{font-family:var(--display);font-size:2.2rem;font-weight:700;line-height:1;display:block;margin-bottom:0.3rem;color:#F5F5F7;}
-.kpi-num.purple{color:var(--purple);}
-.kpi-num.blue{color:var(--blue-lt);}
-.kpi-num.green{color:var(--green);}
-.kpi-label{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;}
+/* TWO-COL SPLIT */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem}
+.two-col-wide{display:grid;grid-template-columns:1.4fr 1fr;gap:2.5rem;align-items:start}
 
-/* ── LAYOUT ── */
-.divider{height:1px;background:rgba(255,255,255,0.06);}
-.sw{padding:7rem 5vw;max-width:1200px;margin:0 auto;}
-.sw-bg{background:var(--gray-08);}
-.sw-bg .sw{max-width:1200px;}
+/* TIMELINE */
+.phase-list{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.phase-row{display:grid;grid-template-columns:130px 1fr;border-bottom:1px solid var(--border);transition:background .2s}
+.phase-row:last-child{border-bottom:none}
+.phase-row:hover{background:rgba(247,37,133,.025)}
+.phase-left{padding:2rem 1.5rem;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:.4rem}
+.p-label{font-family:var(--font-m);font-size:.56rem;color:var(--pink);letter-spacing:.15em;text-transform:uppercase}
+.p-big{font-family:var(--font-h);font-size:2.8rem;font-weight:800;color:rgba(247,37,133,.1);line-height:1}
+.p-time{font-family:var(--font-m);font-size:.58rem;color:var(--muted2);letter-spacing:.08em}
+.phase-right{padding:2rem 2.25rem}
+.p-sub{font-family:var(--font-m);font-size:.6rem;color:var(--lavender);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.4rem;opacity:.9}
+.p-title{font-family:var(--font-h);font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
+.p-body{font-size:.88rem;color:var(--muted);line-height:1.72;max-width:560px;margin-bottom:1rem}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.tag{font-family:var(--font-m);font-size:.58rem;padding:.22rem .6rem;border:1px solid var(--border);color:var(--muted);letter-spacing:.06em;border-radius:20px;transition:all .2s}
+.tag:hover,.tag.hi{border-color:rgba(247,37,133,.4);color:var(--pink)}
 
-.sec-label{display:flex;align-items:center;gap:1.2rem;margin-bottom:0.8rem;}
-.sec-num{font-family:var(--mono);font-size:0.65rem;color:var(--purple);letter-spacing:0.1em;border:1px solid rgba(191,90,242,0.3);padding:0.25rem 0.6rem;border-radius:4px;}
-.sec-rule{flex:1;height:1px;background:rgba(255,255,255,0.07);}
-.sec-title{font-family:var(--display);font-size:clamp(2.2rem,4.5vw,4rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;}
-.sec-desc{font-size:1rem;color:var(--gray-60);max-width:600px;margin-bottom:3.5rem;line-height:1.7;}
+/* PHIL GRID */
+.phil-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.phil-cell{background:var(--bg2);padding:2.25rem;position:relative;overflow:hidden;transition:background .25s;border:1px solid var(--border);border-radius:12px}
+.phil-cell:hover{background:var(--bg3)}
+.phil-cell::after{content:attr(data-n);position:absolute;top:-.5rem;right:1rem;font-family:var(--font-h);font-size:5rem;font-weight:800;color:rgba(247,37,133,.05);line-height:1;pointer-events:none}
+.phil-icon{font-size:1.3rem;margin-bottom:.75rem;display:block}
+.phil-title{font-family:var(--font-h);font-size:1rem;font-weight:700;margin-bottom:.45rem}
+.phil-body{font-size:.86rem;color:var(--muted);line-height:1.68}
 
-/* ── CARDS ── */
-.c{background:var(--gray-12);transition:background 0.25s;}
-.c:hover{background:#1e1e21;}
-.card-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
-.card-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
-.card-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;}
+/* APPLICATION CARDS */
+.app-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.app-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:2rem;transition:border-color .3s,background .25s,transform .2s;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:.85rem}
+.app-card:hover{background:var(--bg3);border-color:rgba(247,37,133,.3);transform:translateY(-3px)}
+.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--lavender),transparent);opacity:0;transition:opacity .3s}
+.app-card:hover::before{opacity:1}
+.app-card.full{grid-column:1/-1}
+/* SVG icon container */
+.app-icon-wrap{width:58px;height:58px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.app-icon-wrap.pink{background:rgba(247,37,133,.15);box-shadow:inset 0 0 0 1px rgba(247,37,133,.2),0 0 18px rgba(247,37,133,.1)}
+.app-icon-wrap.lav{background:rgba(181,160,255,.12);box-shadow:inset 0 0 0 1px rgba(181,160,255,.2),0 0 18px rgba(181,160,255,.08)}
+.app-icon-wrap.mix{background:linear-gradient(135deg,rgba(247,37,133,.14),rgba(181,160,255,.1));box-shadow:inset 0 0 0 1px rgba(247,37,133,.15),0 0 18px rgba(247,37,133,.08)}
+.app-icon-wrap svg{width:26px;height:26px}
+.app-title{font-family:var(--font-h);font-size:1rem;font-weight:700;line-height:1.3;margin:0}
+.app-body{font-size:.84rem;color:var(--muted);line-height:1.7;flex:1}
+.app-usecase{font-family:var(--font-m);font-size:.6rem;color:var(--muted2);letter-spacing:.08em;line-height:1.5;padding:.65rem .8rem;background:rgba(255,255,255,.025);border-radius:6px;border-left:2px solid var(--pink)}
+.app-usecase.lv{border-left-color:var(--lavender)}
+.app-techniques{display:flex;flex-wrap:wrap;gap:.3rem}
+.tech-tag{font-family:var(--font-m);font-size:.52rem;padding:.18rem .52rem;border-radius:20px;border:1px solid rgba(247,37,133,.22);color:var(--pink);letter-spacing:.05em}
+.tech-tag.lv{border-color:rgba(181,160,255,.22);color:var(--lavender)}
+/* prompt block inside card */
+.app-prompt{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:8px;padding:1rem 1.1rem;font-family:var(--font-m);font-size:.72rem;color:rgba(240,238,255,.55);line-height:1.65;position:relative;margin-top:.2rem}
+.app-prompt::before{content:'PROMPT';display:block;font-size:.5rem;color:var(--pink);letter-spacing:.18em;margin-bottom:.5rem;opacity:.8}
+.app-prompt details summary{cursor:pointer;color:var(--pink);font-size:.6rem;letter-spacing:.1em;list-style:none;margin-bottom:.5rem;outline:none}
+.app-prompt details summary::-webkit-details-marker{display:none}
+.app-prompt details[open] summary{margin-bottom:.75rem}
+.app-prompt .prompt-full{white-space:pre-wrap;font-size:.7rem;color:rgba(240,238,255,.6);line-height:1.7}
 
-.c-pad{padding:2.5rem;}
-.c-tall{min-height:280px;display:flex;flex-direction:column;gap:1rem;}
-.c-wide{grid-column:1/-1;}
-.c-wide-row{grid-column:1/-1;display:flex;align-items:center;gap:3rem;padding:2.5rem 3rem;}
+/* KPI DASHBOARD */
+.dashboard{border:1px solid var(--border2);border-radius:12px;overflow:hidden}
+.dash-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.75rem;background:var(--bg3);border-bottom:1px solid var(--border)}
+.dash-head-title{font-family:var(--font-m);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.dash-live{display:flex;align-items:center;gap:.4rem;font-family:var(--font-m);font-size:.58rem;color:var(--pink);letter-spacing:.1em}
+.dash-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--pink);box-shadow:0 0 6px var(--pink);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.kpi-card{padding:1.5rem;border-right:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden;transition:background .2s}
+.kpi-card:hover{background:var(--bg3)}
+.kpi-card:nth-child(4n){border-right:none}
+.kpi-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--pink),var(--lavender));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.kpi-card:hover::after{transform:scaleX(1)}
+.kpi-lbl{font-family:var(--font-m);font-size:.56rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.55rem}
+.kpi-val{font-family:var(--font-h);font-size:2rem;font-weight:800;line-height:1;color:var(--white);margin-bottom:.3rem}
+.kpi-val.pk{color:var(--pink)}
+.kpi-val.lv{color:var(--lavender)}
+.kpi-delta{font-family:var(--font-m);font-size:.58rem;letter-spacing:.06em;color:var(--pink)}
+.kpi-spark{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:.8rem}
+.kpi-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--pink),var(--lavender));width:0;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.int-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border)}
+.int-cell{padding:.85rem 1.5rem;border-right:1px solid var(--border);display:flex;align-items:center;gap:.55rem;font-size:.78rem;transition:background .2s}
+.int-cell:hover{background:var(--bg4)}
+.int-cell:last-child{border-right:none}
+.int-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.int-dot.live{background:var(--pink);box-shadow:0 0 5px var(--pink)}
+.int-dot.lav{background:var(--lavender);box-shadow:0 0 5px var(--lavender)}
 
-.c-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.icon-purple{background:rgba(191,90,242,0.14);}
-.icon-blue{background:rgba(10,132,255,0.14);}
-.icon-green{background:rgba(48,209,88,0.14);}
-.icon-amber{background:rgba(255,159,10,0.14);}
-.icon-red{background:rgba(255,69,58,0.14);}
+/* RESULTS */
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.r-card{background:var(--bg2);border:1px solid var(--border);padding:2rem;transition:border-color .25s;border-radius:12px}
+.r-card:hover{border-color:rgba(247,37,133,.3)}
+.r-lbl{font-family:var(--font-m);font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.3rem}
+.r-val{font-family:var(--font-h);font-size:3rem;font-weight:800;color:var(--pink);line-height:1;margin-bottom:.65rem}
+.r-val.lv{color:var(--lavender)}
+.r-track{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-bottom:.6rem}
+.r-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--pink),var(--lavender));width:0;transition:width 1.5s cubic-bezier(.16,1,.3,1)}
+.r-desc{font-size:.83rem;color:var(--muted);line-height:1.65}
 
-.c h3{font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;line-height:1.15;margin-bottom:0.6rem;}
-.c h4{font-family:var(--mono);font-size:0.63rem;font-weight:500;color:var(--purple);letter-spacing:0.1em;text-transform:uppercase;margin:1.2rem 0 0.6rem;}
-.c p{font-size:0.88rem;color:var(--gray-60);line-height:1.7;}
-.c ul{list-style:none;display:flex;flex-direction:column;gap:0.45rem;margin-top:0.8rem;}
-.c ul li{display:flex;align-items:flex-start;gap:0.65rem;font-size:0.85rem;color:var(--gray-85);line-height:1.55;}
-.c ul li::before{content:'→';color:var(--purple);flex-shrink:0;}
+/* GOV GRID */
+.gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.gov-cell{background:var(--bg2);padding:2rem;display:flex;gap:1rem;align-items:flex-start;transition:background .2s;border:1px solid var(--border);border-radius:12px}
+.gov-cell:hover{background:var(--bg3)}
+.gov-icon-wrap{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.gov-icon-wrap.pink{background:rgba(247,37,133,.13);box-shadow:inset 0 0 0 1px rgba(247,37,133,.18)}
+.gov-icon-wrap.lav{background:rgba(181,160,255,.11);box-shadow:inset 0 0 0 1px rgba(181,160,255,.18)}
+.gov-icon-wrap svg{width:20px;height:20px}
+.gov-title{font-family:var(--font-h);font-size:.95rem;font-weight:700;margin-bottom:.35rem}
+.gov-body{font-size:.82rem;color:var(--muted);line-height:1.65}
 
-.tag{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.6rem;border-radius:6px;letter-spacing:0.05em;}
-.tag-purple{background:rgba(191,90,242,0.1);border:1px solid rgba(191,90,242,0.2);color:var(--purple);}
-.tag-blue{background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.2);color:var(--blue-lt);}
-.tag-green{background:rgba(48,209,88,0.1);border:1px solid rgba(48,209,88,0.2);color:var(--green);}
-.tag-amber{background:rgba(255,159,10,0.1);border:1px solid rgba(255,159,10,0.2);color:var(--amber);}
-.tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem;}
+/* TIMELINE — evolution of tools */
+.tool-timeline{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.tt-row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--border);transition:background .2s}
+.tt-row:last-child{border-bottom:none}
+.tt-row:hover{background:rgba(247,37,133,.025)}
+.tt-left{padding:1.75rem 1.5rem;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;gap:.3rem}
+.tt-tool{font-family:var(--font-h);font-size:.95rem;font-weight:700;color:var(--white)}
+.tt-badge{font-family:var(--font-m);font-size:.56rem;padding:.2rem .5rem;border-radius:20px;border:1px solid rgba(247,37,133,.3);color:var(--pink);letter-spacing:.08em;align-self:flex-start;margin-top:.2rem}
+.tt-badge.lv{border-color:rgba(181,160,255,.3);color:var(--lavender)}
+.tt-right{padding:1.75rem 2.25rem}
+.tt-title{font-family:var(--font-h);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.tt-body{font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:.75rem}
 
-/* ── ARCHITECTURE DIAGRAM ── */
-.arch-wrap{background:var(--gray-12);border-radius:22px;padding:3rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.06);}
-.arch-title{font-family:var(--display);font-size:1.5rem;font-weight:600;color:#F5F5F7;margin-bottom:0.5rem;}
-.arch-sub{font-size:0.86rem;color:var(--gray-60);margin-bottom:2.5rem;max-width:640px;}
+/* CTA */
+.cta-band{background:var(--bg2);border-top:1px solid var(--border);padding:6rem 0;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 90% at 50% 110%,rgba(247,37,133,.12) 0%,transparent 70%)}
+.cta-eyebrow{font-family:var(--font-m);font-size:.62rem;color:var(--pink);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.8rem}
+.cta-h{font-family:var(--font-h);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;letter-spacing:-.03em;line-height:.9;margin-bottom:1.2rem;position:relative;z-index:1}
+.cta-h .pk{color:var(--pink)}
+.cta-sub{font-size:1rem;color:var(--muted);max-width:460px;margin:0 auto 2.5rem;line-height:1.7;position:relative;z-index:1}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative;z-index:1}
+.btn-a{font-family:var(--font-h);font-weight:700;font-size:.88rem;letter-spacing:.04em;padding:.95rem 2.25rem;background:var(--pink);color:#fff;text-decoration:none;display:inline-block;border-radius:50px;transition:opacity .2s,transform .15s}
+.btn-a:hover{opacity:.88;transform:translateY(-2px)}
+.btn-b{font-family:var(--font-h);font-weight:700;font-size:.88rem;letter-spacing:.04em;padding:.95rem 2.25rem;background:transparent;color:var(--white);border:1.5px solid var(--border2);text-decoration:none;display:inline-block;border-radius:50px;transition:border-color .2s,transform .15s}
+.btn-b:hover{border-color:var(--white);transform:translateY(-2px)}
 
-/* The 5-layer stack diagram */
-.arch-layers{display:flex;flex-direction:column;gap:3px;}
-.arch-layer{display:flex;align-items:stretch;gap:3px;min-height:72px;}
-.arch-layer-label{width:160px;flex-shrink:0;display:flex;align-items:center;padding:0 1.2rem;background:rgba(255,255,255,0.03);border-radius:10px 0 0 10px;font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,0.05);border-right:none;}
-.arch-layer-body{flex:1;display:flex;align-items:center;gap:2px;overflow:hidden;}
-.arch-block{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0.8rem 1rem;border-radius:0;font-size:0.8rem;color:#F5F5F7;line-height:1.4;position:relative;overflow:hidden;min-height:72px;}
-.arch-block:first-child{border-radius:0;}
-.arch-block:last-child{border-radius:0 10px 10px 0;}
-.arch-block-title{font-weight:500;font-size:0.82rem;color:#F5F5F7;margin-bottom:0.15rem;}
-.arch-block-sub{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.04em;}
+footer{padding:1.75rem 2rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
+.foot-l{font-family:var(--font-m);font-size:.62rem;color:var(--muted);letter-spacing:.06em}
+.foot-r{display:flex;gap:1.5rem}
+.foot-r a{font-size:.74rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-r a:hover{color:var(--white)}
 
-.layer-data .arch-block{background:rgba(10,132,255,0.1);border:1px solid rgba(10,132,255,0.15);}
-.layer-data .arch-block-title{color:var(--blue-lt);}
-.layer-agent .arch-block{background:rgba(191,90,242,0.1);border:1px solid rgba(191,90,242,0.15);}
-.layer-agent .arch-block-title{color:var(--purple);}
-.layer-eval .arch-block{background:rgba(255,159,10,0.08);border:1px solid rgba(255,159,10,0.15);}
-.layer-eval .arch-block-title{color:var(--amber);}
-.layer-action .arch-block{background:rgba(48,209,88,0.08);border:1px solid rgba(48,209,88,0.15);}
-.layer-action .arch-block-title{color:var(--green);}
-.layer-oversight .arch-block{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);}
-.layer-oversight .arch-block-title{color:#F5F5F7;}
+.fu{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fu.vis{opacity:1;transform:translateY(0)}
 
-/* Flow arrows between layers */
-.arch-flow-arrow{display:flex;align-items:center;justify-content:center;height:18px;gap:0.5rem;}
-.arch-flow-arrow span{font-family:var(--mono);font-size:0.55rem;color:rgba(255,255,255,0.2);letter-spacing:0.08em;}
-.arch-flow-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);}
-
-/* ── PHASE TIMELINE ── */
-.phase-timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
-.pt-tile{background:var(--gray-12);padding:2.5rem;display:flex;flex-direction:column;gap:0.9rem;position:relative;transition:background 0.25s;}
-.pt-tile:hover{background:#1e1e21;}
-.pt-tile::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;opacity:0;transition:opacity 0.3s;}
-.pt-tile:hover::before{opacity:1;}
-.pt-tile.p1::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
-.pt-tile.p2::before{background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);}
-.pt-tile.p3::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
-.pt-badge{font-family:var(--mono);font-size:0.6rem;padding:0.2rem 0.65rem;border-radius:6px;letter-spacing:0.08em;width:fit-content;}
-.pt-badge.purple{background:rgba(191,90,242,0.12);color:var(--purple);border:1px solid rgba(191,90,242,0.22);}
-.pt-badge.blue{background:rgba(10,132,255,0.12);color:var(--blue-lt);border:1px solid rgba(10,132,255,0.22);}
-.pt-badge.green{background:rgba(48,209,88,0.12);color:var(--green);border:1px solid rgba(48,209,88,0.22);}
-.pt-timing{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);}
-.pt-name{font-family:var(--display);font-size:1.35rem;font-weight:600;color:#F5F5F7;line-height:1.1;}
-.pt-outcome{font-family:var(--mono);font-size:0.6rem;color:var(--green);border:1px solid rgba(48,209,88,0.2);padding:0.2rem 0.65rem;border-radius:6px;width:fit-content;letter-spacing:0.05em;}
-.pt-desc{font-size:0.85rem;color:var(--gray-60);line-height:1.7;}
-.pt-chips{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:auto;padding-top:0.8rem;}
-.pt-chip{font-family:var(--mono);font-size:0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);color:var(--gray-85);padding:0.2rem 0.6rem;border-radius:6px;letter-spacing:0.04em;}
-
-/* ── AGENT LOOP VISUAL ── */
-.agent-loop{background:var(--gray-12);border-radius:22px;padding:3rem;border:1px solid rgba(255,255,255,0.06);}
-.agent-loop-title{font-family:var(--display);font-size:1.4rem;font-weight:600;color:#F5F5F7;margin-bottom:0.5rem;}
-.agent-loop-sub{font-size:0.86rem;color:var(--gray-60);margin-bottom:2rem;}
-.loop-steps{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:0.5rem;}
-.loop-step{display:flex;flex-direction:column;align-items:center;gap:0.6rem;flex-shrink:0;width:120px;text-align:center;}
-.loop-node{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;position:relative;}
-.loop-node.purple{background:rgba(191,90,242,0.12);border:1px solid rgba(191,90,242,0.3);}
-.loop-node.blue{background:rgba(10,132,255,0.12);border:1px solid rgba(10,132,255,0.3);}
-.loop-node.amber{background:rgba(255,159,10,0.12);border:1px solid rgba(255,159,10,0.3);}
-.loop-node.green{background:rgba(48,209,88,0.12);border:1px solid rgba(48,209,88,0.3);}
-.loop-node.gray{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);}
-.loop-step-num{font-family:var(--mono);font-size:0.55rem;color:var(--gray-60);letter-spacing:0.1em;}
-.loop-step-label{font-family:var(--mono);font-size:0.62rem;color:#F5F5F7;line-height:1.4;}
-.loop-step-sub{font-size:0.7rem;color:var(--gray-60);line-height:1.3;}
-.loop-arrow{flex-shrink:0;padding:0 0.3rem;margin-bottom:2.5rem;}
-.loop-arrow svg{opacity:0.35;}
-
-/* ── RESULTS ── */
-.res-hero{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:2px;background:rgba(255,255,255,0.06);border-radius:22px;overflow:hidden;margin-bottom:1.5rem;}
-.rh-cell{background:var(--gray-12);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:0.8rem;position:relative;overflow:hidden;transition:background 0.25s;}
-.rh-cell:hover{background:#1e1e21;}
-.rh-cell::before{content:'';position:absolute;top:0;left:10%;right:10%;height:2px;}
-.rh-cell:nth-child(1)::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
-.rh-cell:nth-child(2)::before{background:linear-gradient(90deg,transparent,var(--blue-lt),transparent);}
-.rh-cell:nth-child(3)::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
-.rh-cell:nth-child(4)::before{background:linear-gradient(90deg,transparent,var(--amber),transparent);}
-.rh-icon{font-size:1.5rem;}
-.rh-num{font-family:var(--display);font-size:3.2rem;font-weight:700;line-height:1;letter-spacing:-0.02em;}
-.rh-num.purple{color:var(--purple);}
-.rh-num.blue{color:var(--blue-lt);}
-.rh-num.green{color:var(--green);}
-.rh-num.amber{color:var(--amber);}
-.rh-label{font-size:0.84rem;color:var(--gray-60);line-height:1.5;}
-.rh-sub{font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);letter-spacing:0.07em;text-transform:uppercase;margin-top:auto;}
-
-/* Mini vis */
-.rh-vis{position:absolute;right:1rem;bottom:1rem;opacity:0.08;pointer-events:none;}
-
-/* ── IMPACT BOX ── */
-.impact-box{background:var(--gray-12);border-radius:20px;padding:3rem;border:1px solid rgba(255,255,255,0.07);}
-.impact-box h3{font-family:var(--display);font-size:1.5rem;font-weight:600;color:var(--purple);margin-bottom:2rem;}
-.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;}
-.impact-row{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.86rem;color:var(--gray-85);line-height:1.55;}
-.impact-check{width:20px;height:20px;border-radius:50%;background:rgba(191,90,242,0.12);border:1px solid rgba(191,90,242,0.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.6rem;color:var(--purple);margin-top:0.15rem;}
-
-/* ── CTA ── */
-.cta-wrap{background:var(--gray-08);padding:8rem 5vw;text-align:center;position:relative;overflow:hidden;}
-.cta-wrap::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 50% at 50% 100%,rgba(191,90,242,0.1),transparent);}
-.cta-title{font-family:var(--display);font-size:clamp(2.5rem,5vw,5rem);font-weight:700;line-height:1;letter-spacing:-0.01em;color:#F5F5F7;margin-bottom:1rem;position:relative;z-index:1;}
-.cta-sub{font-size:1rem;color:var(--gray-60);max-width:460px;margin:0 auto 3rem;line-height:1.7;position:relative;z-index:1;}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
-.btn-purple{background:var(--purple);color:#fff;padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;transition:filter 0.2s,transform 0.2s;border:none;cursor:pointer;}
-.btn-purple:hover{filter:brightness(1.15);transform:scale(1.02);}
-.btn-outline{background:transparent;color:var(--purple);padding:0.85rem 2rem;border-radius:980px;font-size:0.88rem;font-weight:500;text-decoration:none;display:inline-block;border:1px solid rgba(191,90,242,0.35);transition:border-color 0.2s,transform 0.2s;cursor:pointer;}
-.btn-outline:hover{border-color:var(--purple);transform:scale(1.02);}
-
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity 0.25s ease;}
-.modal-overlay.open{opacity:1;pointer-events:all;}
-.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
-.modal-box{position:relative;z-index:1;background:var(--gray-12);border:1px solid rgba(255,255,255,0.1);border-radius:24px;padding:3rem;max-width:480px;width:100%;transform:translateY(20px) scale(0.97);transition:transform 0.3s ease;box-shadow:0 40px 80px rgba(0,0,0,0.6);}
-.modal-overlay.open .modal-box{transform:translateY(0) scale(1);}
-.modal-close{position:absolute;top:1.2rem;right:1.4rem;background:rgba(255,255,255,0.06);border:none;color:var(--gray-60);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s,color 0.2s;}
-.modal-close:hover{background:rgba(255,255,255,0.12);color:#F5F5F7;}
-.modal-eyebrow{font-family:var(--mono);font-size:0.62rem;color:var(--purple);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;}
-.modal-title{font-family:var(--display);font-size:2rem;font-weight:700;color:#F5F5F7;line-height:1;margin-bottom:0.4rem;}
-.modal-sub{font-size:0.85rem;color:var(--gray-60);margin-bottom:2rem;}
-.modal-contacts{display:flex;flex-direction:column;gap:0.7rem;}
-.modal-contact-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;text-decoration:none;transition:background 0.2s,border-color 0.2s;}
-.modal-contact-item:hover{background:rgba(255,255,255,0.07);border-color:rgba(191,90,242,0.3);}
-.modal-contact-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.modal-contact-label{font-family:var(--mono);font-size:0.6rem;color:var(--gray-60);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:0.15rem;}
-.modal-contact-value{font-size:0.88rem;color:#F5F5F7;font-weight:400;}
-
-/* ── SCROLL REVEAL ── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
-
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
-
-/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  nav{padding:0 1.2rem;}
-  .hero{padding:0 1.4rem 5rem;}
-  .sw{padding:5rem 1.4rem;}
-  .hero-kpi{flex-wrap:wrap;border-radius:16px;}
-  .kpi-cell{min-width:calc(50% - 1px);}
-  .card-grid-2,.card-grid-3,.card-grid-4,.phase-timeline,.res-hero{grid-template-columns:1fr;}
-  .c-wide-row{flex-direction:column;}
-  .arch-layer{flex-direction:column;}
-  .arch-layer-label{width:100%;border-radius:10px 10px 0 0;border-right:1px solid rgba(255,255,255,0.05);border-bottom:none;}
-  .arch-layer-body{flex-wrap:wrap;}
-  .loop-steps{flex-wrap:wrap;justify-content:center;}
-  .impact-grid{grid-template-columns:1fr;}
-  .cta-wrap{padding:5rem 1.4rem;}
+  .stat-box,.kpi-grid,.app-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-card:nth-child(4n){border-right:1px solid var(--border)}
+  .kpi-card:nth-child(2n){border-right:none}
+  .int-row{grid-template-columns:repeat(2,1fr)}
+  .int-cell:nth-child(2n){border-right:none}
+  .int-cell:nth-child(3),.int-cell:nth-child(4){border-top:1px solid var(--border)}
+  .results-grid,.gov-grid,.phil-grid,.two-col,.two-col-wide{grid-template-columns:1fr}
+  .phase-row,.tt-row{grid-template-columns:1fr}
+  .phase-left,.tt-left{border-right:none;border-bottom:1px solid var(--border)}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hero{padding:6rem 1rem 3rem}
+  .container{padding:0 1rem}
+  .stat-box{grid-template-columns:1fr 1fr}
+  .stat-cell:nth-child(2n){border-right:none}
+  .stat-cell:nth-child(3),.stat-cell:nth-child(4){border-top:1px solid var(--border2)}
+  .kpi-grid,.app-grid{grid-template-columns:1fr}
+  .kpi-card{border-right:none}
+  footer{flex-direction:column;gap:1rem;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- ══ NAV ══ -->
 <nav>
-  <a href="index.html" class="nav-back">
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7L9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Portfolio
-  </a>
-  <span class="nav-center">AI & Automation</span>
-  <span class="nav-badge">Recyclops · 2021–2022</span>
+  <a href="index.html" class="nav-logo">Brandon Lee</a>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="redyper-case-study.html">Case Study</a></li>
+    <li><a href="command-hub.html">Command Hub</a></li>
+    <li><a href="ai-automation.html" class="active">AI &amp; Automation</a></li>
+    <li><a href="pmo.html">PMO</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
 </nav>
 
-<!-- ══ HERO ══ -->
-<div class="hero">
-  <div class="hero-glow"></div>
+<div class="breadcrumb">
+  <a href="index.html">Portfolio</a>
+  <span class="sep">/</span>
+  <span class="cur">AI &amp; Automation</span>
+</div>
 
-  <!-- Animated neural net SVG background -->
-  <div class="hero-neural">
-    <svg width="100%" height="100%" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice">
-      <!-- Nodes -->
-      <g fill="none">
-        <circle cx="120" cy="180" r="4" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.1s" repeatCount="indefinite"/></circle>
-        <circle cx="300" cy="120" r="3" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="2.4s" repeatCount="indefinite"/></circle>
-        <circle cx="480" cy="200" r="5" fill="#BF5AF2" opacity="0.7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="2.8s" repeatCount="indefinite"/></circle>
-        <circle cx="660" cy="140" r="3" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.5s" repeatCount="indefinite"/></circle>
-        <circle cx="840" cy="220" r="4" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.2s" repeatCount="indefinite"/></circle>
-        <circle cx="1020" cy="160" r="3" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.8s" repeatCount="indefinite"/></circle>
-        <circle cx="200" cy="360" r="3" fill="#409CFF" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.7s" repeatCount="indefinite"/></circle>
-        <circle cx="420" cy="400" r="5" fill="#BF5AF2" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.3s" repeatCount="indefinite"/></circle>
-        <circle cx="600" cy="340" r="3" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="2.5s" repeatCount="indefinite"/></circle>
-        <circle cx="780" cy="420" r="4" fill="#409CFF" opacity="0.6"><animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.0s" repeatCount="indefinite"/></circle>
-        <circle cx="960" cy="380" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.9s" repeatCount="indefinite"/></circle>
-        <circle cx="1100" cy="300" r="5" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.6s" repeatCount="indefinite"/></circle>
-        <circle cx="320" cy="560" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.3s" repeatCount="indefinite"/></circle>
-        <circle cx="540" cy="520" r="4" fill="#409CFF" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.2s" repeatCount="indefinite"/></circle>
-        <circle cx="720" cy="600" r="3" fill="#BF5AF2" opacity="0.4"><animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.6s" repeatCount="indefinite"/></circle>
-        <circle cx="900" cy="560" r="5" fill="#30D158" opacity="0.5"><animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.4s" repeatCount="indefinite"/></circle>
-      </g>
-      <!-- Connecting lines -->
-      <g stroke="#BF5AF2" stroke-width="0.7" opacity="0.3">
-        <line x1="120" y1="180" x2="300" y2="120"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3s" repeatCount="indefinite"/></line>
-        <line x1="300" y1="120" x2="480" y2="200"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.5s" repeatCount="indefinite"/></line>
-        <line x1="480" y1="200" x2="660" y2="140"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.2s" repeatCount="indefinite"/></line>
-        <line x1="660" y1="140" x2="840" y2="220"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.8s" repeatCount="indefinite"/></line>
-        <line x1="840" y1="220" x2="1020" y2="160"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.5s" repeatCount="indefinite"/></line>
-        <line x1="120" y1="180" x2="200" y2="360"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.7s" repeatCount="indefinite"/></line>
-        <line x1="480" y1="200" x2="420" y2="400"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.1s" repeatCount="indefinite"/></line>
-        <line x1="660" y1="140" x2="600" y2="340"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.4s" repeatCount="indefinite"/></line>
-        <line x1="840" y1="220" x2="780" y2="420"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.3s" repeatCount="indefinite"/></line>
-        <line x1="1020" y1="160" x2="960" y2="380"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.9s" repeatCount="indefinite"/></line>
-        <line x1="200" y1="360" x2="420" y2="400"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.6s" repeatCount="indefinite"/></line>
-        <line x1="420" y1="400" x2="600" y2="340"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.4s" repeatCount="indefinite"/></line>
-        <line x1="600" y1="340" x2="780" y2="420"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.2s" repeatCount="indefinite"/></line>
-        <line x1="780" y1="420" x2="960" y2="380"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.6s" repeatCount="indefinite"/></line>
-        <line x1="420" y1="400" x2="320" y2="560"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.8s" repeatCount="indefinite"/></line>
-        <line x1="600" y1="340" x2="540" y2="520"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.0s" repeatCount="indefinite"/></line>
-        <line x1="780" y1="420" x2="720" y2="600"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="2.5s" repeatCount="indefinite"/></line>
-        <line x1="960" y1="380" x2="900" y2="560"><animate attributeName="opacity" values="0.3;0.05;0.3" dur="3.2s" repeatCount="indefinite"/></line>
-      </g>
-    </svg>
+<!-- HERO -->
+<section class="hero">
+  <div class="city-nodes" aria-hidden="true">
+    <div class="city-node" style="top:20%;left:16%;--d:3.2s;--delay:0s"><div class="ring"></div><div class="dot"></div><span class="lbl">NYC</span></div>
+    <div class="city-node" style="top:30%;left:70%;--d:2.8s;--delay:.5s"><div class="ring lav"></div><div class="dot lav"></div><span class="lbl">LA</span></div>
+    <div class="city-node" style="top:15%;left:52%;--d:3.6s;--delay:.9s"><div class="ring"></div><div class="dot"></div><span class="lbl">CHI</span></div>
+    <div class="city-node" style="top:44%;left:36%;--d:2.5s;--delay:1.3s"><div class="ring lav"></div><div class="dot lav"></div><span class="lbl">AUS</span></div>
+    <div class="city-node" style="top:24%;left:84%;--d:3.9s;--delay:.3s"><div class="ring"></div><div class="dot"></div><span class="lbl">SEA</span></div>
+    <div class="city-node" style="top:52%;left:60%;--d:3.1s;--delay:1.7s"><div class="ring lav"></div><div class="dot lav"></div><span class="lbl">ATL</span></div>
+    <div class="city-node" style="top:13%;left:32%;--d:4.1s;--delay:.7s"><div class="ring"></div><div class="dot"></div><span class="lbl">DEN</span></div>
+    <div class="city-node" style="top:37%;left:80%;--d:2.9s;--delay:1.1s"><div class="ring"></div><div class="dot"></div><span class="lbl">PHX</span></div>
   </div>
 
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-chip">⚡ Production AI</span>
-      <span class="eyebrow-co">Recyclops · 2021–2022 · GPT-3 Era</span>
-    </div>
-    <p class="hero-kicker">Agentic AI &amp; Automation</p>
-    <h1 class="hero-h1">
-      <span class="h1-ai">AI</span> <span class="h1-amp">&amp;</span><br>
-      <span class="h1-auto">Automation</span>
+  <div class="hero-inner">
+    <div class="eyebrow">AI Validation &amp; Decision Support</div>
+    <h1 class="hero-title">
+      Built the<br>
+      <span class="pk">Brain.</span>
     </h1>
-    <p class="hero-tagline">Agentic AI. <span>Real results.</span></p>
-    <p class="hero-sub">A production-grade, hybrid agentic AI layer built on top of live logistics infrastructure — not a demo, not a prototype. GPT-3 prompt chaining, real-time data pipelines, and human-in-the-loop governance at national scale.</p>
-    <div class="hero-kpi">
-      <div class="kpi-cell">
-        <span class="kpi-num purple">~50%</span>
-        <span class="kpi-label">Overhead Eliminated</span>
+    <p class="hero-subtitle">AI as a <span class="hl">Decision Support &amp; Validation Layer.</span></p>
+    <p class="hero-body">Not a chatbot experiment — and not the operating system. The program was built manually first. AI came in after: checking accuracy on completed flows, validating data pipelines, flagging gaps in playbooks, and supporting Go/No-Go decisions. GPT-3 started that discipline. Claude and GPT-4 extended it into production-deployed decision support across 25+ market launches.</p>
+
+    <div class="stat-box">
+      <div class="stat-cell">
+        <div class="stat-val pk counter" data-t="50">0</div>
+        <div class="stat-lbl">% overhead eliminated</div>
       </div>
-      <div class="kpi-cell">
-        <span class="kpi-num blue">2–3×</span>
-        <span class="kpi-label">Deployment Speed</span>
+      <div class="stat-cell">
+        <div class="stat-val">2–3×</div>
+        <div class="stat-lbl">deployment throughput</div>
       </div>
-      <div class="kpi-cell">
-        <span class="kpi-num green">18%</span>
-        <span class="kpi-label">Cost Reduction</span>
+      <div class="stat-cell">
+        <div class="stat-val lv counter" data-t="25">0</div>
+        <div class="stat-lbl">+ markets managed</div>
       </div>
-      <div class="kpi-cell">
-        <span class="kpi-num">Zero</span>
-        <span class="kpi-label">Critical AI Failures</span>
+      <div class="stat-cell">
+        <div class="stat-val lv">Zero</div>
+        <div class="stat-lbl">critical failures</div>
       </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ═══ 01 ORIGIN STORY ═══ -->
+<section class="sp">
+  <div class="container">
+    <div class="sec-num fu">01</div>
+    <h2 class="sec-h fu">Early Adopter.<br><span class="pk">Built First. Validated After.</span></h2>
+    <p class="sec-p fu">Long before "agentic AI" entered the lexicon, I was using GPT-3 via the OpenAI Playground and API to check accuracy on work I'd already built — validating completed flows, verifying data integrity after the API bridge was live, and confirming formula logic after monday.com boards were set up. The program was built manually first. AI was the quality layer that came after.</p>
+
+    <div class="star-callout fu">
+      <p>"The program was always designed and built by hand first. AI came in after — checking accuracy, validating flows, flagging gaps in what was already built. What started as <strong>a post-build accuracy layer became a competitive operating advantage.</strong>"</p>
+      <cite>— Brandon Lee · AI Application · ReDYPER National Launch Program</cite>
+    </div>
+
+    <!-- Tool evolution timeline -->
+    <div class="tool-timeline fu">
+      <div class="tt-row">
+        <div class="tt-left">
+          <div class="tt-tool">GPT-3</div>
+          <span class="tt-badge">Early Adopter</span>
+        </div>
+        <div class="tt-right">
+          <div class="tt-title">Post-Build Accuracy Validation</div>
+          <div class="tt-body">The ReDYPER program was designed and built manually first. GPT-3 was then applied via OpenAI Playground and API to check accuracy — reviewing completed operational flows for consistency gaps, validating data payloads after the API bridge was built, verifying aggregation formula logic in monday.com post-setup, and confirming bottleneck assumptions before multi-market commitment. A quality layer on top of human-built work, not a co-author of it.</div>
+          <div class="tags"><span class="tag hi">OpenAI Playground</span><span class="tag hi">OpenAI API</span><span class="tag">Flow Validation</span><span class="tag">Data Integrity</span><span class="tag">Aggregation Logic</span></div>
+        </div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-left">
+          <div class="tt-tool">ChatGPT</div>
+          <span class="tt-badge">Late 2022 →</span>
+        </div>
+        <div class="tt-right">
+          <div class="tt-title">Conversational Refinement at Scale</div>
+          <div class="tt-body">From late November 2022, ChatGPT enabled faster conversational iteration on playbooks, SOPs, documentation updates, stakeholder communications, and scenario planning. Applied during the accelerated national rollout — reviewing original manually-built playbooks and flagging inconsistencies, flow gaps, or missing steps as the program scaled to 25+ markets at 2.7–3 launches/month.</div>
+          <div class="tags"><span class="tag hi">ChatGPT</span><span class="tag">Playbook Refinement</span><span class="tag">SOP Updates</span><span class="tag">Scenario Planning</span><span class="tag">Documentation</span></div>
+        </div>
+      </div>
+      <div class="tt-row">
+        <div class="tt-left">
+          <div class="tt-tool">Claude + GPT-4</div>
+          <span class="tt-badge lv">Production</span>
+        </div>
+        <div class="tt-right">
+          <div class="tt-title">Agentic Workflows — Deployed</div>
+          <div class="tt-body">Full production deployment across KT Impact, Series A/B advisory clients, and ongoing programs. Chained prompt architectures, structured JSON intermediate states, predictive routing pipelines, agentic reporting automation, and Go/No-Go decision support systems — each governed with human-in-the-loop authority at every high-stakes gate.</div>
+          <div class="tags"><span class="tag hi">Claude</span><span class="tag hi">GPT-4</span><span class="tag">Prompt Chaining</span><span class="tag">Structured JSON</span><span class="tag">Agentic Workflows</span><span class="tag">Human-in-Loop</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- ═══ 02 SPECIFIC APPLICATIONS ═══ -->
+<section class="sp">
+  <div class="container">
+    <div class="sec-num fu">02</div>
+    <h2 class="sec-h fu">What Was Actually<br><span class="lv">Built &amp; Applied.</span></h2>
+    <p class="sec-p fu">These aren't use cases I read about. Each application below was built, tested, and iterated in a live operations context during the ReDYPER expansion — real prompts, real outputs, real operational impact.</p>
+
+    <div class="app-grid fu">
+
+      <!-- 1: Operational Model Validation -->
+      <div class="app-card">
+        <div class="app-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M3 9h18M9 21V9" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="app-title">Operational Model Validation</div>
+        <div class="app-body">Rigorous multi-dimensional validation of gig-aggregation flows — decomposed into phases, edge-case simulated at 300% volume surge, and rated on a 1–10 viability scale. Used before every multi-market commitment to confirm the model wouldn't break under real load.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Strict CoT</span><span class="tech-tag">Few-Shot</span><span class="tech-tag">JSON Output</span><span class="tech-tag">Edge-Case Simulation</span><span class="tech-tag lv">Self-Critique</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Perform a rigorous multi-dimensional validation of this gig-aggregation process summary [paste full process description].
+
+Follow this strict chain-of-thought process:
+1. Restate the core objective and key assumptions of the model in your own words (1–2 sentences).
+2. Decompose the process into discrete phases/components (e.g., driver onboarding, order matching, routing, pickup coordination, payment/settlement).
+3. For each phase: Evaluate consistency (internal logic alignment), bottlenecks (single points of failure, latency risks, capacity constraints), and scalability limits (from 3-market pilot to 25+ markets — consider driver density, seasonal spikes, jurisdictional variation).
+4. Simulate 4–6 realistic edge cases (e.g., 300% volume surge in one metro, 40% driver no-show rate during bad weather, cross-state regulatory mismatch) and assess model behavior.
+5. Rate overall viability on a 1–10 scale with justification.
+6. Flag any critical risks that would block multi-market commitment.
+
+Few-shot example of strong output:
+Phase: Order Matching
+- Consistency: High – logic aligns with SLA targets.
+- Bottleneck: Centralized dispatcher queue → single-threaded failure at >500 concurrent orders.
+- Scalability: Breaks above 15 markets without sharding.
+- Edge case simulation: 200% surge → 45-min delay → High risk.
+
+Output ONLY in this JSON structure:
+{
+  "summary": "...",
+  "phases": [{"phase": "...", "consistency": "...", "bottlenecks": [...], "scalability_limit": "...", "edge_cases_tested": [...]}],
+  "overall_viability_score": 8,
+  "critical_risks": [{"risk": "...", "severity": "Critical|High|Medium|Low", "mitigation_suggestion": "..."}],
+  "final_recommendation": "Approve | Approve with changes | Reject",
+  "self_critique": "What might I have missed? Confidence: 9/10"
+}</div>
+          </details>
+        </div>
+        <div class="app-usecase">PRE-ROLLOUT GATE — Process viability check before committing to new markets</div>
+      </div>
+
+      <!-- 2: Playbook & SOP -->
+      <div class="app-card">
+        <div class="app-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/>
+            <circle cx="18" cy="18" r="3" stroke="#f72585" opacity=".7"/><path d="M20.5 20.5l1.5 1.5" stroke="#f72585" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="app-title">Playbook &amp; SOP Iteration</div>
+        <div class="app-body">Side-by-side diff of updated process against existing playbook — every step, decision point, and artifact mapped. Issues severity-ranked (Critical = P0 risk), with precise minimal wording fixes quoted inline. Ensured audit-readiness without disrupting governance structure.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Step-by-Step Mapping</span><span class="tech-tag">Severity Scoring</span><span class="tech-tag lv">Markdown Table Output</span><span class="tech-tag">Audit Constraints</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Compare this updated process description [paste updated] against the existing playbook/SOP section [paste original].
+
+Step-by-step reasoning:
+1. Create a side-by-side mapping of every major step, decision point, and artifact.
+2. Identify: inconsistencies (logical contradictions), flow gaps (missing handoffs/transitions), redundancies, missing compliance/regulatory steps, unclear ownership/escalation.
+3. For each issue: assign severity (Critical = could cause P0 incident; High = delays/audit fail; Medium/Low).
+4. Propose precise, minimal wording changes or additions (quote original → suggested replacement).
+5. Ensure changes maintain audit-readiness (traceable, versionable, no disruption to existing governance).
+
+Example strong issue entry:
+Issue: No defined escalation for driver no-show >20%.
+Severity: High
+Suggested addition: After step 4.2, add: "If no-show rate >20% in 30-min window, auto-escalate to Market Ops Lead via Slack #alerts channel."
+
+Output in Markdown table + summary:
+| Issue # | Description | Severity | Location (step/section) | Suggested Fix |
+|---------|-------------|----------|--------------------------|---------------|
+
+Final recommendation: Approve as-is / Minor edits / Major rewrite needed
+Self-critique: Confidence level and potential oversights.</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">SOP GOVERNANCE — Post-process-change doc updates, pre-audit preparation</div>
+      </div>
+
+      <!-- 3: API Bridge & Data -->
+      <div class="app-card">
+        <div class="app-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="6" height="10" rx="1.5"/>
+            <rect x="16" y="7" width="6" height="10" rx="1.5"/>
+            <path d="M8 12h8M13 9l3 3-3 3" opacity=".8"/>
+            <circle cx="5" cy="12" r="1" fill="#f72585"/>
+            <circle cx="19" cy="12" r="1" fill="#f72585"/>
+          </svg>
+        </div>
+        <div class="app-title">API Bridge &amp; Data Validation</div>
+        <div class="app-body">Schema-mapped DYPER→Recyclops subscriber payloads — parsing field types, validating integrity, flagging PII exposure, and simulating failure modes (partial payload, timezone mismatch, invalid geocode). Output color-coded readiness: Green / Yellow / Red with confidence score.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Schema Parsing</span><span class="tech-tag">Failure Mode Simulation</span><span class="tech-tag">JSON Output</span><span class="tech-tag lv">Readiness Color-Code</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Review this sample data payload [paste payload(s)] for the subscriber data pipeline.
+
+Chain of thought:
+1. Parse and schema-map the payload (fields, types, nesting).
+2. Validate: integrity (missing/nulls, format errors, duplicates), completeness (required subscriber/market fields present), operational fit (aligns with downstream ETL/aggregation needs), security/PII exposure risks.
+3. Identify manual steps still required in current ETL and suggest automation/refinements (e.g., conditional transforms, validation rules).
+4. Simulate 3–4 failure modes (e.g., partial payload, timezone mismatch, invalid geocode) and assess impact.
+5. Recommend exact schema changes, enrichment logic, or rejection rules.
+
+Output JSON:
+{
+  "validation_summary": "...",
+  "issues": [{"field/path": "...", "issue_type": "...", "severity": "...", "impact": "...", "fix": "..."}],
+  "automation_opportunities": [...],
+  "overall_readiness": "Green | Yellow | Red",
+  "confidence": "9/10 – rationale"
+}</div>
+          </details>
+        </div>
+        <div class="app-usecase">DATA PIPELINE — Pre-launch ETL validation before market go-live</div>
+      </div>
+
+      <!-- 4: Metrics Re-Evaluation -->
+      <div class="app-card">
+        <div class="app-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            <circle cx="15" cy="21" r="1.2" fill="#b5a0ff" stroke="none" opacity=".5"/>
+            <circle cx="9" cy="3" r="1.2" fill="#b5a0ff" stroke="none" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="app-title">Metrics Re-Evaluation</div>
+        <div class="app-body">Analyzed exported route performance exports — pickup volumes, on-time %, fill rates, cost-per-stop — for week-over-week trends, root-cause correlation (weather, driver density, regulatory), and anomalies requiring governance attention. Outputs fed directly into Go/No-Go gates.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Trend Analysis</span><span class="tech-tag">Root-Cause CoT</span><span class="tech-tag lv">Structured Markdown</span><span class="tech-tag">Prioritized Insights</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Analyze these exported route performance metrics [paste CSV/export snippet or table].
+
+Strict CoT:
+1. Identify key variables (pickup volume, on-time %, fill rate, cost-per-stop, deviations from baseline).
+2. Calculate trends (week-over-week, market-level aggregates).
+3. Root-cause analysis for deviations (correlation to weather, driver density, regulatory, etc.).
+4. Flag anomalies requiring immediate governance attention.
+5. Recommend adjustments for next Go/No-Go (threshold breaches?).
+
+Output structured Markdown with:
+- Top 3 insights
+- Severity-ranked issues
+- Actionable recommendations for launch gates</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">POST-LAUNCH REVIEW — Input to next Go/No-Go decision gate</div>
+      </div>
+
+      <!-- 5: monday.com Formula -->
+      <div class="app-card">
+        <div class="app-icon-wrap mix">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M3 9h18M9 3v18" opacity=".35"/>
+            <text x="11.5" y="16" font-size="7" fill="#b5a0ff" stroke="none" font-family="monospace" font-weight="600">IF</text>
+            <path d="M5 13h2M5 17h4" stroke="#b5a0ff" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="app-title">monday.com Formula &amp; KPI Logic</div>
+        <div class="app-body">Decomposed aggregation schedule formulas component by component — IF/SWITCH logic, grouping thresholds, on-time rate calculations — mentally tested against 5 scenarios including edge cases. Current vs suggested formula shown side-by-side with risk table for any rewrite.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Component Breakdown</span><span class="tech-tag">Scenario Testing</span><span class="tech-tag lv">Side-by-Side Compare</span><span class="tech-tag">Risk Table</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Validate this monday.com formula logic [paste formula + context/board setup].
+
+Step-by-step:
+1. Explain what the formula intends to achieve.
+2. Break down components (IF, SWITCH, grouping logic, thresholds).
+3. Test mentally against 5 sample scenarios (normal, edge, failure).
+4. Flag inaccuracies, edge-case failures, performance risks (complexity causing lag).
+5. Suggest optimized rewrite if needed.
+
+Output: Current vs Suggested formula side-by-side, plus risk table.</div>
+          </details>
+        </div>
+        <div class="app-usecase">COMMAND CENTER — Dashboard formula validation, KPI accuracy assurance</div>
+      </div>
+
+      <!-- 6: Risk & Scenario Planning -->
+      <div class="app-card">
+        <div class="app-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 19h20L12 2z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".8" fill="#f72585" stroke="none"/>
+            <path d="M7 19l-4 2M17 19l4 2" opacity=".3"/>
+          </svg>
+        </div>
+        <div class="app-title">Risk &amp; Scenario Planning</div>
+        <div class="app-body">Generated 8–10 categorized risks across operational, financial, regulatory, and external event domains — each with probability rating, P0/P1/P2 impact, early warning indicators, and a full prevent/detect/respond playbook. Outputs built directly into risk registers and governance gates.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Multi-Category Generation</span><span class="tech-tag">Prob/Impact Scoring</span><span class="tech-tag lv">Prioritized Table</span><span class="tech-tag">Mitigation Playbooks</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">For expanding a gig-driver network from 3 to 25 markets, generate 8–10 realistic risks across categories: operational, financial, regulatory, external events.
+
+For each:
+- Probability (Low/Med/High)
+- Impact (P0/P1/P2)
+- Early indicators
+- Mitigation playbook (prevent/detect/respond)
+
+Include seasonal spikes, jurisdictional variation, weather, driver churn >30%, etc.
+
+Output in prioritized table (highest combined risk first).</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">RISK REGISTER — Governance gate foresight before expansion phases</div>
+      </div>
+
+      <!-- 7: Meeting Summarization -->
+      <div class="app-card">
+        <div class="app-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+            <line x1="9" y1="10" x2="15" y2="10" opacity=".6"/><line x1="9" y1="13" x2="13" y2="13" opacity=".6"/>
+            <circle cx="17" cy="8" r="2.5" stroke="#f72585" opacity=".7"/><path d="M16 8h2M17 7v2" stroke="#f72585" stroke-width="1.2" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="app-title">Meeting Summarization</div>
+        <div class="app-body">Condensed raw standup notes, stakeholder calls, and driver feedback into structured recaps — key decisions, action items with owners, and KPI impacts — formatted standup-ready. Compressed team alignment cycles from hours to minutes across a distributed, high-velocity 25+ market operation.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Structured Extraction</span><span class="tech-tag">Owner Attribution</span><span class="tech-tag lv">KPI Impact Tagging</span><span class="tech-tag">Standup Format</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Summarize these meeting notes [paste raw notes] into a standup-ready structured recap.
+
+Extract and organize:
+1. Key decisions made (with decision-maker if mentioned)
+2. Action items — each with: owner, due date/timeframe, dependency
+3. KPI impacts — any metrics mentioned, targets set or missed
+4. Open questions or blockers requiring follow-up
+5. Risk flags — anything that could impact current sprint or launch gate
+
+Format: concise bullet points under each section.
+Flag any action items with no clear owner as [UNASSIGNED].
+Note any KPI deviations from baseline with [KPI ALERT].</div>
+          </details>
+        </div>
+        <div class="app-usecase">TEAM ALIGNMENT — Post-standup/call structuring for distributed execution</div>
+      </div>
+
+      <!-- 8: Prompt Engineering -->
+      <div class="app-card">
+        <div class="app-icon-wrap mix">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19"/>
+            <circle cx="18" cy="8" r="3" stroke="#b5a0ff"/><path d="M18 5v6M15 8h6" stroke="#b5a0ff" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="app-title">Prompt Engineering Iteration</div>
+        <div class="app-body">Iteratively tested and refined prompt architectures — chaining outputs as inputs, adding structured constraints, testing JSON vs markdown vs table formats. The same iteration discipline that started in the OpenAI Playground became the foundation for every production Claude/GPT-4 workflow deployed today.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Chain-of-Thought</span><span class="tech-tag">Output Format Testing</span><span class="tech-tag lv">Prompt Versioning</span><span class="tech-tag">Regression Testing</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Evaluate this gig-aggregation route efficiency model [paste model description or data].
+
+Chain of thought:
+1. Identify the 3 highest-impact optimization levers for cost-per-stop reduction.
+2. For each lever: quantify expected impact (%), implementation effort (Low/Med/High), and timeline.
+3. Identify any second-order risks introduced by each optimization.
+4. Recommend a sequenced implementation roadmap (quick wins → structural changes).
+5. Self-critique: flag assumptions made and confidence level.
+
+Output: numbered recommendations ranked by ROI, with a risk table for each, plus implementation roadmap summary.</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">WORKFLOW FOUNDATION — Prompt architecture that became production pipelines</div>
+      </div>
+
+      <!-- 9: JIRA Validation -->
+      <div class="app-card">
+        <div class="app-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M3 9h18" opacity=".3"/>
+            <path d="M12 6v3M7 13l2.5 2.5L14 11" stroke-width="1.8"/>
+            <circle cx="17" cy="14" r="2.5" stroke="#b5a0ff" opacity=".7"/>
+            <path d="M16 14h2" stroke="#b5a0ff" stroke-width="1.2" opacity=".7"/>
+          </svg>
+        </div>
+        <div class="app-title">JIRA Workflow Validation</div>
+        <div class="app-body">Generated JIRA queries and reviewed issue details for structural completeness — root cause present, acceptance criteria clear, compliance gaps flagged, escalation paths defined. Prevented under-specified tickets from reaching engineering triage or stakeholder review in a high-velocity sprint environment.</div>
+        <div class="app-techniques">
+          <span class="tech-tag">Completeness Check</span><span class="tech-tag">Compliance Gap Detection</span><span class="tech-tag lv">Escalation Validation</span><span class="tech-tag">Structured Review</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PROMPT</summary>
+            <div class="prompt-full">Review this JIRA issue [paste issue title, description, acceptance criteria, labels, assignee].
+
+Completeness check:
+1. Is the root cause clearly defined? If not, flag as [MISSING].
+2. Are acceptance criteria specific and testable? Flag vague criteria.
+3. Are there compliance or regulatory considerations not addressed?
+4. Is the escalation path defined for P0/P1 scenarios?
+5. Are dependencies on other tickets or teams documented?
+
+Output:
+- Completeness score (0–10)
+- Issue table: Field | Status | Gap | Suggested Addition
+- Go / No-Go for engineering triage
+- Confidence: X/10
+- Self-critique: potential gaps in this review</div>
+          </details>
+        </div>
+        <div class="app-usecase">SPRINT GOVERNANCE — Pre-triage ticket quality gate, compliance verification</div>
+      </div>
+
+      <!-- Combined 1: Pre-Market Launch Readiness Gate -->
+      <div class="app-card full">
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap">
+          <div class="app-icon-wrap mix" style="width:64px;height:64px;border-radius:16px;flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4" stroke="#b5a0ff" stroke-width="1.8"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;flex-wrap:wrap">
+              <div class="app-title" style="font-size:1.1rem">Pipeline 1 — Pre-Market Launch Readiness Gate</div>
+              <span style="font-family:var(--font-m);font-size:.54rem;padding:.2rem .6rem;border-radius:20px;background:rgba(247,37,133,.1);border:1px solid rgba(247,37,133,.25);color:var(--pink);letter-spacing:.08em">4-PHASE SEQUENTIAL</span>
+            </div>
+            <div class="app-body" style="margin-bottom:.75rem">The core pre-go-live audit: process viability → governance/SOP alignment → data pipeline integrity → forward-looking risk foresight. All four checks happen before a market commitment and feed into the same Go/No-Go decision. Chaining them creates a single comprehensive readiness audit — the pipeline that governed every one of the 25+ ReDYPER market launches.</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:.75rem">
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">PHASE 1</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Operational Model Validation</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">PHASE 2</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Playbook &amp; SOP Iteration</div>
+              </div>
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">PHASE 3</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">API Bridge &amp; Data Validation</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">PHASE 4</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Risk &amp; Scenario Planning</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-techniques">
+          <span class="tech-tag">Sequential Multi-Phase</span><span class="tech-tag">Chained JSON Outputs</span><span class="tech-tag">Edge-Case Simulation</span><span class="tech-tag lv">Severity Ranking</span><span class="tech-tag lv">Consolidated Go/No-Go</span><span class="tech-tag">Confidence Scoring</span><span class="tech-tag">Cross-Phase Blocker Detection</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PIPELINE PROMPT</summary>
+            <div class="prompt-full">For the upcoming [Market X] rollout, perform a complete pre-launch readiness gate by executing these phases in sequence. Use the provided inputs where noted.
+
+Phase 1: Operational Model Validation
+Perform a rigorous multi-dimensional validation of this gig-aggregation process summary [paste full process description].
+Follow strict chain-of-thought:
+1. Restate core objective and key assumptions (1–2 sentences).
+2. Decompose into phases/components (e.g., driver onboarding, order matching, routing, pickup coordination, payment/settlement).
+3. For each phase: evaluate consistency, bottlenecks, scalability limits (3→25+ markets, considering density/spikes/jurisdictional variation).
+4. Simulate 4–6 edge cases (e.g., 300% volume surge, 40% no-show in bad weather, regulatory mismatch).
+5. Rate viability 1–10 with justification.
+6. Flag blocking risks.
+Output ONLY JSON:
+{
+  "summary": "...",
+  "phases": [...],
+  "overall_viability_score": 8,
+  "critical_risks": [...],
+  "final_recommendation": "Approve | Approve with changes | Reject",
+  "self_critique": "... Confidence: 9/10"
+}
+
+Phase 2: Playbook & SOP Iteration
+Compare this updated process description [paste updated playbook/process] against the existing SOP section [paste original].
+Step-by-step:
+1. Side-by-side mapping of every step/decision/artifact.
+2. Identify inconsistencies, flow gaps, redundancies, missing compliance/regulatory steps, unclear ownership.
+3. Severity-rank each issue (Critical = P0 risk; High/Medium/Low).
+4. Propose minimal quoted wording fixes.
+5. Ensure audit-readiness (traceable, no core disruption).
+Output Markdown table + final recommendation + self-critique.
+
+Phase 3: API Bridge & Data Validation
+Review this sample data payload [paste latest payload(s)] for the subscriber pipeline.
+Chain of thought:
+1. Parse/schema-map (fields, types, nesting).
+2. Validate integrity, completeness, operational fit, PII/security risks.
+3. Identify remaining manual ETL steps + automation suggestions.
+4. Simulate 3–4 failure modes (partial payload, timezone mismatch, invalid geocode).
+5. Recommend schema/enrichment/rejection rules.
+Output JSON with readiness (Green/Yellow/Red) + confidence.
+
+Phase 4: Risk & Scenario Planning
+For expanding gig-driver network to this new market, generate 8–10 realistic risks (operational, financial, regulatory, external).
+For each: Probability (Low/Med/High), Impact (P0/P1/P2), Early indicators, Mitigation playbook (prevent/detect/respond).
+Include seasonal spikes, jurisdictional variation, weather, churn >30%.
+Output prioritized table (highest combined risk first).
+
+Final consolidated output:
+- Overall Go/No-Go recommendation
+- Evidence summary from all phases
+- Consolidated confidence score (0–10)
+- Any cross-phase blockers or themes</div>
+          </details>
+        </div>
+        <div class="app-usecase">PRE-LAUNCH GATE — Complete readiness audit before every market go-live commitment</div>
+      </div>
+
+      <!-- Combined 2: Post-Change / Post-Launch Governance Review -->
+      <div class="app-card full">
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap">
+          <div class="app-icon-wrap lav" style="width:64px;height:64px;border-radius:16px;flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px">
+              <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+              <circle cx="12" cy="12" r="2" fill="#f72585" stroke="none" opacity=".6"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;flex-wrap:wrap">
+              <div class="app-title" style="font-size:1.1rem">Pipeline 2 — Post-Change / Post-Launch Governance Review</div>
+              <span style="font-family:var(--font-m);font-size:.54rem;padding:.2rem .6rem;border-radius:20px;background:rgba(181,160,255,.1);border:1px solid rgba(181,160,255,.25);color:var(--lavender);letter-spacing:.08em">3-INPUT CHAIN</span>
+            </div>
+            <div class="app-body" style="margin-bottom:.75rem">The "after the fact" checks: metrics trends → dashboard/KPI formula health → team alignment from standups. These three often run together after a change or launch to inform the next gate or sprint. Produces a unified dashboard-style governance summary — KPI health, formula status, action owners, and risk flags all in one output.</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.75rem">
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">INPUT 1</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Metrics Re-Evaluation</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">INPUT 2</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">monday.com Formula &amp; KPI Logic</div>
+              </div>
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">INPUT 3</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Meeting Summarization</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-techniques">
+          <span class="tech-tag">Multi-Input Chaining</span><span class="tech-tag">Trend &amp; Root-Cause CoT</span><span class="tech-tag lv">Unified Dashboard Output</span><span class="tech-tag">KPI Health Status</span><span class="tech-tag lv">Formula Side-by-Side</span><span class="tech-tag">Action Owner Attribution</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PIPELINE PROMPT</summary>
+            <div class="prompt-full">After a recent process/market change, run a full post-change governance review in one pass.
+
+1. Metrics Re-Evaluation
+Analyze these exported route performance metrics [paste export/CSV/table].
+Strict CoT:
+- Identify key variables (volume, on-time %, fill rate, cost-per-stop, baseline deviations).
+- Calculate trends (WoW, market aggregates).
+- Root-cause deviations (weather, density, regulatory…).
+- Flag governance anomalies.
+- Recommend Go/No-Go adjustments.
+Output Markdown: Top 3 insights, severity-ranked issues, actionable recommendations.
+
+2. monday.com Formula & KPI Logic
+Validate this monday.com formula logic [paste formula + board context].
+Step-by-step:
+- Explain intended purpose.
+- Break down components (IF/SWITCH/grouping/thresholds).
+- Test against 5 scenarios (normal/edge/failure).
+- Flag inaccuracies, edge failures, performance risks.
+- Suggest optimized rewrite if needed.
+Output: Current vs Suggested side-by-side + risk table.
+
+3. Meeting Summarization
+Summarize these recent standup/call notes [paste raw notes].
+Extract/organize:
+- Key decisions (with owner if known)
+- Action items (owner, due, dependency) — flag [UNASSIGNED]
+- KPI impacts ([KPI ALERT] for deviations)
+- Open questions/blockers
+- Risk flags for sprint/launch
+Output concise bullet-point sections.
+
+Final unified summary:
+- KPI/dashboard health status
+- Action owners & blockers
+- Risk flags from notes/metrics/formulas
+- Recommended next steps / governance adjustments</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">POST-CHANGE GOVERNANCE — Alignment check after any major operational update or market launch</div>
+      </div>
+
+      <!-- Combined 3: Sprint / Ticket Quality Gate -->
+      <div class="app-card full">
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap">
+          <div class="app-icon-wrap pink" style="width:64px;height:64px;border-radius:16px;flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <path d="M3 9h18M9 3v18" opacity=".25"/>
+              <path d="M7 13l2.5 2.5L14 11" stroke-width="1.8"/>
+              <path d="M16 7h2M16 17h2" stroke="#b5a0ff" opacity=".7"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;flex-wrap:wrap">
+              <div class="app-title" style="font-size:1.1rem">Pipeline 3 — Sprint / Ticket Quality Gate</div>
+              <span style="font-family:var(--font-m);font-size:.54rem;padding:.2rem .6rem;border-radius:20px;background:rgba(247,37,133,.1);border:1px solid rgba(247,37,133,.25);color:var(--pink);letter-spacing:.08em">LIGHT COMBINATION</span>
+            </div>
+            <div class="app-body" style="margin-bottom:.75rem">JIRA validation is a pre-triage gate that pairs naturally with standup summaries — to catch unassigned actions or KPI blockers mentioned in meetings before they become incidents. Optionally extended with Metrics Re-Evaluation if tickets reference recent performance anomalies. Produces a triage recommendation with alignment gap detection across ticket and meeting context.</div>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem;margin-bottom:.75rem;max-width:500px">
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">PART 1</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">JIRA Workflow Validation</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">PART 2</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Meeting Context Alignment</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-techniques">
+          <span class="tech-tag">Completeness Check</span><span class="tech-tag">Cross-Reference Validation</span><span class="tech-tag lv">Alignment Gap Detection</span><span class="tech-tag">Escalation Path Validation</span><span class="tech-tag lv">Triage Recommendation</span><span class="tech-tag">Self-Critique</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PIPELINE PROMPT</summary>
+            <div class="prompt-full">Perform a sprint governance quality gate for this JIRA issue and related meeting context.
+
+1. JIRA Workflow Validation
+Review this JIRA issue [paste title/description/acceptance criteria/labels/assignee].
+Completeness check:
+- Root cause defined? Flag [MISSING].
+- Acceptance criteria specific/testable?
+- Compliance/regulatory gaps?
+- Escalation path for P0/P1?
+- Dependencies documented?
+Output:
+- Completeness score (0–10)
+- Table: Field | Status | Gap | Suggested Addition
+- Go/No-Go for triage
+- Confidence + self-critique
+
+2. Meeting Context Alignment
+Summarize these related standup/notes [paste raw notes] and cross-reference with the JIRA issue.
+Extract: decisions, actions (owners/due), KPI impacts, blockers/risks.
+Flag if the issue is mentioned but lacks owner/escalation.
+Output bullet sections.
+
+Final output:
+- Overall triage recommendation
+- Any alignment gaps (e.g., ticket missing action from notes)
+- Confidence score</div>
+          </details>
+        </div>
+        <div class="app-usecase">SPRINT GATE — Pre-triage ticket quality + meeting alignment check before engineering handoff</div>
+      </div>
+
+      <!-- Combined 4: Rinse, Refine & Repeat -->
+      <div class="app-card full">
+        <div style="display:flex;align-items:flex-start;gap:1.25rem;flex-wrap:wrap">
+          <div class="app-icon-wrap mix" style="width:64px;height:64px;border-radius:16px;flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:30px;height:30px">
+              <path d="M3 12a9 9 0 109-9" />
+              <polyline points="3 3 3 12 12 12"/>
+              <path d="M12 7v5l3 3" stroke="#b5a0ff" stroke-width="1.4"/>
+            </svg>
+          </div>
+          <div style="flex:1;min-width:280px">
+            <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;flex-wrap:wrap">
+              <div class="app-title" style="font-size:1.1rem">Pipeline 4 — Rinse, Refine &amp; Repeat</div>
+              <span style="font-family:var(--font-m);font-size:.54rem;padding:.2rem .6rem;border-radius:20px;background:rgba(247,37,133,.1);border:1px solid rgba(247,37,133,.25);color:var(--pink);letter-spacing:.08em">INTER-LAUNCH CYCLE</span>
+            </div>
+            <div class="app-body" style="margin-bottom:.75rem">No launch happened in isolation. After every market go-live, the same four inputs fed back into the next cycle — playbooks updated based on what broke, KPI thresholds tightened from live metrics, Go/No-Go criteria sharpened from real gate outcomes, and prompts refined based on output quality. This is what enabled 2.7–3 launches/month with zero critical failures: not just running the process, but compounding it with each iteration.</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin-bottom:.75rem">
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">LOOP 1</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Playbooks &amp; SOPs Updated</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">LOOP 2</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">KPI Thresholds Adjusted</div>
+              </div>
+              <div style="background:rgba(247,37,133,.06);border:1px solid rgba(247,37,133,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--pink);letter-spacing:.12em;margin-bottom:.25rem">LOOP 3</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Go/No-Go Criteria Tightened</div>
+              </div>
+              <div style="background:rgba(181,160,255,.06);border:1px solid rgba(181,160,255,.15);border-radius:8px;padding:.6rem .75rem">
+                <div style="font-family:var(--font-m);font-size:.5rem;color:var(--lavender);letter-spacing:.12em;margin-bottom:.25rem">LOOP 4</div>
+                <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;line-height:1.3">Prompts Refined</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app-techniques">
+          <span class="tech-tag">Post-Launch Review</span><span class="tech-tag">SOP Gap Analysis</span><span class="tech-tag lv">Threshold Calibration</span><span class="tech-tag">Criteria Tightening</span><span class="tech-tag lv">Prompt Versioning</span><span class="tech-tag">Compounding Iteration</span>
+        </div>
+        <div class="app-prompt">
+          <details>
+            <summary>▸ VIEW FULL PIPELINE PROMPT</summary>
+            <div class="prompt-full">After each market launch, run this inter-launch refinement cycle before the next go-live begins.
+
+1. Playbook & SOP Update
+Review what broke or underperformed in the last launch [paste post-launch notes/incident log].
+- Identify steps that failed, were skipped, or caused delays.
+- Flag any compliance or handoff gaps that weren't in the playbook.
+- Propose minimal targeted updates (quote original → suggested revision).
+- Version the updated playbook and flag change date.
+
+2. KPI Threshold Calibration
+Compare last launch's live metrics against current thresholds [paste metrics export].
+- Identify thresholds that were too loose (missed early signals) or too tight (false alarms).
+- Recommend adjusted baseline values for the next market.
+- Flag any new KPIs that emerged from this launch and should be tracked forward.
+
+3. Go/No-Go Criteria Tightening
+Review the last Go/No-Go gate outcomes [paste gate log or decision notes].
+- Were any criteria passed that shouldn't have been? Tighten them.
+- Were any criteria so conservative they caused unnecessary delays? Loosen them.
+- Add any new dependency or risk checks that this launch surfaced.
+- Output updated criteria checklist — versioned and ready for next gate.
+
+4. Prompt Refinement
+Review AI outputs from the last launch cycle [paste sample outputs or note quality issues].
+- Flag prompts that produced vague, inconsistent, or low-confidence outputs.
+- Propose revised prompt wording, added constraints, or output format changes.
+- Log prompt version, change rationale, and expected improvement.
+
+Final output:
+- Updated playbook delta (changes only, not full doc)
+- Revised KPI threshold table
+- Updated Go/No-Go checklist
+- Prompt change log with version numbers
+- Readiness sign-off: Ready for next launch cycle / Needs further review</div>
+          </details>
+        </div>
+        <div class="app-usecase lv">INTER-LAUNCH CYCLE — Runs after every market go-live, feeds directly into the next Pipeline 1 gate</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- ═══ 03 PRODUCTION WORKFLOWS ═══ -->
+<section class="sp">
+  <div class="container">
+    <div class="sec-num fu">03</div>
+    <h2 class="sec-h fu">Production<br><span class="pk">Workflows.</span></h2>
+    <p class="sec-p fu">Where the early experimentation led. Four agentic pipelines deployed in live production — governing real launches, real capital, and real dispatch operations.</p>
+
+    <div class="phase-list fu">
+      <div class="phase-row">
+        <div class="phase-left"><div class="p-label">WF 01</div><div class="p-big">01</div><div class="p-time">ReDYPER · Live</div></div>
+        <div class="phase-right">
+          <div class="p-sub">Predictive Routing Engine</div>
+          <h3 class="p-title">Market Readiness Scoring &amp; Route Optimization</h3>
+          <p class="p-body">Built on the same aggregation formula validation and data re-evaluation work done in early GPT-3 experiments. SQL density models ingest subscriber address data → Claude/GPT-4 prompt chain evaluates geofencing boundary options → outputs structured JSON scoring matrix → human PM reviews Go/No-Go thresholds → Cigo Tracker receives optimized route assignments. Result: 18% cost reduction, &lt;4-month ROI, zero dispatch failures across 25+ launches.</p>
+          <div class="tags"><span class="tag hi">Claude</span><span class="tag hi">GPT-4</span><span class="tag">SQL</span><span class="tag">Cigo Tracker</span><span class="tag">Structured JSON</span><span class="tag">Human-in-Loop</span></div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-left"><div class="p-label">WF 02</div><div class="p-big">02</div><div class="p-time">Advisory · Live</div></div>
+        <div class="phase-right">
+          <div class="p-sub">Series A/B Advisory Clients</div>
+          <h3 class="p-title">Agentic Exec Reporting Automation</h3>
+          <p class="p-body">Evolved from the meeting summarization and standup recap work done during ReDYPER. Data exported from ClickUp/Asana/Monday.com and imported directly into Claude — drag and drop files — where the pipeline synthesizes portfolio status, flags at-risk items, and generates draft executive summaries → PM reviews and approves → delivered via Slack/email. Eliminated ~50% of manual reporting; compressed weekly cycles from half-day to under 60 minutes.</p>
+          <div class="tags"><span class="tag hi">Claude</span><span class="tag">Monday.com</span><span class="tag">ClickUp</span><span class="tag">Asana</span><span class="tag">Slack</span><span class="tag">File Import</span><span class="tag">Prompt Chaining</span></div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-left"><div class="p-label">WF 03</div><div class="p-big">03</div><div class="p-time">KT Impact · Live</div></div>
+        <div class="phase-right">
+          <div class="p-sub">EV SaaS · KT Impact</div>
+          <h3 class="p-title">SLA Risk Detection &amp; Incident Routing</h3>
+          <p class="p-body">Grounded in the risk and scenario planning work from the ReDYPER risk register process. Real-time platform telemetry → Claude-assisted anomaly classification → structured alert routing to Jira with pre-populated context and remediation suggestions — mirroring the same JIRA workflow validation patterns applied during early AI experimentation. Reduced downtime 22% while sustaining 99%+ SLA.</p>
+          <div class="tags"><span class="tag hi">Claude</span><span class="tag">Jira</span><span class="tag">SLA Monitoring</span><span class="tag">Incident Routing</span><span class="tag">Structured Data</span><span class="tag">Playbook Automation</span></div>
+        </div>
+      </div>
+      <div class="phase-row">
+        <div class="phase-left"><div class="p-label">WF 04</div><div class="p-big">04</div><div class="p-time">Cross-Client</div></div>
+        <div class="phase-right">
+          <div class="p-sub">Launch Governance Intelligence</div>
+          <h3 class="p-title">Go/No-Go Decision Support System</h3>
+          <p class="p-body">Directly evolved from the operational model validation and playbook consistency checks done in early experimentation. Checklist completion, dependency maps, regulatory flags → GPT-4 evaluates readiness against SLA thresholds → generates Go/No-Go recommendation with confidence scoring → PM holds final decision authority. Compressed launch prep 50%, enabled 2.7–3 launches/month with zero critical failures.</p>
+          <div class="tags"><span class="tag hi">GPT-4</span><span class="tag">Monday.com</span><span class="tag">SLA Governance</span><span class="tag">Dependency Mapping</span><span class="tag">Risk Scoring</span><span class="tag">Human-in-Loop</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- ═══ 04 LIVE PERFORMANCE ═══ -->
+<section class="sp">
+  <div class="container">
+    <div class="sec-num fu">04</div>
+    <h2 class="sec-h fu">Live Performance</h2>
+    <p class="sec-p fu">Every metric shown has been achieved in production — not projected. Each number is attributable to a specific workflow across a real client or program.</p>
+
+    <div class="dashboard fu">
+      <div class="dash-head">
+        <span class="dash-head-title">AI Workflow Performance · All Programs</span>
+        <span class="dash-live">Systems Live</span>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-lbl">Manual Overhead Cut</div><div class="kpi-val pk">~50%</div><div class="kpi-delta">↑ In 90 days · Series A/B</div><div class="kpi-spark"><div class="kpi-fill" data-w="50"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Deployment Throughput</div><div class="kpi-val lv">2–3×</div><div class="kpi-delta">↑ AI-enabled automation</div><div class="kpi-spark"><div class="kpi-fill" data-w="75"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Cost Reduction · ReDYPER</div><div class="kpi-val pk">18%</div><div class="kpi-delta">↓ Per market · &lt;4mo ROI</div><div class="kpi-spark"><div class="kpi-fill" data-w="18"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Platform Uptime · KT Impact</div><div class="kpi-val lv">99%+</div><div class="kpi-delta">↑ SLA sustained</div><div class="kpi-spark"><div class="kpi-fill" data-w="99"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Downtime Reduction</div><div class="kpi-val pk">22%</div><div class="kpi-delta">↓ 8.5% → 6.6%</div><div class="kpi-spark"><div class="kpi-fill" data-w="22"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Markets Launched</div><div class="kpi-val">25+</div><div class="kpi-delta">↑ Zero critical failures</div><div class="kpi-spark"><div class="kpi-fill" data-w="100"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Launch Cycle Speed</div><div class="kpi-val lv">50%</div><div class="kpi-delta">↓ 8 wks → 4 wks</div><div class="kpi-spark"><div class="kpi-fill" data-w="50"></div></div></div>
+        <div class="kpi-card"><div class="kpi-lbl">Reporting Overhead Cut</div><div class="kpi-val pk">50%+</div><div class="kpi-delta">↓ Agentic pipeline</div><div class="kpi-spark"><div class="kpi-fill" data-w="50"></div></div></div>
+      </div>
+      <div class="int-row">
+        <div class="int-cell"><span class="int-dot live"></span>Claude · Orchestration</div>
+        <div class="int-cell"><span class="int-dot live"></span>GPT-4 · Routing Logic</div>
+        <div class="int-cell"><span class="int-dot live"></span>Monday.com · Command Hub</div>
+        <div class="int-cell"><span class="int-dot lav"></span>NotebookLM · Prototyping</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div"/>
+
+<!-- ═══ 05 RESPONSIBLE AI ═══ -->
+<section class="sp">
+  <div class="container">
+    <div class="sec-num fu">05</div>
+    <h2 class="sec-h fu">Responsible AI</h2>
+    <p class="sec-p fu">Every workflow — from the earliest GPT-3 validation prompts through to today's production Claude pipelines — has been governed by the same principle: AI augments human judgment, it doesn't replace it. For founders, this is the difference between a liability and a competitive moat.</p>
+
+    <div class="gov-grid fu">
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+            <path d="M16 11l2 2 4-4" stroke="#b5a0ff" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">Human-in-the-Loop at High Stakes</div><div class="gov-body">All Go/No-Go decisions, incident escalations, and capital-affecting outputs require human PM review and approval. AI provides scoring and recommendations — authority stays human. This was true in the first GPT-3 experiments and remains non-negotiable today.</div></div>
+      </div>
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+            <circle cx="12" cy="16" r="1.5" fill="#b5a0ff" stroke="none"/>
+            <path d="M12 17.5v1.5" stroke="#b5a0ff" stroke-width="1.4"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">Human-Built Foundations First</div><div class="gov-body">The operational model, playbooks, API integrations, and monday.com architecture were all designed and built manually before AI touched them. GPT-3 came in after — checking accuracy, validating what was already live. That sequence never changed: build first, AI validates after.</div></div>
+      </div>
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.35C17.25 22.15 21 17.25 21 12V7L12 2z"/>
+            <path d="M9 12l2 2 4-4" stroke="#b5a0ff" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">PII Controls &amp; Data Governance</div><div class="gov-body">Subscriber and driver data never reaches model endpoints in raw form. ETL layers anonymize or tokenize PII before any AI processing step. Data payload validation — a practice established during the DYPER→Recyclops API bridge build — governs every pipeline.</div></div>
+      </div>
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="9" y1="13" x2="15" y2="13"/>
+            <line x1="9" y1="17" x2="13" y2="17"/>
+            <path d="M15 13l1.5 2-1.5 2" stroke="#f72585" stroke-width="1.3" opacity=".7"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">Audit Trail on Every Decision</div><div class="gov-body">Every AI-generated output is logged with timestamp, model version, prompt version, input state, and output confidence. The same documentation rigor applied to playbook updates during ReDYPER now governs every production AI workflow.</div></div>
+      </div>
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/>
+            <path d="M6 8h2M6 12h2M16 8h2M16 12h2" stroke="#b5a0ff" stroke-width="1.3" opacity=".6"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">Responsible AI Playbooks</div><div class="gov-body">Enterprise Responsible AI adoption playbooks delivered to Series A/B founders — covering model selection, vendor risk, governance frameworks, bias audits, and board-level reporting. Built from real operational experience, not theory.</div></div>
+      </div>
+
+      <div class="gov-cell">
+        <div class="gov-icon-wrap lav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#b5a0ff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+            <circle cx="12" cy="12" r="1.8" fill="#f72585" stroke="none" opacity=".7"/>
+          </svg>
+        </div>
+        <div><div class="gov-title">Continuous Prompt Governance</div><div class="gov-body">Prompt versioning and regression testing mirror software release governance — a discipline that grew directly from the prompt engineering iteration work done during national expansion. Production prompt updates require staging review before deployment.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="container">
+    <div class="cta-eyebrow">Let's build something</div>
+    <h2 class="cta-h">
+      Want to see what<br>
+      <span class="pk">I'd build for you?</span>
+    </h2>
+    <p class="cta-sub">This is mission-critical AI operations at national scale. Let's talk about your challenge.</p>
+    <div class="cta-btns">
+      <a href="mailto:lee.brandon.anthony@gmail.com" class="btn-a">Get in Touch</a>
+      <a href="index.html" class="btn-b">← Back to Portfolio</a>
     </div>
   </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- ══ 01 WHAT WE BUILT ══ -->
-<div class="sw-bg">
-  <div class="sw">
-    <div class="sec-label reveal"><span class="sec-num">01</span><div class="sec-rule"></div></div>
-    <h2 class="sec-title reveal">What We Actually Built</h2>
-    <p class="sec-desc reveal">Not a standalone AI tool — a carefully engineered agentic overlay on top of live operational infrastructure. DYPER customer data arrived as CSV files, crossed our custom-built bridge into our proprietary app, and was managed and monitored inside Monday.com dashboards. The AI layer made sense of it all at national scale: density forecasting, predictive market readiness scoring, automated aggregation decisions, and downstream processing alerts.</p>
-
-    <div class="card-grid-2 reveal">
-      <!-- Context card -->
-      <div class="c c-pad c-tall">
-        <div class="c-icon icon-purple">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#BF5AF2" stroke-width="1.3"/><line x1="10" y1="2" x2="10" y2="5" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="10" y1="15" x2="10" y2="18" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="2" y1="10" x2="5" y2="10" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="15" y1="10" x2="18" y2="10" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round"/><line x1="4.2" y1="4.2" x2="6.3" y2="6.3" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/><line x1="13.7" y1="13.7" x2="15.8" y2="15.8" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" opacity="0.5"/></svg>
-        </div>
-        <h3>Hybrid Augmentation — Not Replacement</h3>
-        <p>The design principle was deliberate: the data already existed — DYPER's customer information lived in CSV files. The job was to bridge that data into our proprietary app, enrich it with AI reasoning, and surface actionable intelligence inside Monday.com. The agents handled everything the raw CSVs couldn't: national-scale density scoring, regulatory risk, and market readiness.</p>
-        <ul>
-          <li>Multi-market density forecasting across 25+ simultaneous metros</li>
-          <li>Automated aggregation hub decisions — when Gaylords fill, trigger transload</li>
-          <li>Predictive market readiness scoring across 40+ factors per launch</li>
-          <li>Downstream processing alerts and escalation cadences</li>
-        </ul>
-        <div class="tags">
-          <span class="tag tag-purple">GPT-3 API</span>
-          <span class="tag tag-blue">Prompt Chaining</span>
-          <span class="tag tag-blue">Hybrid Augmentation</span>
-        </div>
-      </div>
-
-      <!-- The gap card -->
-      <div class="c c-pad c-tall">
-        <div class="c-icon icon-amber">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="13" width="4" height="5" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="8" y="9" width="4" height="9" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><rect x="14" y="5" width="4" height="13" rx="1" stroke="#FF9F0A" stroke-width="1.3"/><polyline points="3,12 9,8 15,4" stroke="#FF9F0A" stroke-width="1" stroke-linecap="round" stroke-dasharray="1.5,1.5" opacity="0.4"/></svg>
-        </div>
-        <h3>The Gaps the Pilot Exposed</h3>
-        <p>At 3 pilot markets, manual analysis was slow but survivable. At 25+ simultaneous markets, the same manual approach became the primary bottleneck — costing time, money, and precision at every step.</p>
-        <ul>
-          <li>No multi-market density forecasting → gut-based market sequencing</li>
-          <li>No automated aggregation hub triggers → manual monitoring and reroutes</li>
-          <li>No predictive market readiness scoring → reactive Go/No-Go decisions</li>
-          <li>Manual GIS/analysis taking 6–8 weeks per market → blocked the launch cadence</li>
-        </ul>
-        <div class="tags">
-          <span class="tag tag-amber">Manual GIS</span>
-          <span class="tag tag-amber">6–8 Week Cycles</span>
-          <span class="tag tag-amber">Gut-Based Decisions</span>
-        </div>
-      </div>
-    </div>
+<footer>
+  <div class="foot-l">Brandon Lee · Strategic Program Manager · Austin, TX · 2026</div>
+  <div class="foot-r">
+    <a href="index.html">Portfolio</a>
+    <a href="redyper-case-study.html">Case Study</a>
+    <a href="command-hub.html">Command Hub</a>
+    <a href="mailto:lee.brandon.anthony@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/brandonl33" target="_blank">LinkedIn</a>
   </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ══ 02 ARCHITECTURE ══ -->
-<div class="sw">
-  <div class="sec-label reveal"><span class="sec-num">02</span><div class="sec-rule"></div></div>
-  <h2 class="sec-title reveal">System Architecture</h2>
-  <p class="sec-desc reveal">Five layers working together — data ingestion, agentic reasoning, hybrid evaluation, action execution, and human oversight. Every agent output was audited before auto-execution. Zero blind automation.</p>
-
-  <div class="arch-wrap reveal">
-    <div class="arch-title">The Agentic AI Stack</div>
-    <div class="arch-sub">Built 2021–2022 on GPT-3 era infrastructure. Production-grade, modular, fully auditable.</div>
-
-    <div class="arch-layers">
-
-      <!-- Layer 1: Data -->
-      <div class="arch-layer layer-data">
-        <div class="arch-layer-label">01 · Data Layer</div>
-        <div class="arch-layer-body">
-          <div class="arch-block">
-            <div class="arch-block-title">DYPER Subscriber Data</div>
-            <div class="arch-block-sub">CSV → ETL middleware → SQL</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">DYPER Customer CSVs</div>
-            <div class="arch-block-sub">Raw subscriber data → custom bridge</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Spatial Analysis</div>
-            <div class="arch-block-sub">Google Maps · geofence design</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Historical Performance</div>
-            <div class="arch-block-sub">Scikit-learn · forecasting</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Regulatory Overlays</div>
-            <div class="arch-block-sub">Per-jurisdiction compliance data</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>feeds agents</span><div class="arch-flow-line"></div></div>
-
-      <!-- Layer 2: Agent -->
-      <div class="arch-layer layer-agent">
-        <div class="arch-layer-label">02 · Agent Layer</div>
-        <div class="arch-layer-body">
-          <div class="arch-block">
-            <div class="arch-block-title">Agent 1: Density Clustering</div>
-            <div class="arch-block-sub">Subscriber density → geofence boundaries (Google Maps)</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Agent 2: Regulatory Scoring</div>
-            <div class="arch-block-sub">Risk score per jurisdiction</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Agent 3: Route Simulation</div>
-            <div class="arch-block-sub">Route simulation → constraint recommendations</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Agent 4: Go/No-Go Synthesis</div>
-            <div class="arch-block-sub">40+ factor market readiness score</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>structured JSON output</span><div class="arch-flow-line"></div></div>
-
-      <!-- Layer 3: Evaluation -->
-      <div class="arch-layer layer-eval">
-        <div class="arch-layer-label">03 · Eval Layer</div>
-        <div class="arch-layer-body">
-          <div class="arch-block">
-            <div class="arch-block-title">Agent Output Review</div>
-            <div class="arch-block-sub">Recommendations scored, validated against SLA thresholds</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Confidence Scoring</div>
-            <div class="arch-block-sub">Low confidence → flag for ops review</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Constraint Validation</div>
-            <div class="arch-block-sub">Check against SLA thresholds + compliance rules</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>route to action or review</span><div class="arch-flow-line"></div></div>
-
-      <!-- Layer 4: Action -->
-      <div class="arch-layer layer-action">
-        <div class="arch-layer-label">04 · Action Layer</div>
-        <div class="arch-layer-body">
-          <div class="arch-block">
-            <div class="arch-block-title">Push to Proprietary App</div>
-            <div class="arch-block-sub">Enriched data + routing recommendations surfaced</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Monday.com Command Hub</div>
-            <div class="arch-block-sub">Project boards · timelines · sprints · KPI dashboards · alerts</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Aggregation Hub Decisions</div>
-            <div class="arch-block-sub">Gaylord full → schedule transload automatically</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Escalation Workflows</div>
-            <div class="arch-block-sub">Threshold exceeded → Slack alert + Jira ticket</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-flow-arrow"><div class="arch-flow-line"></div><span>human review loop</span><div class="arch-flow-line"></div></div>
-
-      <!-- Layer 5: Oversight -->
-      <div class="arch-layer layer-oversight">
-        <div class="arch-layer-label">05 · Oversight</div>
-        <div class="arch-layer-body">
-          <div class="arch-block">
-            <div class="arch-block-title">Slack Review Dashboard</div>
-            <div class="arch-block-sub">Every agent output reviewed in &lt;15 min before execution</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Jira Release Management</div>
-            <div class="arch-block-sub">All agent outputs versioned + audited</div>
-          </div>
-          <div class="arch-block">
-            <div class="arch-block-title">Human-in-the-Loop</div>
-            <div class="arch-block-sub">Zero blind automation — agents propose, humans confirm</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Agent loop visual -->
-  <div class="agent-loop reveal d1">
-    <div class="agent-loop-title">The Prompt-Chaining Loop</div>
-    <div class="agent-loop-sub">Multi-step reasoning chains — each agent's structured JSON output becomes the next agent's input. GPT-3 era, production grade.</div>
-    <div class="loop-steps">
-      <div class="loop-step">
-        <div class="loop-node blue">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 10h16M4 14h10" stroke="#409CFF" stroke-width="1.5" stroke-linecap="round"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 01</div>
-        <div class="loop-step-label">Ingest</div>
-        <div class="loop-step-sub">DYPER CSVs → custom bridge → proprietary app</div>
-      </div>
-      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="loop-step">
-        <div class="loop-node purple">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#BF5AF2" stroke-width="1.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 02</div>
-        <div class="loop-step-label">Reason</div>
-        <div class="loop-step-sub">GPT-3 agents cluster, score, simulate</div>
-      </div>
-      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="loop-step">
-        <div class="loop-node purple">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4"/><rect x="13" y="3" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.5"/><rect x="3" y="13" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.5"/><rect x="13" y="13" width="8" height="8" rx="1.5" stroke="#BF5AF2" stroke-width="1.4" opacity="0.7"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 03</div>
-        <div class="loop-step-label">JSON Output</div>
-        <div class="loop-step-sub">Structured outputs → geofence boundaries built in Google Maps</div>
-      </div>
-      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="loop-step">
-        <div class="loop-node amber">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 3L20 8V16L12 21L4 16V8L12 3Z" stroke="#FF9F0A" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#FF9F0A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 04</div>
-        <div class="loop-step-label">Evaluate</div>
-        <div class="loop-step-sub">Validate outputs against SLA thresholds + compliance rules</div>
-      </div>
-      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="loop-step">
-        <div class="loop-node gray">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3" stroke="#F5F5F7" stroke-width="1.4"/><path d="M6 20v-1a6 6 0 0112 0v1" stroke="#F5F5F7" stroke-width="1.4" stroke-linecap="round"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 05</div>
-        <div class="loop-step-label">Human Review</div>
-        <div class="loop-step-sub">Slack + dashboard · &lt;15 min · confirm or override</div>
-      </div>
-      <div class="loop-arrow"><svg width="24" height="16" viewBox="0 0 24 16"><path d="M2 8h18M16 3l6 5-6 5" stroke="#BF5AF2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="loop-step">
-        <div class="loop-node green">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="#30D158" stroke-width="1.4"/><path d="M8 12l3 3 5-5" stroke="#30D158" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="loop-step-num">STEP 06</div>
-        <div class="loop-step-label">Execute</div>
-        <div class="loop-step-sub">Proprietary app updated + Monday.com cadences fire</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ══ 03 PHASED ROLLOUT ══ -->
-<div class="sw-bg">
-  <div class="sw">
-    <div class="sec-label reveal"><span class="sec-num">03</span><div class="sec-rule"></div></div>
-    <h2 class="sec-title reveal">Phased Rollout</h2>
-    <p class="sec-desc reveal">Three phases from prototype to full national production — each one proving value before expanding scope. No big-bang deployment. No blind trust in the models.</p>
-
-    <div class="phase-timeline reveal">
-      <div class="pt-tile p1">
-        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
-          <span class="pt-badge purple">PHASE 01</span>
-          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q3–Q4 2021</span>
-        </div>
-        <div class="pt-name">Prototype &amp; Validation</div>
-        <span class="pt-outcome">Pilot markets · Value proven</span>
-        <p class="pt-desc">DYPER CSV exports fed GPT-3 scripts for density scoring. Geofence boundaries designed and validated inside Google Maps. All outputs human-reviewed before any operational changes. Proved the concept — faster decisions, fewer reroutes, better market sequencing — before any automation was introduced.</p>
-        <div class="pt-chips">
-          <span class="pt-chip">GPT-3 API</span><span class="pt-chip">CSV → Python</span><span class="pt-chip">Density Scoring</span><span class="pt-chip">Human Review</span>
-        </div>
-      </div>
-
-      <div class="pt-tile p2">
-        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
-          <span class="pt-badge blue">PHASE 02</span>
-          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q1 2022</span>
-        </div>
-        <div class="pt-name">Automated ETL &amp; Event Loops</div>
-        <span class="pt-outcome">Real pickup data · Monday.com cadences live</span>
-        <p class="pt-desc">Replaced manual CSV hand-offs with the custom DYPER→Recyclops bridge, feeding subscriber data directly into our proprietary app. Agent outputs flowed into Monday.com — aggregation alerts, transload scheduling, threshold notifications. First fully automated loops in production.</p>
-        <div class="pt-chips">
-          <span class="pt-chip">DYPER Bridge</span><span class="pt-chip">Automated ETL</span><span class="pt-chip">Monday.com Cadences</span><span class="pt-chip">Proprietary App</span>
-        </div>
-      </div>
-
-      <div class="pt-tile p3">
-        <div class="phase-top" style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
-          <span class="pt-badge green">PHASE 03</span>
-          <span class="pt-timing" style="font-family:var(--mono);font-size:0.58rem;color:var(--gray-60);margin-left:auto;">Q2–Q3 2022</span>
-        </div>
-        <div class="pt-name">Full National Production</div>
-        <span class="pt-outcome">25+ markets · 40-factor scoring · zero failures</span>
-        <p class="pt-desc">Agents scored market readiness across 40+ factors, directly informing every Go/No-Go gate. Enriched routing recommendations surfaced inside the proprietary app and managed through Monday.com dashboards. Aggregation and transload scheduling ran on autopilot. Full production AI at national scale — modular, versioned, auditable throughout.</p>
-        <div class="pt-chips">
-          <span class="pt-chip">40-Factor Scoring</span><span class="pt-chip">Proprietary App Integration</span><span class="pt-chip">Auto Transload</span><span class="pt-chip">Go/No-Go Integration</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ══ 04 TECH STACK ══ -->
-<div class="sw">
-  <div class="sec-label reveal"><span class="sec-num">04</span><div class="sec-rule"></div></div>
-  <h2 class="sec-title reveal">The Tech Stack</h2>
-  <p class="sec-desc reveal">Every tool chosen deliberately — built for the 2021–2022 constraint environment, designed for reuse across any future Recyclops enterprise program.</p>
-
-  <div class="card-grid-2 reveal" style="margin-bottom:1.5rem;">
-
-    <div class="c c-pad c-tall">
-      <div class="c-icon icon-purple">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="#BF5AF2" stroke-width="1.3"/><path d="M10 2C10 2 14 5 14 10C14 15 10 18 10 18C10 18 6 15 6 10C6 5 10 2 10 2Z" stroke="#BF5AF2" stroke-width="1.3"/><line x1="2" y1="10" x2="18" y2="10" stroke="#BF5AF2" stroke-width="1.2" opacity="0.4"/></svg>
-      </div>
-      <h3>Intelligence Layer</h3>
-      <h4>LLM & Reasoning</h4>
-      <ul>
-        <li>GPT-3 via OpenAI API — the only viable LLM for prompt chaining and tool use in 2021</li>
-        <li>Multi-step prompt chaining: Agent 1 clusters → Agent 2 scores → Agent 3 simulates → Agent 4 synthesizes</li>
-        <li>Structured JSON outputs informed geofence boundaries built and managed directly inside Google Maps</li>
-        <li>Tool calls: agents pulled live SQL data and pushed enriched recommendations into the proprietary app</li>
-      </ul>
-      <h4>Data Science & Spatial</h4>
-      <ul>
-        <li>Google Maps — geofence design, boundary decisioning, and market territory definition per metro</li>
-        <li>Python / Pandas — data wrangling and pipeline transforms</li>
-        <li>Scikit-learn — density forecasting and load balancing models</li>
-        <li>SQL — subscriber/driver density queries fed directly into agent prompts</li>
-      </ul>
-      <div class="tags">
-        <span class="tag tag-purple">GPT-3</span><span class="tag tag-purple">Prompt Chaining</span><span class="tag tag-blue">Python</span><span class="tag tag-blue">Google Maps</span><span class="tag tag-blue">Scikit-learn</span><span class="tag tag-blue">SQL</span>
-      </div>
-    </div>
-
-    <div class="c c-pad c-tall">
-      <div class="c-icon icon-green">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="12" rx="2" stroke="#30D158" stroke-width="1.3"/><rect x="4.5" y="5" width="2.5" height="4" rx="0.8" fill="#30D158" opacity="0.7"/><rect x="9" y="6.5" width="2.5" height="2.5" rx="0.8" fill="#30D158" opacity="0.5"/><rect x="13.5" y="4.5" width="2.5" height="5" rx="0.8" fill="#30D158" opacity="0.9"/><line x1="8" y1="17" x2="12" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/><line x1="10" y1="14" x2="10" y2="17" stroke="#30D158" stroke-width="1.3" stroke-linecap="round" opacity="0.5"/></svg>
-      </div>
-      <h3>Orchestration &amp; Integration</h3>
-      <h4>Monday.com — Full Operational & Technical Command</h4>
-      <ul>
-        <li>DYPER customer data arrived as CSV files — custom bridge parsed, cleaned, and routed it into our proprietary app automatically</li>
-        <li>Project boards tracking all 25+ market launches with full dependency mapping, status, and ownership per workstream</li>
-        <li>Sprint planning and timeline management — Agile-style boards governing every phase of the build and rollout</li>
-        <li>50+ KPI dashboards for real-time visibility: velocity, compliance, aggregation rates, driver performance, market readiness</li>
-        <li>Automated cadences: data ingested → agent analysis → threshold alert → ops action, all without manual triggers</li>
-        <li>Slack predictive alerts fired when any KPI deviated more than 5% from baseline</li>
-        <li>Escalation workflows, incident response tracking, and Go/No-Go gate status all managed in-board</li>
-      </ul>
-      <h4>Governance & Audit</h4>
-      <ul>
-        <li>Jira tracked all agent outputs as versioned releases — full technical backlog</li>
-        <li>Slack review dashboard — every agent action reviewed in under 15 minutes</li>
-        <li>No critical failures — agents enhanced operational decisions, always with human confirmation before execution</li>
-        <li>Modular GPT-3 prompts and Python models versioned for reuse across markets</li>
-      </ul>
-      <div class="tags">
-        <span class="tag tag-green">Monday.com</span><span class="tag tag-green">Project Boards</span><span class="tag tag-green">Sprint Planning</span><span class="tag tag-green">KPI Dashboards</span><span class="tag tag-green">Proprietary App</span><span class="tag tag-blue">DYPER Bridge</span><span class="tag tag-amber">Zapier</span><span class="tag tag-blue">Jira</span><span class="tag tag-blue">Slack</span>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ══ 05 RESULTS ══ -->
-<div class="sw-bg">
-  <div class="sw">
-    <div class="sec-label reveal"><span class="sec-num">05</span><div class="sec-rule"></div></div>
-    <h2 class="sec-title reveal">Results</h2>
-    <p class="sec-desc reveal">Real production numbers. No demos, no benchmarks — measured against the manual baseline in live national logistics.</p>
-
-    <div class="res-hero reveal">
-      <div class="rh-cell">
-        <div class="rh-icon">⚡</div>
-        <div class="rh-num purple">~50%</div>
-        <div class="rh-label">Launch overhead eliminated — manual GIS and analysis replaced by agent-assisted workflows</div>
-        <div class="rh-sub">6–8 WK CYCLES → 2–3 WEEKS</div>
-        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><rect x="5" y="8" width="14" height="47" rx="2" fill="white"/><rect x="24" y="24" width="14" height="31" rx="2" fill="#BF5AF2"/></svg>
-      </div>
-      <div class="rh-cell">
-        <div class="rh-icon">🚀</div>
-        <div class="rh-num blue">2–3×</div>
-        <div class="rh-label">Faster market deployment — prep cycles compressed from 6–8 weeks to 2–3 weeks per market</div>
-        <div class="rh-sub">SUSTAINED ACROSS ALL 25+ MARKETS</div>
-        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><polyline points="5,48 20,38 35,28 50,18 65,8" stroke="#409CFF" stroke-width="2" fill="none"/><polygon points="65,8 58,14 66,16" fill="#409CFF"/></svg>
-      </div>
-      <div class="rh-cell">
-        <div class="rh-icon">💰</div>
-        <div class="rh-num green">18%</div>
-        <div class="rh-label">Cost reduction via AI-optimized routing, mileage efficiency, and aggregation timing</div>
-        <div class="rh-sub">SUB-4-MONTH ROI IN SCALED MARKETS</div>
-        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><rect x="4" y="12" width="11" height="43" rx="2" fill="rgba(255,255,255,0.4)"/><rect x="19" y="20" width="11" height="35" rx="2" fill="rgba(48,209,88,0.5)"/><rect x="34" y="28" width="11" height="27" rx="2" fill="rgba(48,209,88,0.7)"/><rect x="49" y="36" width="11" height="19" rx="2" fill="#30D158"/></svg>
-      </div>
-      <div class="rh-cell">
-        <div class="rh-icon">🛡️</div>
-        <div class="rh-num amber">Zero</div>
-        <div class="rh-label">Critical AI failures — every agent output audited, human-confirmed before execution</div>
-        <div class="rh-sub">FULL NATIONAL ROLLOUT · NO INCIDENTS</div>
-        <svg class="rh-vis" width="70" height="55" viewBox="0 0 70 55"><path d="M35 5L58 16V32C58 44 35 52 35 52C35 52 12 44 12 32V16L35 5Z" stroke="#FF9F0A" stroke-width="1.5" fill="none"/></svg>
-      </div>
-    </div>
-
-    <div class="impact-box reveal d1">
-      <h3>Complete Delivery Summary</h3>
-      <div class="impact-grid">
-        <div class="impact-row"><div class="impact-check">✓</div>Designed and built agentic AI layer on live production logistics infrastructure — GPT-3 era, 2021–2022</div>
-        <div class="impact-row"><div class="impact-check">✓</div>4-agent prompt-chaining loop: density clustering → regulatory scoring → route simulation → Go/No-Go synthesis</div>
-        <div class="impact-row"><div class="impact-check">✓</div>DYPER customer CSVs bridged into proprietary app automatically — no manual hand-offs at steady state</div>
-        <div class="impact-row"><div class="impact-check">✓</div>Agent JSON outputs informed geofence boundaries built and managed directly inside Google Maps</div>
-        <div class="impact-row"><div class="impact-check">✓</div>Monday.com as full ops + tech command center — project boards, sprint planning, timelines, KPI dashboards, and automated cadences in one platform</div>
-        <div class="impact-row"><div class="impact-check">✓</div>Human-in-the-loop governance: every output Slack-reviewed in under 15 minutes before execution</div>
-        <div class="impact-row"><div class="impact-check">✓</div>Modular and versioned — GPT-3 prompts and Python models reusable across all future Recyclops markets</div>
-        <div class="impact-row"><div class="impact-check">✓</div>~50% overhead cut · 2–3× deployment speed · 18% cost reduction · zero critical failures at national scale</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ CTA ══ -->
-<div class="cta-wrap">
-  <h2 class="cta-title">Want to see what<br><span style="color:var(--purple)">I'd build for you?</span></h2>
-  <p class="cta-sub">Production AI, not PowerPoint AI. Let's talk about your challenge.</p>
-  <div class="cta-btns">
-    <a href="index.html" class="btn-purple">← Back to Portfolio</a>
-    <button onclick="openModal()" class="btn-outline">Get in Touch</button>
-  </div>
-</div>
-
-<!-- ══ CONTACT MODAL ══ -->
-<div class="modal-overlay" id="contactModal">
-  <div class="modal-backdrop" onclick="closeModal()"></div>
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <p class="modal-eyebrow">Let's Connect</p>
-    <h2 class="modal-title">Brandon Lee</h2>
-    <p class="modal-sub">Strategic Program Manager · PMO Architect · AI Operations<br>Austin, TX · Open to Remote / Hybrid</p>
-    <div class="modal-contacts">
-      <a href="mailto:lee.brandon.anthony@gmail.com" class="modal-contact-item">
-        <div class="modal-contact-icon icon-purple">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#BF5AF2" stroke-width="1.3"/><polyline points="2,6 9,11 16,6" stroke="#BF5AF2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div>
-          <span class="modal-contact-label">Email</span>
-          <span class="modal-contact-value">lee.brandon.anthony@gmail.com</span>
-        </div>
-      </a>
-      <a href="tel:4254456259" class="modal-contact-item">
-        <div class="modal-contact-icon icon-green">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 3h3l1.5 3.5-2 1.5c.9 2 2.5 3.6 4.5 4.5l1.5-2L16 12v3c0 1.1-.9 2-2 2C6.3 17 1 11.7 1 5c0-1.1.9-2 2-2h1z" stroke="#30D158" stroke-width="1.3" stroke-linejoin="round"/></svg>
-        </div>
-        <div>
-          <span class="modal-contact-label">Phone</span>
-          <span class="modal-contact-value">425.445.6259</span>
-        </div>
-      </a>
-      <a href="https://www.linkedin.com/in/brandonl33" target="_blank" class="modal-contact-item">
-        <div class="modal-contact-icon icon-blue">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="1" width="16" height="16" rx="3" stroke="#409CFF" stroke-width="1.3"/><line x1="5" y1="7" x2="5" y2="13" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><circle cx="5" cy="5" r="1" fill="#409CFF"/><path d="M8 13V10c0-1.1.9-2 2-2s2 .9 2 2v3" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/><line x1="8" y1="7" x2="8" y2="9" stroke="#409CFF" stroke-width="1.3" stroke-linecap="round"/></svg>
-        </div>
-        <div>
-          <span class="modal-contact-label">LinkedIn</span>
-          <span class="modal-contact-value">linkedin.com/in/brandonl33</span>
-        </div>
-      </a>
-      <a href="https://docs.google.com/document/d/1q0kl5eXczE8FOX7IKKFjAgLCimTtumP4wiJUIcw0-3g/export?format=pdf" target="_blank" class="modal-contact-item">
-        <div class="modal-contact-icon icon-amber">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="3" y="1" width="10" height="13" rx="1.5" stroke="#FF9F0A" stroke-width="1.3"/><line x1="6" y1="5" x2="11" y2="5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="7.5" x2="11" y2="7.5" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><line x1="6" y1="10" x2="9" y2="10" stroke="#FF9F0A" stroke-width="1.1" stroke-linecap="round" opacity="0.6"/><path d="M10 13v4l2-1.5 2 1.5V13" stroke="#FF9F0A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div>
-          <span class="modal-contact-label">Resume</span>
-          <span class="modal-contact-value">Download PDF</span>
-        </div>
-      </a>
-    </div>
-  </div>
-</div>
+</footer>
 
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);} });
-  }, { threshold: 0.07 });
-  reveals.forEach(el => io.observe(el));
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e,i) => { if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*65);obs.unobserve(e.target);} });
+},{threshold:.07});
+document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
 
-  function openModal(){
-    document.getElementById('contactModal').classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-  function closeModal(){
-    document.getElementById('contactModal').classList.remove('open');
-    document.body.style.overflow='';
-  }
-  document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+function animCount(el){
+  const t=parseInt(el.dataset.t),dur=1800,s=performance.now();
+  const tick=(n)=>{const p=Math.min((n-s)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*t);if(p<1)requestAnimationFrame(tick);else el.textContent=t;};
+  requestAnimationFrame(tick);
+}
+const cObs=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){animCount(x.target);cObs.unobserve(x.target);}});},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>cObs.observe(el));
+
+const bObs=new IntersectionObserver((e)=>{e.forEach(x=>{if(x.isIntersecting){setTimeout(()=>x.target.style.width=x.target.dataset.w+'%',250);bObs.unobserve(x.target);}});},{threshold:.3});
+document.querySelectorAll('.kpi-fill,.r-fill').forEach(el=>bObs.observe(el));
 </script>
 </body>
 </html>
