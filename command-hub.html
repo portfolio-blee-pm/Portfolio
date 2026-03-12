@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Command Hub Platform · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#09090f;--dk2:#111118;--dk3:#18181f;
+  --dk-b1:rgba(255,255,255,.06);--dk-b2:rgba(255,255,255,.11);--dk-b3:rgba(255,255,255,.18);
+  --lt:#ffffff;--lt2:#f7f6fb;--lt-b1:#ece9f8;--lt-b2:#d8d4f0;
+  --dk-h:#f2eeff;--dk-sub:#c8bfe8;--dk-muted:#7a6fa0;
+  --lt-h:#08071a;--lt-sub:#3e3858;--lt-muted:#7268a0;
+  --fh:'Figtree',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--lt2);font-family:var(--fh);overflow-x:hidden;color:var(--lt-sub)}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(9,9,15,.88);backdrop-filter:blur(28px);border-bottom:1px solid rgba(255,255,255,.055)}
+.nav-logo{font-weight:900;font-size:1.05rem;color:#fff;text-decoration:none;letter-spacing:-.03em}
+.nav-logo span{color:#60a5fa}
+.nav-links{display:flex;gap:1.75rem;align-items:center}
+.nav-links a{font-family:var(--fm);font-size:.59rem;color:#8878b8;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:8px;background:#7c3aed;color:#ffffff!important;text-decoration:none;transition:all .2s;border:none}
+.nav-cta:hover{background:#6d28d9!important;color:#ffffff!important}
+.s-dark{background:var(--dk)}.s-white{background:#fff}.s-lt{background:var(--lt2)}
+.sp{padding:5.5rem 0}
+.container{max-width:1060px;margin:0 auto;padding:0 2.5rem}
+.narrow{max-width:750px;margin:0 auto;padding:0 2.5rem}
+.fu{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+.fu.vis{opacity:1;transform:none}
+.ey{font-family:var(--fm);font-size:.55rem;font-weight:500;letter-spacing:.24em;text-transform:uppercase;display:flex;align-items:center;gap:.55rem;margin-bottom:.85rem}
+.ey::before{content:'';width:20px;height:1.5px;border-radius:2px;display:inline-block}
+.ey.lt{color:#60a5fa}.ey.lt::before{background:#6d28d9}
+.ey.dk{color:var(--lt-muted)}.ey.dk::before{background:var(--lt-b2)}
+/* HERO */
+.cs-hero{min-height:73vh;display:flex;align-items:center;padding-top:56px;background:var(--dk);position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.cs-back{font-family:var(--fm);font-size:.56rem;color:#8878b8;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.4rem;margin-bottom:2.1rem;border:1px solid var(--dk-b2);padding:.36rem .95rem;border-radius:999px;background:rgba(255,255,255,.025);transition:all .2s}
+.cs-back:hover{color:#fff;border-color:var(--dk-b3)}
+.cs-tag{font-family:var(--fm);font-size:.53rem;padding:.26rem .88rem;border-radius:999px;display:inline-flex;align-items:center;gap:.45rem;margin-bottom:1.35rem;font-weight:500;letter-spacing:.05em}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.cs-title{font-size:clamp(2.7rem,5.5vw,4.4rem);font-weight:900;color:var(--dk-h);letter-spacing:-.055em;line-height:1.0;margin-bottom:1.15rem}
+.cs-desc{font-size:1.05rem;color:var(--dk-sub);line-height:1.88;max-width:600px;margin-bottom:3rem}
+/* METRICS */
+.cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.csm{border-radius:14px;padding:1.1rem 1.25rem;border:1px solid var(--dk-b1);background:rgba(255,255,255,.03);position:relative;overflow:hidden;transition:border-color .3s}
+.csm::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 10%,rgba(255,255,255,.1) 50%,transparent 90%)}
+.csm:hover{border-color:var(--dk-b3)}
+.csm-stripe{position:absolute;top:0;left:0;right:0;height:2px}
+.csm-num{font-size:1.85rem;font-weight:900;color:var(--dk-h);letter-spacing:-.05em;line-height:1.1}
+.csm-unit{font-size:.95rem;font-weight:700}
+.csm-lbl{font-family:var(--fm);font-size:.49rem;color:var(--dk-muted);letter-spacing:.12em;text-transform:uppercase;margin-top:.35rem;line-height:1.5}
+/* BODY */
+.cs-body h3{font-size:1.45rem;font-weight:800;color:var(--lt-h);letter-spacing:-.03em;margin-bottom:.8rem}
+.cs-body p{font-size:.965rem;color:var(--lt-sub);line-height:1.92;margin-bottom:1.3rem}
+.cs-body p strong{color:var(--lt-h);font-weight:700}
+.callout{border-radius:0 14px 14px 0;padding:1.5rem 1.85rem;margin:2rem 0}
+.callout p{font-size:.955rem;color:var(--lt-sub);line-height:1.88;margin:0}
+/* APP ICON — the Apple detail */
+.app-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:1.15rem;flex-shrink:0;position:relative;overflow:hidden}
+.app-icon::before{content:'';position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(160deg,rgba(255,255,255,.28),transparent);z-index:2;pointer-events:none}
+.app-icon svg{position:relative;z-index:3}
+/* PHASE CARDS */
+.phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin:2rem 0}
+.phase-card{border-radius:18px;padding:1.7rem;border:1px solid var(--dk-b1);position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .3s}
+.phase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;z-index:2}
+.phase-card::after{content:'';position:absolute;top:0;left:0;right:0;height:90px;background:linear-gradient(to bottom,rgba(255,255,255,.028),transparent);z-index:1;pointer-events:none}
+.phase-card:hover{transform:translateY(-4px)}
+.pc-v{background:linear-gradient(155deg,#0f0d1d,#130f1a)}.pc-v::before{background:linear-gradient(90deg,#6d28d9,#a855f7)}.pc-v:hover{border-color:rgba(109,40,217,.3);box-shadow:0 18px 52px rgba(109,40,217,.14)}
+.pc-b{background:linear-gradient(155deg,#080d1c,#0c1018)}.pc-b::before{background:linear-gradient(90deg,#1d4ed8,#6366f1)}.pc-b:hover{border-color:rgba(29,78,216,.3);box-shadow:0 18px 52px rgba(29,78,216,.13)}
+.pc-g{background:linear-gradient(155deg,#071410,#0a1612)}.pc-g::before{background:linear-gradient(90deg,#15803d,#10b981)}.pc-g:hover{border-color:rgba(21,128,61,.28);box-shadow:0 18px 52px rgba(21,128,61,.1)}
+.pc-p{background:linear-gradient(155deg,#15100a,#1a1208)}.pc-p::before{background:linear-gradient(90deg,#b45309,#d97706)}.pc-p:hover{border-color:rgba(180,83,9,.3);box-shadow:0 18px 52px rgba(180,83,9,.1)}
+.pc-lbl{font-family:var(--fm);font-size:.47rem;color:rgba(255,255,255,.22);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.5rem;position:relative;z-index:3}
+.pc-title{font-size:.98rem;font-weight:800;color:var(--dk-h);margin-bottom:.9rem;line-height:1.25;position:relative;z-index:3}
+.pc-sub{font-family:var(--fm);font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem;position:relative;z-index:3;opacity:.7}
+.pc-item{font-size:.81rem;color:#a090c8;line-height:1.52;padding:.27rem 0 .27rem .7rem;border-left:1.5px solid rgba(255,255,255,.07);margin-bottom:.27rem;position:relative;z-index:3}
+/* TOOLS */
+.tools-wrap{margin-top:2.75rem}
+.tools-lbl{font-family:var(--fm);font-size:.49rem;color:var(--dk-muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.75rem}
+.tools{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{font-family:var(--fm);font-size:.58rem;padding:.27rem .82rem;border-radius:999px;border:1px solid;font-weight:500;letter-spacing:.04em;transition:all .2s;cursor:default}
+.cn{border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.48);background:rgba(255,255,255,.03)}
+.cn:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.75)}
+.cv{border-color:rgba(96,165,250,.4);color:#60a5fa;background:rgba(29,78,216,.1);font-weight:700}
+.cb{border-color:rgba(96,165,250,.4);color:#60a5fa;background:rgba(29,78,216,.1);font-weight:700}
+.cpk{border-color:rgba(244,114,182,.4);color:#f472b6;background:rgba(225,29,110,.1);font-weight:700}
+.cg{border-color:rgba(251,191,36,.4);color:#fbbf24;background:rgba(217,119,6,.1);font-weight:700}
+/* ─── RESULT CARDS: EDITORIAL MIXED + LUXURY GLOW ─── */
+.re-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;margin:2.25rem 0}
+.re-card{border-radius:20px;padding:1.8rem;position:relative;overflow:hidden;transition:transform .38s cubic-bezier(.16,1,.3,1),box-shadow .38s,border-color .38s}
+.re-open{background:#fff;border:1.5px solid var(--lt-b1);box-shadow:0 2px 12px rgba(13,11,26,.03)}
+.re-open:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(29,78,216,.09);border-color:rgba(29,78,216,.2)}
+.re-dark{background:linear-gradient(150deg,#080c1c 0%,#0b0f1e 100%);border:1px solid rgba(255,255,255,.08)}
+.re-dark.rb{box-shadow:inset 0 1px 0 rgba(147,197,253,.12),0 0 0 1px rgba(37,99,235,.13)}
+.re-dark.rb:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(147,197,253,.18),0 20px 56px rgba(37,99,235,.2),0 0 0 1px rgba(37,99,235,.26)}
+.re-dark.rv{box-shadow:inset 0 1px 0 rgba(167,139,250,.14),0 0 0 1px rgba(109,40,217,.14)}
+.re-dark.rv:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(167,139,250,.2),0 20px 56px rgba(109,40,217,.22),0 0 0 1px rgba(109,40,217,.28)}
+.re-dark.rg{box-shadow:inset 0 1px 0 rgba(74,222,128,.1),0 0 0 1px rgba(22,163,74,.12)}
+.re-dark.rg:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(74,222,128,.15),0 20px 56px rgba(22,163,74,.18),0 0 0 1px rgba(22,163,74,.24)}
+.re-dark.ra{box-shadow:inset 0 1px 0 rgba(252,211,77,.1),0 0 0 1px rgba(217,119,6,.12)}
+.re-dark.ra:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(252,211,77,.16),0 20px 56px rgba(217,119,6,.18),0 0 0 1px rgba(217,119,6,.24)}
+.re-dark::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;pointer-events:none;z-index:0}
+.re-dark.rb::after{background:radial-gradient(circle,rgba(37,99,235,.15),transparent 65%)}
+.re-dark.rv::after{background:radial-gradient(circle,rgba(109,40,217,.18),transparent 65%)}
+.re-dark.rg::after{background:radial-gradient(circle,rgba(22,163,74,.14),transparent 65%)}
+.re-dark.ra::after{background:radial-gradient(circle,rgba(217,119,6,.14),transparent 65%)}
+.re-ey{font-family:var(--fm);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem;position:relative;z-index:1}
+.re-ey-lt{color:var(--lt-muted)}.re-ey-dk{color:rgba(255,255,255,.24)}
+.re-stat-lt{font-size:2.6rem;font-weight:900;letter-spacing:-.06em;line-height:1;margin-bottom:.45rem;color:var(--lt-h)}
+.re-stat-dk{font-size:2.3rem;font-weight:900;letter-spacing:-.055em;line-height:1;margin-bottom:.45rem;color:#f0eeff;position:relative;z-index:1}
+.re-title-lt{font-size:1rem;font-weight:800;color:var(--lt-h);letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem}
+.re-title-dk{font-size:1rem;font-weight:800;color:#e8f0ff;letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem;position:relative;z-index:1}
+.re-desc-lt{font-size:.83rem;color:var(--lt-sub);line-height:1.68}
+.re-desc-dk{font-size:.83rem;color:#8898c0;line-height:1.68;position:relative;z-index:1}
+.re-rule{height:1px;background:var(--lt-b1);margin:.95rem 0}
+.re-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem;position:relative;z-index:2}
+.re-tag{font-family:var(--fm);font-size:.51rem;padding:.22rem .7rem;border-radius:999px;border:1px solid;font-weight:600;letter-spacing:.05em}
+.t-v{border-color:rgba(167,139,250,.38);color:#a78bfa;background:rgba(109,40,217,.1)}
+.t-b{border-color:rgba(147,197,253,.35);color:#93c5fd;background:rgba(37,99,235,.1)}
+.t-g{border-color:rgba(74,222,128,.32);color:#4ade80;background:rgba(22,163,74,.09)}
+.t-a{border-color:rgba(252,211,77,.3);color:#fcd34d;background:rgba(217,119,6,.09)}
+.t-w{border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.5);background:rgba(255,255,255,.035)}
+.re-icon-lt{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.05)}
+.re-icon-lt::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 50%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-lt svg{position:relative;z-index:3}
+.re-icon-dk{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;z-index:2;
+  box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.re-icon-dk::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 48%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-dk svg{position:relative;z-index:3}
+/* SECTION HEADS */
+.sh{font-size:clamp(1.95rem,3.3vw,2.7rem);font-weight:900;letter-spacing:-.045em;line-height:1.08;margin-bottom:.55rem}
+.sh-sub{font-size:.96rem;max-width:570px;line-height:1.78;margin-bottom:2.5rem}
+/* NEXT PROG */
+.next-prog{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--dk2),var(--dk3));border:1px solid var(--dk-b2);border-radius:18px;padding:1.8rem 2rem;text-decoration:none;transition:all .3s cubic-bezier(.22,1,.36,1);margin-top:3.5rem;position:relative;overflow:hidden}
+.next-prog::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent)}
+.next-prog:hover{border-color:var(--dk-b3);transform:translateY(-3px);box-shadow:0 20px 56px rgba(0,0,0,.3)}
+.np-lbl{font-family:var(--fm);font-size:.49rem;color:var(--dk-muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem}
+.np-title{font-size:1.15rem;font-weight:800;color:var(--dk-h);letter-spacing:-.025em}
+.np-arrow{font-size:1.5rem;color:var(--dk-muted);transition:all .25s}
+.next-prog:hover .np-arrow{color:#60a5fa;transform:translateX(5px)}
+footer{background:var(--dk);border-top:1px solid var(--dk-b1);padding:1.5rem 2rem;text-align:center}
+footer p{font-family:var(--fm);font-size:.52rem;color:#3e3660;letter-spacing:.08em}
+@media(max-width:880px){.cs-metrics,.phase-grid{grid-template-columns:repeat(2,1fr)}.result-grid{grid-template-columns:1fr}}
+@media(max-width:520px){.cs-metrics{grid-template-columns:repeat(2,1fr)}.container,.narrow{padding:0 1.25rem}nav{padding:0 1.25rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">BL<span>.</span></a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a><a href="#implementation">Platform</a><a href="#results">Results</a>
+    <a class="nav-cta" href="/cdn-cgi/l/email-protection#19757c7c377b6b78777d76773778776d71767760597e74787075377a7674">Let's Talk</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="orb" style="width:800px;height:800px;top:-300px;right:-200px;background:radial-gradient(circle,rgba(29,78,216,.11),transparent 65%);filter:blur(80px)"></div>
+  <div class="orb" style="width:500px;height:500px;bottom:-100px;left:-50px;background:radial-gradient(circle,rgba(29,78,216,.07),transparent 65%);filter:blur(70px)"></div>
+    <canvas id="heroCanvas_program_command_hub" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55"></canvas>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  (function(){var c=document.getElementById('heroCanvas_program_command_hub');if(!c)return;
+  var x=c.getContext('2d'),pts=[];
+  var COLS=['rgba(147,197,253,_OP_)','rgba(255,255,255,_OP_)','rgba(56,189,248,_OP_)','rgba(37,99,235,_OP_)'];
+  function rsz(){var s=c.parentElement;c.width=s.offsetWidth;c.height=s.offsetHeight;init();}
+  function init(){pts=[];for(var i=0;i<95;i++){var cl=COLS[Math.floor(Math.random()*COLS.length)];
+    pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:.3+Math.random()*1.5,
+    vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,op:.1+Math.random()*.7,
+    opv:(Math.random()-.5)*.007,col:cl});}}
+  function draw(){x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;p.op+=p.opv;
+      if(p.op>.88||p.op<.06)p.opv*=-1;
+      if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
+      if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=p.col.replace('_OP_',p.op.toFixed(2));x.fill();}
+    requestAnimationFrame(draw);}
+  rsz();window.addEventListener('resize',rsz);requestAnimationFrame(draw);
+  })();
+  </script>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fu">
+      <a class="cs-back" href="index.html#programs">← All Programs</a>
+      <div class="cs-tag" style="border:1px solid rgba(96,165,250,.4);color:#60a5fa;background:rgba(29,78,216,.1)">
+        <span class="dot" style="background:#60a5fa"></span>Operational Intelligence · 2023
+      </div>
+      <h1 class="cs-title">National Aggregation<br><span style="color:#60a5fa">Platform.</span></h1>
+      <p class="cs-desc">Centralized operational intelligence for a distributed national program. Designed and built an integrated platform combining real-time KPI dashboards, program visibility, and executive decision layers across 25+ markets.</p>
+    </div>
+    <div class="cs-metrics fu" style="transition-delay:.14s">
+      <div class="csm"><div class="csm-stripe" style="background:linear-gradient(90deg,#6d28d9,#a855f7)"></div><div class="csm-num">25<span class="csm-unit" style="color:#60a5fa">+</span></div><div class="csm-lbl">Markets Unified</div></div>
+      <div class="csm"><div class="csm-stripe" style="background:linear-gradient(90deg,#1d4ed8,#6366f1)"></div><div class="csm-num" style="font-size:1.1rem;padding-top:.25rem">Real<span class="csm-unit" style="color:#60a5fa;font-size:.85rem">-time</span></div><div class="csm-lbl">KPI Visibility</div></div>
+      <div class="csm"><div class="csm-stripe" style="background:linear-gradient(90deg,#15803d,#10b981)"></div><div class="csm-num">50<span class="csm-unit" style="color:#4ade80">%</span></div><div class="csm-lbl">Reporting Overhead Cut</div></div>
+      <div class="csm"><div class="csm-stripe" style="background:linear-gradient(90deg,#d97706,#f59e0b)"></div><div class="csm-num" style="font-size:1.1rem;padding-top:.25rem">C-Suite<span class="csm-unit" style="color:#60a5fa;font-size:.75rem"></span></div><div class="csm-lbl">Decision Layer Built</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp" id="overview">
+  <div class="narrow">
+    <div class="ey dk fu">Program Overview</div>
+    <div class="cs-body fu" style="transition-delay:.08s">
+      <h3>The Challenge</h3>
+      <p>As the National Aggregation Program scaled to 25+ markets, operational visibility collapsed. Teams were managing launches through fragmented spreadsheets, disconnected project tools, and ad-hoc reporting. Leadership had no single source of truth — no real-time view of what was live, what was at risk, or what needed decisions.</p>
+      <p>Executive stakeholders were receiving weekly status emails that were outdated before they landed. Cross-functional dependencies were invisible until they became blockers. The program was scaling faster than its reporting infrastructure could keep up.</p>
+    </div>
+    <div class="callout fu" style="transition-delay:.14s;background:rgba(29,78,216,.05);border:1px solid rgba(29,78,216,.14);border-left:3px solid #1d4ed8">
+      <p><strong style="color:#1d4ed8">The gap:</strong> Operational teams had the data — it was scattered across monday.com boards, JIRA tickets, Salesforce records, and manual trackers. The Command Hub was built to unify it into a single operational intelligence layer that leadership could act from in real time.</p>
+    </div>
+    <div class="cs-body fu" style="transition-delay:.2s">
+      <h3 style="margin-top:1.75rem">Strategic Approach</h3>
+      <p>The Command Hub was designed as a <strong>decision-support system</strong>, not just a dashboard. The architecture was built around three layers — operational status, risk surfacing, and executive action.</p>
+      <p>Existing platforms were integrated and structured: monday.com became the operational spine, JIRA fed engineering dependency tracking, Salesforce connected market revenue data, and Claude synthesized the executive narrative layer.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s-dark sp" id="implementation">
+  <div class="container">
+    <div class="ey lt fu">Implementation</div>
+    <h2 class="sh fu" style="color:var(--dk-h);transition-delay:.08s">Three Layers. <span style="color:var(--dk-muted);font-weight:300">One View.</span></h2>
+    <p class="sh-sub fu" style="color:var(--dk-sub);transition-delay:.14s">Operational data, risk intelligence, and executive visibility — unified into a single command layer.</p>
+    <div class="phase-grid fu" style="transition-delay:.2s">
+      <div class="phase-card pc-v">
+        <div class="app-icon" style="background:linear-gradient(145deg,#4c1d95,#6d28d9);box-shadow:0 6px 20px rgba(109,40,217,.38)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ede9fe" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="pc-lbl">Phase 01</div>
+        <div class="pc-title">Infrastructure & Governance</div>
+        <div class="pc-item">PMO operating model built from zero</div>
+        <div class="pc-item">SLA thresholds & incident escalation defined</div>
+        <div class="pc-item">Risk & dependency tracking framework</div>
+        <div class="pc-item">Go/No-Go criteria standardized</div>
+        <div class="pc-item">Billing & API integration governance</div>
+      </div>
+      <div class="phase-card pc-b">
+        <div class="app-icon" style="background:linear-gradient(145deg,#1e3a8a,#1d4ed8);box-shadow:0 6px 20px rgba(29,78,216,.38)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dbeafe" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="pc-lbl">Layer 02</div>
+        <div class="pc-title">Risk Intelligence Layer</div>
+        <div class="pc-item">Dependency mapping across workstreams</div>
+        <div class="pc-item">Automated risk flag surfacing</div>
+        <div class="pc-item">Critical path deviation alerts</div>
+        <div class="pc-item">Cross-functional blocker tracking</div>
+        <div class="pc-item">Go/No-Go readiness scoring</div>
+      </div>
+      <div class="phase-card pc-g">
+        <div class="app-icon" style="background:linear-gradient(145deg,#14532d,#15803d);box-shadow:0 6px 20px rgba(21,128,61,.32)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#bbf7d0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="pc-lbl">Layer 03</div>
+        <div class="pc-title">Executive Decision Layer</div>
+        <div class="pc-item">C-suite KPI dashboard — weekly cadence</div>
+        <div class="pc-item">Portfolio health summary reporting</div>
+        <div class="pc-item">Earned value &amp; budget variance views</div>
+        <div class="pc-item">AI-synthesized exec reporting (Claude)</div>
+        <div class="pc-item">Decision log &amp; action item tracking</div>
+      </div>
+    </div>
+    <div class="tools-wrap fu" style="transition-delay:.26s">
+      <div class="tools-lbl">Tools & Platforms</div>
+      <div class="tools">
+        <span class="chip cv">monday.com</span><span class="chip cv">JIRA</span><span class="chip cv">Confluence</span><span class="chip cv">Tableau</span><span class="chip cb">Claude</span><span class="chip cn">Salesforce</span><span class="chip cn">SQL</span><span class="chip cn">Smartsheet</span><span class="chip cn">NotebookLM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp">
+  <div class="container">
+    <div class="ey dk fu">Results</div>
+    <h2 class="sh fu" style="color:var(--lt-h);transition-delay:.08s">Visibility Became <span style="color:#1d4ed8">Velocity.</span></h2>
+    <p class="sh-sub fu" style="color:var(--lt-muted);transition-delay:.14s">When leadership can see everything, decisions happen faster.</p>
+    <div class="re-grid fu" style="transition-delay:.2s">
+
+      <!-- dark left — unified visibility -->
+      <div class="re-card re-dark rb">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#1e3a8a,#2563eb)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(191,219,254,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">01 — Visibility</div>
+        <div class="re-stat-dk" style="color:#93c5fd">25<span style="font-size:1.3rem">+</span></div>
+        <div class="re-title-dk">Markets Unified</div>
+        <div class="re-desc-dk">Single operational view replaced 12+ fragmented reporting sources — program leads and executives now operating from one source of truth in real time.</div>
+        <div class="re-tags"><span class="re-tag t-b">One Source of Truth</span><span class="re-tag t-w">Real-time</span></div>
+      </div>
+
+      <!-- open right — reporting -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#dcfce7,#bbf7d0)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">02 — Efficiency</div>
+        <div class="re-stat-lt">50<span style="font-size:1.5rem;color:#16a34a">%</span></div>
+        <div class="re-title-lt">Reporting Overhead Cut</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">Automated KPI dashboards and AI-synthesized exec summaries eliminated manual weekly reporting — saving 10+ hours per week across the program team.</div>
+      </div>
+
+      <!-- open left — decision speed -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#dbeafe,#bfdbfe)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">03 — Speed</div>
+        <div class="re-title-lt" style="font-size:1.15rem;margin-bottom:.5rem">Faster Decision Cycles</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">Executive stakeholders moved from weekly status reviews to real-time decision capability — reducing decision latency on high-priority escalations from days to hours.</div>
+      </div>
+
+      <!-- dark right — risk -->
+      <div class="re-card re-dark ra">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#78350f,#d97706)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,230,138,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">04 — Risk</div>
+        <div class="re-stat-dk" style="color:#fcd34d">3–5<span style="font-size:1.1rem"> days</span></div>
+        <div class="re-title-dk">Earlier Risk Detection</div>
+        <div class="re-desc-dk">Dependency tracking and automated risk flagging surfaced blockers 3–5 days earlier on average — enabling proactive resolution before launch impact hit operations.</div>
+        <div class="re-tags"><span class="re-tag t-a">Proactive</span><span class="re-tag t-w">Auto-Flagged</span></div>
+      </div>
+
+    </div>
+    <a href="ai-automation.html" class="next-prog fu" style="transition-delay:.28s">
+      <div><div class="np-lbl">Next Program</div><div class="np-title">AI-Driven Operations System</div></div>
+      <div class="np-arrow">&rarr;</div>
+    </a>
+  </div>
+</section>
+
+<footer><p>© 2024 Brandon Lee · Strategic Program Manager · Austin, TX · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="402c25256e2232212e242f2e6e212e34282f2e3900272d21292c6e232f2d">[email&#160;protected]</a></p></footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var els = document.querySelectorAll('.fu');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(

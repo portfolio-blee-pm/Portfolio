@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PMO & Governance · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#080810;--dk2:#0f0f1a;--dk3:#161624;
+  --lt:#ffffff;--lt2:#f7f6fb;--lt-border:#e8e6f0;
+  --dk-h:#fffbf0;--dk-m:#908060;--dk-m2:#504830;
+  --lt-h:#100c00;--lt-t:#3a3020;--lt-m:#706040;
+  --acc:#d97706;--aca:#fcd34d;--aca2:#fef3c7;
+  --fh:'Figtree',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--lt2);font-family:var(--fh);font-size:16px;line-height:1.7;overflow-x:hidden;color:var(--lt-t)}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(8,8,16,.88);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{font-weight:800;font-size:1rem;color:#fff;text-decoration:none;letter-spacing:-.025em}
+.nav-logo span{color:var(--aca)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-family:var(--fm);font-size:.6rem;color:#9088b8;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:8px;background:#7c3aed;color:#ffffff!important;text-decoration:none;transition:all .2s;border:none}
+.nav-cta:hover{background:#6d28d9!important;color:#ffffff!important}
+.s-dark{background:var(--dk)}.s-white{background:#fff}
+.sp{padding:6rem 0}
+.container{max-width:1040px;margin:0 auto;padding:0 2.5rem}
+.narrow{max-width:740px;margin:0 auto;padding:0 2.5rem}
+.fu{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.fu.vis{opacity:1;transform:none}
+.ey{font-family:var(--fm);font-size:.55rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
+.ey::before{content:'';display:inline-block;width:22px;height:1.5px;border-radius:2px}
+.ey.lt{color:var(--aca)}.ey.lt::before{background:linear-gradient(90deg,var(--acc),var(--aca))}
+.ey.dk{color:var(--lt-m)}.ey.dk::before{background:linear-gradient(90deg,#d0cde8,transparent)}
+.cs-hero{min-height:72vh;display:flex;align-items:center;padding-top:56px;background:var(--dk);position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.cs-back{font-family:var(--fm);font-size:.57rem;color:#7a7095;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2.25rem;transition:all .2s;border:1px solid rgba(255,255,255,.08);padding:.38rem .95rem;border-radius:100px;background:rgba(255,255,255,.03)}
+.cs-back:hover{color:#e8d8b8;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.cs-tag{font-family:var(--fm);font-size:.54rem;padding:.3rem .9rem;border-radius:100px;border:1px solid rgba(217,119,6,.4);color:var(--aca);background:rgba(217,119,6,.12);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.4rem;font-weight:500}
+.cs-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--aca);box-shadow:0 0 8px var(--acc)}
+.cs-title{font-family:var(--fh);font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:900;color:var(--dk-h);letter-spacing:-.055em;line-height:1.0;margin-bottom:1.15rem}
+.cs-title em{font-style:normal;background:linear-gradient(135deg,var(--aca),#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cs-desc{font-size:1.05rem;color:#b0a080;line-height:1.9;max-width:590px;margin-bottom:3.25rem}
+.cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
+.csm{background:rgba(255,255,255,.032);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.25rem 1.3rem;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.16,1,.3,1)}
+.csm::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.csm:hover{border-color:rgba(217,119,6,.28);background:rgba(217,119,6,.06);transform:translateY(-2px);box-shadow:0 8px 32px rgba(217,119,6,.1)}
+.csm-num{font-family:var(--fh);font-size:1.9rem;font-weight:900;color:var(--dk-h);letter-spacing:-.055em;line-height:1}
+.csm-num em{color:var(--aca);font-style:normal;font-size:1.05rem;font-weight:700}
+.csm-lbl{font-family:var(--fm);font-size:.49rem;color:#807048;letter-spacing:.12em;text-transform:uppercase;margin-top:.4rem;line-height:1.5}
+.cs-body h3{font-family:var(--fh);font-size:1.45rem;font-weight:800;color:var(--lt-h);letter-spacing:-.03em;margin-bottom:.8rem}
+.cs-body p{font-size:.96rem;color:#3a3020;line-height:1.95;margin-bottom:1.3rem}
+.cs-body p strong{color:#100c00;font-weight:700}
+.callout{background:linear-gradient(135deg,rgba(217,119,6,.055),rgba(245,158,11,.03));border:1px solid rgba(217,119,6,.16);border-left:3px solid var(--acc);border-radius:0 16px 16px 0;padding:1.5rem 1.85rem;margin:2rem 0}
+.callout p{font-size:.95rem;color:#3a3020;line-height:1.9;margin:0}
+.callout p strong{color:var(--acc)}
+.icon-box{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.15rem;position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.25)}
+.icon-box::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,.05) 45%,transparent 55%);border-radius:inherit;pointer-events:none;z-index:2}
+.icon-box svg{position:relative;z-index:3}
+.rc-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(0,0,0,.06)}
+.rc-icon::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.1) 50%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.rc-icon svg{position:relative;z-index:3}
+.pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin:2.25rem 0}
+.pillar-card{border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;
+  background:linear-gradient(155deg,rgba(18,14,4,.98) 0%,rgba(12,10,2,.98) 100%);border:1px solid rgba(217,119,6,.09)}
+.pillar-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:20px 20px 0 0}
+.pillar-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:120px;background:linear-gradient(135deg,rgba(255,255,255,.02) 0%,transparent 60%);pointer-events:none}
+.pillar-card:hover{transform:translateY(-4px)}
+.pp1::before{background:linear-gradient(90deg,#92400e,#f59e0b)}.pp1:hover{box-shadow:0 16px 48px rgba(217,119,6,.18);border-color:rgba(217,119,6,.25)}
+.pp2::before{background:linear-gradient(90deg,#5b21b6,#8b5cf6)}.pp2:hover{box-shadow:0 16px 48px rgba(124,58,237,.16);border-color:rgba(124,58,237,.22)}
+.pp3::before{background:linear-gradient(90deg,#166534,#22c55e)}.pp3:hover{box-shadow:0 16px 48px rgba(22,163,74,.14);border-color:rgba(22,163,74,.2)}
+.pp4::before{background:linear-gradient(90deg,#1e40af,#3b82f6)}.pp4:hover{box-shadow:0 16px 48px rgba(37,99,235,.15);border-color:rgba(37,99,235,.22)}
+.pc-num{font-family:var(--fm);font-size:.48rem;color:rgba(255,255,255,.2);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.6rem}
+.pc-title{font-family:var(--fh);font-size:1rem;font-weight:800;color:var(--dk-h);margin-bottom:1rem;line-height:1.2;letter-spacing:-.02em}
+.pc-item{font-size:.82rem;color:#a08060;line-height:1.5;padding:.32rem 0 .32rem .75rem;border-left:1.5px solid rgba(255,255,255,.07);margin-bottom:.3rem}
+.org-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin:2.25rem 0}
+.org-card{background:#fff;border:1px solid var(--lt-border);border-radius:16px;padding:1.4rem;transition:all .3s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 1px 3px rgba(16,12,0,.04),0 4px 12px rgba(16,12,0,.03)}
+.org-card:hover{border-color:rgba(217,119,6,.22);box-shadow:0 8px 32px rgba(217,119,6,.08);transform:translateY(-2px)}
+.org-name{font-family:var(--fh);font-size:.95rem;font-weight:800;color:var(--lt-h);margin-bottom:.25rem;letter-spacing:-.02em}
+.org-role{font-family:var(--fm);font-size:.52rem;color:#7c3aed;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.55rem;font-weight:600}
+.org-note{font-size:.82rem;color:#584030;line-height:1.55}
+/* ─── RESULT CARDS: EDITORIAL MIXED + LUXURY GLOW ─── */
+.re-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;margin:2.25rem 0}
+.re-card{border-radius:20px;padding:1.8rem;position:relative;overflow:hidden;transition:transform .38s cubic-bezier(.16,1,.3,1),box-shadow .38s,border-color .38s}
+.re-open{background:#fff;border:1.5px solid #ece8d8;box-shadow:0 2px 12px rgba(16,12,0,.03)}
+.re-open:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(217,119,6,.09);border-color:rgba(217,119,6,.22)}
+.re-dark{background:linear-gradient(150deg,#120e04 0%,#160f04 100%);border:1px solid rgba(255,255,255,.08)}
+.re-dark.ra{box-shadow:inset 0 1px 0 rgba(252,211,77,.12),0 0 0 1px rgba(217,119,6,.13)}
+.re-dark.ra:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(252,211,77,.2),0 20px 56px rgba(217,119,6,.22),0 0 0 1px rgba(217,119,6,.28)}
+.re-dark.rg{box-shadow:inset 0 1px 0 rgba(74,222,128,.1),0 0 0 1px rgba(22,163,74,.12)}
+.re-dark.rg:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(74,222,128,.15),0 20px 56px rgba(22,163,74,.18),0 0 0 1px rgba(22,163,74,.24)}
+.re-dark.rb{box-shadow:inset 0 1px 0 rgba(147,197,253,.12),0 0 0 1px rgba(37,99,235,.13)}
+.re-dark.rb:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(147,197,253,.18),0 20px 56px rgba(37,99,235,.2),0 0 0 1px rgba(37,99,235,.26)}
+.re-dark.rv{box-shadow:inset 0 1px 0 rgba(167,139,250,.12),0 0 0 1px rgba(109,40,217,.13)}
+.re-dark.rv:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(167,139,250,.18),0 20px 56px rgba(109,40,217,.2),0 0 0 1px rgba(109,40,217,.26)}
+.re-dark::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;pointer-events:none;z-index:0}
+.re-dark.ra::after{background:radial-gradient(circle,rgba(217,119,6,.18),transparent 65%)}
+.re-dark.rg::after{background:radial-gradient(circle,rgba(22,163,74,.14),transparent 65%)}
+.re-dark.rb::after{background:radial-gradient(circle,rgba(37,99,235,.15),transparent 65%)}
+.re-dark.rv::after{background:radial-gradient(circle,rgba(109,40,217,.18),transparent 65%)}
+.re-ey{font-family:var(--fm);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem;position:relative;z-index:1}
+.re-ey-lt{color:#706040}.re-ey-dk{color:rgba(255,255,255,.24)}
+.re-stat-lt{font-size:2.6rem;font-weight:900;letter-spacing:-.06em;line-height:1;margin-bottom:.45rem;color:#100c00}
+.re-stat-dk{font-size:2.3rem;font-weight:900;letter-spacing:-.055em;line-height:1;margin-bottom:.45rem;color:#fffbf0;position:relative;z-index:1}
+.re-title-lt{font-size:1rem;font-weight:800;color:#100c00;letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem}
+.re-title-dk{font-size:1rem;font-weight:800;color:#fff8e8;letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem;position:relative;z-index:1}
+.re-desc-lt{font-size:.83rem;color:#3a3020;line-height:1.68}
+.re-desc-dk{font-size:.83rem;color:#a08060;line-height:1.68;position:relative;z-index:1}
+.re-rule{height:1px;background:#ece8d8;margin:.95rem 0}
+.re-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem;position:relative;z-index:2}
+.re-tag{font-family:var(--fm);font-size:.51rem;padding:.22rem .7rem;border-radius:999px;border:1px solid;font-weight:600;letter-spacing:.05em}
+.t-a{border-color:rgba(252,211,77,.35);color:#fcd34d;background:rgba(217,119,6,.1)}
+.t-g{border-color:rgba(74,222,128,.32);color:#4ade80;background:rgba(22,163,74,.09)}
+.t-b{border-color:rgba(147,197,253,.32);color:#93c5fd;background:rgba(37,99,235,.1)}
+.t-v{border-color:rgba(167,139,250,.32);color:#a78bfa;background:rgba(109,40,217,.1)}
+.t-w{border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.5);background:rgba(255,255,255,.035)}
+.re-icon-lt{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.05)}
+.re-icon-lt::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 50%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-lt svg{position:relative;z-index:3}
+.re-icon-dk{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;z-index:2;
+  box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.re-icon-dk::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 48%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-dk svg{position:relative;z-index:3}
+.tools-section{margin-top:2.75rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06)}
+.tools-label{font-family:var(--fm);font-size:.49rem;color:rgba(255,255,255,.28);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
+.tools{display:flex;flex-wrap:wrap;gap:.5rem}
+.tool{font-family:var(--fm);font-size:.57rem;padding:.32rem .85rem;border-radius:100px;border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.42);background:rgba(255,255,255,.035);font-weight:500;transition:all .2s}
+.tool:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.75)}
+.tool.hi{border-color:rgba(217,119,6,.38);color:var(--aca);background:rgba(217,119,6,.09);font-weight:600}
+.sh{font-family:var(--fh);font-size:clamp(1.85rem,3.2vw,2.55rem);font-weight:900;letter-spacing:-.045em;line-height:1.08;margin-bottom:.6rem}
+.back-prog{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--dk3) 0%,var(--dk2) 100%);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.85rem 2.1rem;text-decoration:none;transition:all .35s cubic-bezier(.16,1,.3,1);margin-top:3.5rem;position:relative;overflow:hidden}
+.back-prog::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent)}
+.back-prog:hover{border-color:rgba(217,119,6,.3);transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,0,0,.28)}
+.np-label{font-family:var(--fm);font-size:.5rem;color:var(--dk-m);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem}
+.np-title{font-family:var(--fh);font-size:1.15rem;font-weight:800;color:var(--dk-h);letter-spacing:-.025em}
+.np-arrow{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--aca);font-size:1.1rem;transition:all .3s;flex-shrink:0}
+.back-prog:hover .np-arrow{background:rgba(217,119,6,.18);border-color:rgba(217,119,6,.35);transform:translateX(-3px)}
+footer{background:var(--dk);border-top:1px solid rgba(255,255,255,.05);padding:1.75rem 2.5rem;text-align:center}
+footer p{font-family:var(--fm);font-size:.52rem;color:var(--dk-m2);letter-spacing:.08em}
+@media(max-width:860px){.cs-metrics,.pillar-grid,.result-grid,.org-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.nav-links a:not(.nav-cta){display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">BL<span>.</span></a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a><a href="#implementation">Architecture</a><a href="#results">Results</a>
+    <a class="nav-cta" href="/cdn-cgi/l/email-protection#315d54541f5343505f555e5f1f505f45595e5f4871565c50585d1f525e5c">Let's Talk</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="orb" style="width:800px;height:800px;background:radial-gradient(circle,rgba(180,83,9,.1),rgba(245,158,11,.05) 40%,transparent 70%);top:-280px;right:-200px;filter:blur(100px)"></div>
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(217,119,6,.07),transparent);bottom:-80px;left:0;filter:blur(80px)"></div>
+    <canvas id="heroCanvas_program_pmo" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55"></canvas>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  (function(){var c=document.getElementById('heroCanvas_program_pmo');if(!c)return;
+  var x=c.getContext('2d'),pts=[];
+  var COLS=['rgba(252,211,77,_OP_)','rgba(255,255,255,_OP_)','rgba(251,191,36,_OP_)','rgba(245,158,11,_OP_)'];
+  function rsz(){var s=c.parentElement;c.width=s.offsetWidth;c.height=s.offsetHeight;init();}
+  function init(){pts=[];for(var i=0;i<95;i++){var cl=COLS[Math.floor(Math.random()*COLS.length)];
+    pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:.3+Math.random()*1.5,
+    vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,op:.1+Math.random()*.7,
+    opv:(Math.random()-.5)*.007,col:cl});}}
+  function draw(){x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;p.op+=p.opv;
+      if(p.op>.88||p.op<.06)p.opv*=-1;
+      if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
+      if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=p.col.replace('_OP_',p.op.toFixed(2));x.fill();}
+    requestAnimationFrame(draw);}
+  rsz();window.addEventListener('resize',rsz);requestAnimationFrame(draw);
+  })();
+  </script>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fu">
+      <a class="cs-back" href="index.html#programs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> All Programs</a>
+      <div class="cs-tag">PMO Architecture · 2022–2024</div>
+      <h1 class="cs-title">PMO &amp; Governance<br><em>Infrastructure.</em></h1>
+      <p class="cs-desc">Built PMO infrastructure from the ground up across multiple organizations — establishing operating models, release governance, SLA frameworks, and portfolio-level reporting where none existed.</p>
+    </div>
+    <div class="cs-metrics fu" style="transition-delay:.18s">
+      <div class="csm"><div class="csm-num">3<em>+</em></div><div class="csm-lbl">PMOs Built from Zero</div></div>
+      <div class="csm"><div class="csm-num">99<em>%+</em></div><div class="csm-lbl">SLA Compliance</div></div>
+      <div class="csm"><div class="csm-num">Zero</div><div class="csm-lbl">Critical Failures</div></div>
+      <div class="csm"><div class="csm-num">&lt;3<em>%</em></div><div class="csm-lbl">Budget Variance</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp" id="overview">
+  <div class="narrow">
+    <div class="ey dk fu">Program Overview</div>
+    <div class="cs-body fu" style="transition-delay:.1s">
+      <h3>The Challenge</h3>
+      <p>Across multiple engagements — from Series A startups to enterprise operations — the same pattern emerged: organizations were executing programs without the infrastructure to govern them. No operating models. No SLA frameworks. No release governance. No way to see risk before it became an incident.</p>
+      <p>The work wasn't just implementing a project management tool. It was <strong>building the organizational system</strong> that gives leadership confidence programs will land — and the team clarity on how to execute.</p>
+    </div>
+    <div class="callout fu" style="transition-delay:.15s">
+      <p><strong>The pattern:</strong> Most organizations in high-growth phases have program managers. Very few have program infrastructure. The difference between the two is whether you're managing chaos or governing outcomes.</p>
+    </div>
+    <div class="cs-body fu" style="transition-delay:.2s">
+      <h3 style="margin-top:1.75rem">Strategic Approach</h3>
+      <p>Each PMO build started with a capabilities assessment — mapping current execution against what the organization needed to operate at its next stage of scale. The output was a phased infrastructure roadmap: what to build first, what to defer, and what to never over-engineer.</p>
+      <p>Governance was designed to enable speed, not slow it down. Lightweight SLA frameworks. Clear Go/No-Go criteria. Release checklists that took minutes, not hours. <strong>The goal was always the same: remove ambiguity so teams could execute with confidence.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="s-dark sp" id="implementation">
+  <div class="container">
+    <div class="ey lt fu">PMO Architecture</div>
+    <h2 class="sh fu" style="color:var(--dk-h);transition-delay:.1s">Four Pillars. <span style="color:var(--dk-m);font-weight:400">One System.</span></h2>
+    <p class="fu" style="font-size:.95rem;color:#a08060;max-width:560px;margin-bottom:0;line-height:1.8;transition-delay:.15s">The PMO framework built across organizations — designed to scale from startup to enterprise.</p>
+    <div class="pillar-grid fu" style="transition-delay:.2s">
+
+      <div class="pillar-card pp1">
+        <div class="icon-box" style="background:linear-gradient(145deg,#78350f,#d97706)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,230,138,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="pc-num">Pillar 01</div>
+        <div class="pc-title">Operating Model &amp; Governance</div>
+        <div class="pc-item">Program charter &amp; scope definition frameworks</div>
+        <div class="pc-item">RACI structures for cross-functional programs</div>
+        <div class="pc-item">Decision rights &amp; escalation paths defined</div>
+        <div class="pc-item">Executive steering committee cadence</div>
+        <div class="pc-item">Portfolio prioritization frameworks</div>
+      </div>
+
+      <div class="pillar-card pp2">
+        <div class="icon-box" style="background:linear-gradient(145deg,#3b0e8c,#7c3aed)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(216,180,254,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+          </svg>
+        </div>
+        <div class="pc-num">Pillar 02</div>
+        <div class="pc-title">Release &amp; Delivery Governance</div>
+        <div class="pc-item">Go/No-Go criteria standardized per program type</div>
+        <div class="pc-item">Release checklists — ops, engineering, comms</div>
+        <div class="pc-item">Dependency mapping &amp; critical path tracking</div>
+        <div class="pc-item">Change management &amp; rollback protocols</div>
+        <div class="pc-item">Post-launch review &amp; retrospective process</div>
+      </div>
+
+      <div class="pillar-card pp3">
+        <div class="icon-box" style="background:linear-gradient(145deg,#14532d,#16a34a)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(187,247,208,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div class="pc-num">Pillar 03</div>
+        <div class="pc-title">SLA &amp; Risk Management</div>
+        <div class="pc-item">SLA threshold definition by severity tier</div>
+        <div class="pc-item">Incident classification &amp; response protocols</div>
+        <div class="pc-item">Risk register &amp; mitigation planning</div>
+        <div class="pc-item">Vendor &amp; partner SLA monitoring</div>
+        <div class="pc-item">95%+ uptime maintenance across operations</div>
+      </div>
+
+      <div class="pillar-card pp4">
+        <div class="icon-box" style="background:linear-gradient(145deg,#1a3a8f,#2563eb)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(191,219,254,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/>
+          </svg>
+        </div>
+        <div class="pc-num">Pillar 04</div>
+        <div class="pc-title">Reporting &amp; Executive Visibility</div>
+        <div class="pc-item">KPI dashboard design &amp; implementation</div>
+        <div class="pc-item">Weekly program health reporting cadence</div>
+        <div class="pc-item">Earned value management &amp; budget variance</div>
+        <div class="pc-item">OKR alignment &amp; progress tracking</div>
+        <div class="pc-item">Portfolio-level executive summary reporting</div>
+      </div>
+
+    </div>
+    <div class="tools-section fu" style="transition-delay:.25s">
+      <div class="tools-label">Tools &amp; Platforms</div>
+      <div class="tools">
+        <span class="tool hi">monday.com</span><span class="tool hi">JIRA</span><span class="tool hi">Confluence</span>
+        <span class="tool hi">Smartsheet</span><span class="tool">Asana</span><span class="tool">ClickUp</span>
+        <span class="tool">Salesforce</span><span class="tool">Tableau</span><span class="tool">Miro</span><span class="tool hi">Claude</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp">
+  <div class="container">
+    <div class="ey dk fu">Applied Across</div>
+    <h2 class="sh fu" style="color:var(--lt-h);transition-delay:.1s">Built at Scale. <span style="color:var(--acc)">Proven in Practice.</span></h2>
+    <p class="fu" style="font-size:.95rem;color:var(--lt-m);max-width:520px;margin-bottom:0;line-height:1.8;transition-delay:.15s">The same PMO framework adapted to each organization's stage and operating environment.</p>
+
+    <div class="org-grid fu" style="transition-delay:.18s">
+      <div class="org-card">
+        <div class="org-name">National Aggregation Program</div>
+        <div class="org-role">Program Manager · PMO Architect</div>
+        <div class="org-note">Full PMO built from zero — governing 25+ market national rollout with zero P0/P1 incidents across the entire launch lifecycle.</div>
+      </div>
+      <div class="org-card">
+        <div class="org-name">KT Impact</div>
+        <div class="org-role">Strategic Program Manager</div>
+        <div class="org-note">PMO infrastructure for Series A/B advisory clients — governance, reporting, and portfolio prioritization frameworks for high-growth stages.</div>
+      </div>
+      <div class="org-card">
+        <div class="org-name">YETI</div>
+        <div class="org-role">Program Manager</div>
+        <div class="org-note">Forecast accuracy improved to 91% — demand planning PMO processes driving $5M+ revenue target achievement through structured program execution.</div>
+      </div>
+    </div>
+
+    <div class="re-grid fu" style="transition-delay:.22s">
+
+      <!-- open left — PMO foundation -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#fef3c7,#fde68a)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">01 — Foundation</div>
+        <div class="re-title-lt" style="font-size:1.15rem;margin-bottom:.5rem">3+ PMOs Built from Zero</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">Full governance infrastructure built from scratch across three organizations — operating models, SLA frameworks, reporting systems, and release governance where none previously existed.</div>
+      </div>
+
+      <!-- open right — SLA -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#dcfce7,#bbf7d0)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">02 — Reliability</div>
+        <div class="re-stat-lt">99<span style="font-size:1.5rem;color:#16a34a">%+</span></div>
+        <div class="re-title-lt">SLA Compliance</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">SLA frameworks maintained above 99% compliance across all national operations — zero critical failures across the entire program portfolio spanning 25+ markets.</div>
+      </div>
+
+      <!-- dark left — budget -->
+      <div class="re-card re-dark ra">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#78350f,#d97706)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,230,138,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">03 — Budget</div>
+        <div class="re-stat-dk" style="color:#fcd34d">&lt;3<span style="font-size:1.3rem">%</span></div>
+        <div class="re-title-dk">Budget Variance</div>
+        <div class="re-desc-dk">Earned value management and C-suite ROI modeling kept program spend within 3% of budget — steering committees chaired from Series A through B.</div>
+        <div class="re-tags"><span class="re-tag t-a">EVM</span><span class="re-tag t-w">C-Suite Chaired</span></div>
+      </div>
+
+      <!-- dark right — authority -->
+      <div class="re-card re-dark rv">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#4c1d95,#7c3aed)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(221,214,254,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">04 — Authority</div>
+        <div class="re-stat-dk" style="color:#a78bfa">25<span style="font-size:1.3rem">+</span></div>
+        <div class="re-title-dk">Releases Governed</div>
+        <div class="re-desc-dk">Held final Go/No-Go authority across 25+ market releases — multi-jurisdictional risk frameworks and scope control maintained with zero critical failures.</div>
+        <div class="re-tags"><span class="re-tag t-v">Final Authority</span><span class="re-tag t-w">Zero Failures</span></div>
+      </div>
+
+    </div>
+
+    <a href="index.html#programs" class="back-prog fu" style="transition-delay:.28s">
+      <div class="np-arrow" style="margin-right:1rem">←</div>
+      <div style="flex:1">
+        <div class="np-label">Back to</div>
+        <div class="np-title">All Programs</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer><p>© 2024 Brandon Lee · Strategic Program Manager · Austin, TX · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3afa6a6eda1b1a2ada7acadeda2adb7abacadba83a4aea2aaafeda0acae">[email&#160;protected]</a></p></footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var els = document.querySelectorAll('.fu');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(

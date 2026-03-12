@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>AI-Driven Operations · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#080810;--dk2:#0f0f1a;--dk3:#161624;
+  --lt:#ffffff;--lt2:#f7f6fb;--lt-border:#e8e6f0;
+  --dk-h:#fff0f8;--dk-m:#906880;--dk-m2:#503848;
+  --lt-h:#180a12;--lt-t:#3a2838;--lt-m:#705868;
+  --acc:#db2777;--aca:#f9a8d4;
+  --fh:'Figtree',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--lt2);font-family:var(--fh);font-size:16px;line-height:1.7;overflow-x:hidden;color:var(--lt-t)}
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(8,8,16,.88);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav-logo{font-weight:800;font-size:1rem;color:#fff;text-decoration:none;letter-spacing:-.025em}
+.nav-logo span{color:var(--aca)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{font-family:var(--fm);font-size:.6rem;color:#9088b8;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.nav-cta{font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:8px;background:#7c3aed;color:#ffffff!important;text-decoration:none;transition:all .2s;border:none}
+.nav-cta:hover{background:#6d28d9!important;color:#ffffff!important}
+.s-dark{background:var(--dk)}.s-white{background:#fff}
+.sp{padding:6rem 0}
+.container{max-width:1040px;margin:0 auto;padding:0 2.5rem}
+.narrow{max-width:740px;margin:0 auto;padding:0 2.5rem}
+.fu{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.fu.vis{opacity:1;transform:none}
+.ey{font-family:var(--fm);font-size:.55rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
+.ey::before{content:'';display:inline-block;width:22px;height:1.5px;border-radius:2px}
+.ey.lt{color:var(--aca)}.ey.lt::before{background:linear-gradient(90deg,var(--acc),var(--aca))}
+.ey.dk{color:var(--lt-m)}.ey.dk::before{background:linear-gradient(90deg,#d0cde8,transparent)}
+.cs-hero{min-height:72vh;display:flex;align-items:center;padding-top:56px;background:var(--dk);position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.cs-back{font-family:var(--fm);font-size:.57rem;color:#7a7095;text-decoration:none;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2.25rem;transition:all .2s;border:1px solid rgba(255,255,255,.08);padding:.38rem .95rem;border-radius:100px;background:rgba(255,255,255,.03)}
+.cs-back:hover{color:#e8b8d8;border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.06)}
+.cs-tag{font-family:var(--fm);font-size:.54rem;padding:.3rem .9rem;border-radius:100px;border:1px solid rgba(219,39,119,.4);color:var(--aca);background:rgba(219,39,119,.12);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.4rem;font-weight:500}
+.cs-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--aca);box-shadow:0 0 8px var(--acc)}
+.cs-title{font-family:var(--fh);font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:900;color:var(--dk-h);letter-spacing:-.055em;line-height:1.0;margin-bottom:1.15rem}
+.cs-title em{font-style:normal;background:linear-gradient(135deg,var(--aca),#fbcfe8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cs-desc{font-size:1.05rem;color:#b090a8;line-height:1.9;max-width:590px;margin-bottom:3.25rem}
+.cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem}
+.csm{background:rgba(255,255,255,.032);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:1.25rem 1.3rem;position:relative;overflow:hidden;transition:all .35s cubic-bezier(.16,1,.3,1)}
+.csm::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.csm:hover{border-color:rgba(219,39,119,.28);background:rgba(219,39,119,.06);transform:translateY(-2px);box-shadow:0 8px 32px rgba(219,39,119,.1)}
+.csm-num{font-family:var(--fh);font-size:1.9rem;font-weight:900;color:var(--dk-h);letter-spacing:-.055em;line-height:1}
+.csm-num em{color:var(--aca);font-style:normal;font-size:1.05rem;font-weight:700}
+.csm-lbl{font-family:var(--fm);font-size:.49rem;color:#806878;letter-spacing:.12em;text-transform:uppercase;margin-top:.4rem;line-height:1.5}
+.cs-body h3{font-family:var(--fh);font-size:1.45rem;font-weight:800;color:var(--lt-h);letter-spacing:-.03em;margin-bottom:.8rem}
+.cs-body p{font-size:.96rem;color:#3a2838;line-height:1.95;margin-bottom:1.3rem}
+.cs-body p strong{color:#180a12;font-weight:700}
+.callout{background:linear-gradient(135deg,rgba(219,39,119,.055),rgba(168,85,247,.03));border:1px solid rgba(219,39,119,.16);border-left:3px solid var(--acc);border-radius:0 16px 16px 0;padding:1.5rem 1.85rem;margin:2rem 0}
+.callout p{font-size:.95rem;color:#3a2838;line-height:1.9;margin:0}
+.callout p strong{color:var(--acc)}
+.icon-box{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.15rem;position:relative;overflow:hidden;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.15),inset 0 -1px 0 rgba(0,0,0,.25)}
+.icon-box::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.25) 0%,rgba(255,255,255,.05) 45%,transparent 55%);border-radius:inherit;pointer-events:none;z-index:2}
+.icon-box svg{position:relative;z-index:3}
+.rc-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -1px 0 rgba(0,0,0,.06)}
+.rc-icon::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.1) 50%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.rc-icon svg{position:relative;z-index:3}
+.wf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem;margin:2.25rem 0}
+.wf-card{border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s;
+  background:linear-gradient(155deg,rgba(20,10,18,.98) 0%,rgba(14,8,14,.98) 100%);border:1px solid rgba(219,39,119,.08)}
+.wf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:20px 20px 0 0}
+.wf-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:120px;background:linear-gradient(135deg,rgba(255,255,255,.02) 0%,transparent 60%);pointer-events:none}
+.wf-card:hover{transform:translateY(-4px)}
+.w1::before{background:linear-gradient(90deg,#9d174d,#ec4899)}.w1:hover{box-shadow:0 16px 48px rgba(219,39,119,.18);border-color:rgba(219,39,119,.25)}
+.w2::before{background:linear-gradient(90deg,#5b21b6,#8b5cf6)}.w2:hover{box-shadow:0 16px 48px rgba(124,58,237,.16);border-color:rgba(124,58,237,.22)}
+.w3::before{background:linear-gradient(90deg,#1e40af,#3b82f6)}.w3:hover{box-shadow:0 16px 48px rgba(37,99,235,.15);border-color:rgba(37,99,235,.22)}
+.w4::before{background:linear-gradient(90deg,#92400e,#f59e0b)}.w4:hover{box-shadow:0 16px 48px rgba(245,158,11,.14);border-color:rgba(245,158,11,.2)}
+.pc-num{font-family:var(--fm);font-size:.48rem;color:rgba(255,255,255,.2);letter-spacing:.22em;text-transform:uppercase;margin-bottom:.6rem}
+.pc-title{font-family:var(--fh);font-size:1rem;font-weight:800;color:var(--dk-h);margin-bottom:.35rem;line-height:1.2;letter-spacing:-.02em}
+.wf-tool{font-family:var(--fm);font-size:.54rem;color:rgba(249,168,212,.55);margin-bottom:.85rem;font-weight:500}
+.pc-item{font-size:.82rem;color:#a07888;line-height:1.5;padding:.32rem 0 .32rem .75rem;border-left:1.5px solid rgba(255,255,255,.07);margin-bottom:.3rem}
+.result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin:2.25rem 0}
+/* ─── RESULT CARDS: EDITORIAL MIXED + LUXURY GLOW ─── */
+.re-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem;margin:2.25rem 0}
+.re-card{border-radius:20px;padding:1.8rem;position:relative;overflow:hidden;transition:transform .38s cubic-bezier(.16,1,.3,1),box-shadow .38s,border-color .38s}
+.re-open{background:#fff;border:1.5px solid #ece9f8;box-shadow:0 2px 12px rgba(24,10,18,.03)}
+.re-open:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(219,39,119,.09);border-color:rgba(219,39,119,.22)}
+.re-dark{background:linear-gradient(150deg,#120810 0%,#160b14 100%);border:1px solid rgba(255,255,255,.08)}
+.re-dark.rp{box-shadow:inset 0 1px 0 rgba(249,168,212,.12),0 0 0 1px rgba(219,39,119,.13)}
+.re-dark.rp:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(249,168,212,.2),0 20px 56px rgba(219,39,119,.22),0 0 0 1px rgba(219,39,119,.28)}
+.re-dark.rg{box-shadow:inset 0 1px 0 rgba(74,222,128,.1),0 0 0 1px rgba(22,163,74,.12)}
+.re-dark.rg:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(74,222,128,.15),0 20px 56px rgba(22,163,74,.18),0 0 0 1px rgba(22,163,74,.24)}
+.re-dark.rb{box-shadow:inset 0 1px 0 rgba(147,197,253,.12),0 0 0 1px rgba(37,99,235,.13)}
+.re-dark.rb:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(147,197,253,.18),0 20px 56px rgba(37,99,235,.2),0 0 0 1px rgba(37,99,235,.26)}
+.re-dark.rv{box-shadow:inset 0 1px 0 rgba(167,139,250,.12),0 0 0 1px rgba(109,40,217,.13)}
+.re-dark.rv:hover{transform:translateY(-5px);box-shadow:inset 0 1px 0 rgba(167,139,250,.18),0 20px 56px rgba(109,40,217,.2),0 0 0 1px rgba(109,40,217,.26)}
+.re-dark::after{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;pointer-events:none;z-index:0}
+.re-dark.rp::after{background:radial-gradient(circle,rgba(219,39,119,.18),transparent 65%)}
+.re-dark.rg::after{background:radial-gradient(circle,rgba(22,163,74,.14),transparent 65%)}
+.re-dark.rb::after{background:radial-gradient(circle,rgba(37,99,235,.15),transparent 65%)}
+.re-dark.rv::after{background:radial-gradient(circle,rgba(109,40,217,.18),transparent 65%)}
+.re-ey{font-family:var(--fm);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem;position:relative;z-index:1}
+.re-ey-lt{color:#705868}.re-ey-dk{color:rgba(255,255,255,.24)}
+.re-stat-lt{font-size:2.6rem;font-weight:900;letter-spacing:-.06em;line-height:1;margin-bottom:.45rem;color:#180a12}
+.re-stat-dk{font-size:2.3rem;font-weight:900;letter-spacing:-.055em;line-height:1;margin-bottom:.45rem;color:#fff0f8;position:relative;z-index:1}
+.re-title-lt{font-size:1rem;font-weight:800;color:#180a12;letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem}
+.re-title-dk{font-size:1rem;font-weight:800;color:#ffe8f5;letter-spacing:-.022em;line-height:1.25;margin-bottom:.5rem;position:relative;z-index:1}
+.re-desc-lt{font-size:.83rem;color:#3a2838;line-height:1.68}
+.re-desc-dk{font-size:.83rem;color:#a07888;line-height:1.68;position:relative;z-index:1}
+.re-rule{height:1px;background:#ece9f8;margin:.95rem 0}
+.re-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem;position:relative;z-index:2}
+.re-tag{font-family:var(--fm);font-size:.51rem;padding:.22rem .7rem;border-radius:999px;border:1px solid;font-weight:600;letter-spacing:.05em}
+.t-p{border-color:rgba(249,168,212,.38);color:#f9a8d4;background:rgba(219,39,119,.1)}
+.t-g{border-color:rgba(74,222,128,.32);color:#4ade80;background:rgba(22,163,74,.09)}
+.t-b{border-color:rgba(147,197,253,.35);color:#93c5fd;background:rgba(37,99,235,.1)}
+.t-v{border-color:rgba(167,139,250,.35);color:#a78bfa;background:rgba(109,40,217,.1)}
+.t-w{border-color:rgba(255,255,255,.14);color:rgba(255,255,255,.5);background:rgba(255,255,255,.035)}
+.re-icon-lt{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;
+  box-shadow:0 2px 8px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.05)}
+.re-icon-lt::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 50%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-lt svg{position:relative;z-index:3}
+.re-icon-dk{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;margin-bottom:1.1rem;z-index:2;
+  box-shadow:0 4px 14px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.18),inset 0 -1px 0 rgba(0,0,0,.3)}
+.re-icon-dk::before{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.04) 48%,transparent);border-radius:inherit;z-index:2;pointer-events:none}
+.re-icon-dk svg{position:relative;z-index:3}
+.tools-section{margin-top:2.75rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06)}
+.tools-label{font-family:var(--fm);font-size:.49rem;color:rgba(255,255,255,.28);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem}
+.tools{display:flex;flex-wrap:wrap;gap:.5rem}
+.tool{font-family:var(--fm);font-size:.57rem;padding:.32rem .85rem;border-radius:100px;border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.42);background:rgba(255,255,255,.035);font-weight:500;transition:all .2s}
+.tool:hover{border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.75)}
+.tool.hi{border-color:rgba(219,39,119,.38);color:var(--aca);background:rgba(219,39,119,.09);font-weight:600}
+.sh{font-family:var(--fh);font-size:clamp(1.85rem,3.2vw,2.55rem);font-weight:900;letter-spacing:-.045em;line-height:1.08;margin-bottom:.6rem}
+.next-prog{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--dk3) 0%,var(--dk2) 100%);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:1.85rem 2.1rem;text-decoration:none;transition:all .35s cubic-bezier(.16,1,.3,1);margin-top:3.5rem;position:relative;overflow:hidden}
+.next-prog::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent)}
+.next-prog:hover{border-color:rgba(219,39,119,.3);transform:translateY(-2px);box-shadow:0 16px 48px rgba(0,0,0,.28)}
+.np-label{font-family:var(--fm);font-size:.5rem;color:var(--dk-m);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem}
+.np-title{font-family:var(--fh);font-size:1.15rem;font-weight:800;color:var(--dk-h);letter-spacing:-.025em}
+.np-arrow{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:var(--aca);font-size:1.1rem;transition:all .3s;flex-shrink:0}
+.next-prog:hover .np-arrow{background:rgba(219,39,119,.18);border-color:rgba(219,39,119,.35);transform:translateX(3px)}
+footer{background:var(--dk);border-top:1px solid rgba(255,255,255,.05);padding:1.75rem 2.5rem;text-align:center}
+footer p{font-family:var(--fm);font-size:.52rem;color:var(--dk-m2);letter-spacing:.08em}
+@media(max-width:860px){.cs-metrics,.wf-grid,.result-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.nav-links a:not(.nav-cta){display:none}}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">BL<span>.</span></a>
+  <div class="nav-links">
+    <a href="#overview">Overview</a><a href="#implementation">AI Workflows</a><a href="#results">Results</a>
+    <a class="nav-cta" href="/cdn-cgi/l/email-protection#f19d9494df9383909f959e9fdf909f85999e9f88b1969c90989ddf929e9c">Let's Talk</a>
+  </div>
+</nav>
+
+<section class="cs-hero">
+  <div class="orb" style="width:800px;height:800px;background:radial-gradient(circle,rgba(190,24,93,.1),rgba(168,85,247,.05) 40%,transparent 70%);top:-280px;right:-200px;filter:blur(100px)"></div>
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(219,39,119,.07),transparent);bottom:-80px;left:0;filter:blur(80px)"></div>
+    <canvas id="heroCanvas_program_ai_automation" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55"></canvas>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  (function(){var c=document.getElementById('heroCanvas_program_ai_automation');if(!c)return;
+  var x=c.getContext('2d'),pts=[];
+  var COLS=['rgba(249,168,212,_OP_)','rgba(255,255,255,_OP_)','rgba(216,180,254,_OP_)','rgba(219,39,119,_OP_)'];
+  function rsz(){var s=c.parentElement;c.width=s.offsetWidth;c.height=s.offsetHeight;init();}
+  function init(){pts=[];for(var i=0;i<95;i++){var cl=COLS[Math.floor(Math.random()*COLS.length)];
+    pts.push({x:Math.random()*c.width,y:Math.random()*c.height,r:.3+Math.random()*1.5,
+    vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,op:.1+Math.random()*.7,
+    opv:(Math.random()-.5)*.007,col:cl});}}
+  function draw(){x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<pts.length;i++){var p=pts[i];p.x+=p.vx;p.y+=p.vy;p.op+=p.opv;
+      if(p.op>.88||p.op<.06)p.opv*=-1;
+      if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
+      if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+      x.beginPath();x.arc(p.x,p.y,p.r,0,Math.PI*2);
+      x.fillStyle=p.col.replace('_OP_',p.op.toFixed(2));x.fill();}
+    requestAnimationFrame(draw);}
+  rsz();window.addEventListener('resize',rsz);requestAnimationFrame(draw);
+  })();
+  </script>
+  <div class="container" style="position:relative;z-index:1">
+    <div class="fu">
+      <a class="cs-back" href="index.html#programs"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> All Programs</a>
+      <div class="cs-tag">AI &amp; Automation · 2023–2024</div>
+      <h1 class="cs-title">AI-Driven<br><em>Operations System.</em></h1>
+      <p class="cs-desc">Architected an AI operations layer using Claude and GPT-4 — automating routing logic, synthesizing executive reporting, and scoring market readiness to eliminate 30–50% of manual operational overhead.</p>
+    </div>
+    <div class="cs-metrics fu" style="transition-delay:.18s">
+      <div class="csm"><div class="csm-num">50<em>%</em></div><div class="csm-lbl">Manual Overhead Eliminated</div></div>
+      <div class="csm"><div class="csm-num">18<em>%</em></div><div class="csm-lbl">Cost Reduction via AI</div></div>
+      <div class="csm"><div class="csm-num">&lt;4<em>mo</em></div><div class="csm-lbl">ROI Timeline</div></div>
+      <div class="csm"><div class="csm-num">2–3<em>×</em></div><div class="csm-lbl">Deployment Throughput</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp" id="overview">
+  <div class="narrow">
+    <div class="ey dk fu">Program Overview</div>
+    <div class="cs-body fu" style="transition-delay:.1s">
+      <h3>The Challenge</h3>
+      <p>Scaling to 25+ markets generated an enormous manual operations burden. Market readiness assessments were done by hand. Routing logic decisions required analyst hours per market. Executive reporting was a weekly manual effort pulling from a dozen sources. The team was growing, but the overhead was growing faster.</p>
+      <p>The question wasn't whether to use AI — it was <strong>where AI would have the highest operational leverage</strong> and how to implement it responsibly within a program context where accuracy was non-negotiable.</p>
+    </div>
+    <div class="callout fu" style="transition-delay:.15s">
+      <p><strong>The approach:</strong> AI was deployed as a decision-support and validation layer — not a replacement for human judgment. Every workflow was designed with a human review step for high-stakes outputs. The goal was speed and consistency, not autonomy.</p>
+    </div>
+    <div class="cs-body fu" style="transition-delay:.2s">
+      <h3 style="margin-top:1.75rem">Strategic Approach</h3>
+      <p>Three high-leverage workflows were identified where AI could provide the most immediate operational value: market readiness scoring, routing logic validation, and executive reporting synthesis. Each was designed, tested, and iterated before full deployment.</p>
+      <p>Claude was used for <strong>executive reporting synthesis and decision support validation</strong>. GPT-4 was used for <strong>market readiness scoring support and routing logic validation</strong> — processing structured inputs against defined criteria.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s-dark sp" id="implementation">
+  <div class="container">
+    <div class="ey lt fu">AI Workflows</div>
+    <h2 class="sh fu" style="color:var(--dk-h);transition-delay:.1s">Four Workflows. <span style="color:var(--dk-m);font-weight:400">Real Results.</span></h2>
+    <p class="fu" style="font-size:.95rem;color:#a07888;max-width:560px;margin-bottom:0;line-height:1.8;transition-delay:.15s">Each workflow targeted a specific manual bottleneck — designed for accuracy, built for speed.</p>
+    <div class="wf-grid fu" style="transition-delay:.2s">
+      <div class="wf-card w1">
+        <div class="icon-box" style="background:linear-gradient(145deg,#831843,#db2777)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,164,175,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="pc-num">Workflow 01</div>
+        <div class="pc-title">Market Readiness Scoring</div>
+        <div class="wf-tool">GPT-4 · Structured Data Input</div>
+        <div class="pc-item">Multi-variable scoring across demand signals, ops capacity, and infrastructure readiness</div>
+        <div class="pc-item">Replaced 3–4 hour manual analyst process per market</div>
+        <div class="pc-item">Outputs Go/No-Go recommendation with confidence score</div>
+        <div class="pc-item">Human review required before final approval</div>
+      </div>
+      <div class="wf-card w2">
+        <div class="icon-box" style="background:linear-gradient(145deg,#3b0e8c,#7c3aed)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(216,180,254,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 110-14h8.5"/><polyline points="15 15 19 19 15 23"/></svg>
+        </div>
+        <div class="pc-num">Workflow 02</div>
+        <div class="pc-title">Routing Logic Validation</div>
+        <div class="wf-tool">GPT-4 · Manual File Import</div>
+        <div class="pc-item">Validated driver-to-order routing configurations against defined rule sets</div>
+        <div class="pc-item">Flagged edge cases and constraint violations before deployment</div>
+        <div class="pc-item">18% cost reduction through optimized routing outcomes</div>
+        <div class="pc-item">Reduced routing errors and post-launch corrections</div>
+      </div>
+      <div class="wf-card w3">
+        <div class="icon-box" style="background:linear-gradient(145deg,#1a3a8f,#2563eb)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(191,219,254,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div class="pc-num">Workflow 03</div>
+        <div class="pc-title">Executive Reporting Synthesis</div>
+        <div class="wf-tool">Claude · Decision Support</div>
+        <div class="pc-item">Weekly program data synthesized into exec-ready narratives</div>
+        <div class="pc-item">Structured outputs: status, risks, decisions needed, next actions</div>
+        <div class="pc-item">50%+ reduction in manual reporting time per cycle</div>
+        <div class="pc-item">Consistent format across all stakeholder tiers</div>
+      </div>
+      <div class="wf-card w4">
+        <div class="icon-box" style="background:linear-gradient(145deg,#78350f,#d97706)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,230,138,.9)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="pc-num">Workflow 04</div>
+        <div class="pc-title">Decision Support Validation</div>
+        <div class="wf-tool">Claude · NotebookLM · Grok</div>
+        <div class="pc-item">Program decision memos reviewed against historical precedents</div>
+        <div class="pc-item">Risk scenario modeling for high-stakes Go/No-Go decisions</div>
+        <div class="pc-item">Assumption stress-testing before executive presentation</div>
+        <div class="pc-item">Structured validation layer — not autonomous decision-making</div>
+      </div>
+    </div>
+    <div class="tools-section fu" style="transition-delay:.25s">
+      <div class="tools-label">AI Stack &amp; Tools</div>
+      <div class="tools">
+        <span class="tool hi">Claude</span><span class="tool hi">GPT-4</span><span class="tool hi">NotebookLM</span>
+        <span class="tool hi">Grok</span><span class="tool">monday.com</span><span class="tool">JIRA</span>
+        <span class="tool">SQL</span><span class="tool">Tableau</span><span class="tool">Salesforce</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-white sp">
+  <div class="container">
+    <div class="ey dk fu">Results</div>
+    <h2 class="sh fu" style="color:#180a12;transition-delay:.1s">Automation That <span style="color:#db2777">Measured.</span></h2>
+    <p class="fu" style="font-size:.95rem;color:#705868;max-width:520px;margin-bottom:0;line-height:1.8;transition-delay:.15s">Every workflow tracked to an operational outcome — hours saved, cost reduced, speed improved.</p>
+    <div class="re-grid fu" style="transition-delay:.2s">
+
+      <!-- dark left — overhead -->
+      <div class="re-card re-dark rp">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#831843,#db2777)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(253,164,175,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">01 — Overhead</div>
+        <div class="re-stat-dk" style="color:#f9a8d4">50<span style="font-size:1.3rem">%</span></div>
+        <div class="re-title-dk">Manual Overhead Eliminated</div>
+        <div class="re-desc-dk">AI workflows replaced the highest-volume manual tasks across market readiness, routing validation, and weekly reporting — freeing the program team for higher-leverage work.</div>
+        <div class="re-tags"><span class="re-tag t-p">3 Workflows</span><span class="re-tag t-w">Highest-Volume</span></div>
+      </div>
+
+      <!-- dark right — cost -->
+      <div class="re-card re-dark rg">
+        <div class="re-icon-dk" style="background:linear-gradient(145deg,#14532d,#16a34a)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(187,247,208,.9)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="re-ey re-ey-dk">02 — Cost</div>
+        <div class="re-stat-dk" style="color:#4ade80">18<span style="font-size:1.3rem">%</span></div>
+        <div class="re-title-dk">Cost Reduction via AI Routing</div>
+        <div class="re-desc-dk">GPT-4 routing validation reduced per-market launch cost by 18% — realized within 4 months, ahead of ROI projections.</div>
+        <div class="re-tags"><span class="re-tag t-g">&lt;4mo ROI</span><span class="re-tag t-w">GPT-4 Validated</span></div>
+      </div>
+
+      <!-- open left — throughput -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#fce7f3,#fbcfe8)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#be185d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">03 — Throughput</div>
+        <div class="re-stat-lt">2–3<span style="font-size:1.5rem;color:#db2777">×</span></div>
+        <div class="re-title-lt">Deployment Throughput</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">Automated scoring and validation removed sequential bottlenecks — enabling parallel market launches that weren't previously possible at this pace.</div>
+      </div>
+
+      <!-- open right — reporting -->
+      <div class="re-card re-open">
+        <div class="re-icon-lt" style="background:linear-gradient(145deg,#ede9fe,#ddd6fe)">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+        </div>
+        <div class="re-ey re-ey-lt">04 — Reporting</div>
+        <div class="re-title-lt" style="font-size:1.15rem;margin-bottom:.5rem">Executive Reporting at Scale</div>
+        <div class="re-rule"></div>
+        <div class="re-desc-lt">Claude-synthesized weekly program summaries maintained consistent quality across 25+ markets. What previously required hours of manual compilation now took minutes.</div>
+      </div>
+
+    </div>
+    <a href="pmo.html" class="next-prog fu" style="transition-delay:.28s">
+      <div><div class="np-label">Next Program</div><div class="np-title">PMO &amp; Governance Infrastructure</div></div>
+      <div class="np-arrow">&rarr;</div>
+    </a>
+  </div>
+</section>
+
+<footer><p>© 2024 Brandon Lee · Strategic Program Manager · Austin, TX · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c707979327e6e7d72787372327d7268747372655c7b717d7570327f7371">[email&#160;protected]</a></p></footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function(){
+  var els = document.querySelectorAll('.fu');
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(
