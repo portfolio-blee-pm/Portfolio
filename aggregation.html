@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Gig Aggregation Launch → Expansion · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#0d0d12;--dk2:#13131e;--dk3:#1a1a28;--dk4:#21212e;
+  --dk-border:rgba(255,255,255,.08);--dk-border2:rgba(255,255,255,.14);
+  --lt:#ffffff;--lt2:#f6f5fa;--lt3:#eeedf5;
+  --lt-border:#e4e2ef;--lt-border2:#d0cde8;
+  --dk-h:#f0eeff;--dk-t:#c0b8d8;--dk-m:#7a7095;--dk-m2:#4a4560;
+  --lt-h:#0d0b1a;--lt-t:#3a3650;--lt-m:#6b6485;--lt-m2:#9890b0;
+  --accent:#7c3aed;--accent-light:#b39dff;--accent-dim:#d4c7ff;
+  --fh:'Figtree',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dk);font-family:var(--fh);font-size:16px;line-height:1.7;overflow-x:hidden;color:var(--dk-t)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(13,13,18,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--dk-border)}
+.nav-logo{font-family:var(--fh);font-weight:800;font-size:1rem;color:#fff;text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--accent-light)}
+.nav-back{font-family:var(--fm);font-size:.6rem;color:#a098c0;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;display:flex;align-items:center;gap:.5rem}
+.nav-back:hover{color:#fff}
+.nav-cta{font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:#6d28d9}
+
+/* HERO */
+.page-hero{padding:120px 0 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--dk-border)}
+.page-hero::before{content:'';position:absolute;top:-100px;left:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,.18) 0%,transparent 65%);pointer-events:none}
+.page-hero::after{content:'';position:absolute;bottom:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,.1) 0%,transparent 65%);pointer-events:none}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+.eyebrow{font-family:var(--fm);font-size:.58rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.eyebrow::before{content:'';display:inline-block;width:28px;height:1.5px;background:var(--accent);border-radius:2px}
+.page-title{font-family:var(--fh);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--dk-h);margin-bottom:1.25rem}
+.page-title span{color:var(--accent-light)}
+.page-lead{font-size:1.1rem;color:var(--dk-t);line-height:1.85;max-width:680px;margin-bottom:2.5rem}
+.hero-metrics{display:flex;gap:1rem;flex-wrap:wrap}
+.hm{background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.2);border-radius:14px;padding:1.1rem 1.4rem;min-width:160px}
+.hm-num{font-family:var(--fh);font-size:2rem;font-weight:900;color:var(--dk-h);letter-spacing:-.04em;line-height:1}
+.hm-num span{color:var(--accent-light);font-size:1.2rem}
+.hm-lbl{font-family:var(--fm);font-size:.52rem;color:#a098c0;letter-spacing:.1em;text-transform:uppercase;margin-top:.35rem;line-height:1.4}
+
+/* CONTENT SECTIONS */
+.section{padding:4rem 0;border-bottom:1px solid var(--dk-border)}
+.section:last-of-type{border-bottom:none}
+.section-label{font-family:var(--fm);font-size:.55rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.section-label::before{content:'';display:inline-block;width:20px;height:1.5px;background:var(--accent);border-radius:2px}
+.section-title{font-family:var(--fh);font-size:1.6rem;font-weight:800;color:var(--dk-h);letter-spacing:-.025em;margin-bottom:1rem;line-height:1.2}
+.body-text{font-size:.97rem;color:var(--dk-t);line-height:1.9;margin-bottom:1.25rem}
+.body-text strong{color:var(--dk-h);font-weight:600}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
+
+/* CHALLENGE BLOCK */
+.challenge-block{background:rgba(255,255,255,.03);border:1px solid var(--dk-border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.5rem 0}
+.challenge-block p{font-size:.95rem;color:var(--dk-t);line-height:1.85;font-style:italic}
+
+/* STAT CARDS */
+.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--dk-border);border-radius:16px;padding:1.5rem;text-align:center}
+.stat-card .num{font-family:var(--fh);font-size:2.2rem;font-weight:900;color:var(--dk-h);letter-spacing:-.04em;line-height:1}
+.stat-card .num span{color:var(--accent-light)}
+.stat-card .lbl{font-family:var(--fm);font-size:.52rem;color:#a098c0;letter-spacing:.1em;text-transform:uppercase;margin-top:.4rem;line-height:1.5}
+
+/* PILLAR CARDS */
+.pillar{background:rgba(255,255,255,.03);border:1px solid var(--dk-border);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .25s,background .25s}
+.pillar:hover{border-color:rgba(124,58,237,.3);background:rgba(124,58,237,.05)}
+.pillar-icon{font-size:1.4rem;margin-bottom:.75rem}
+.pillar-title{font-family:var(--fh);font-size:.95rem;font-weight:800;color:var(--dk-h);margin-bottom:.5rem}
+.pillar-text{font-size:.84rem;color:var(--dk-t);line-height:1.7}
+
+/* OUTCOME LIST */
+.outcome-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.25rem}
+.outcome-item{display:flex;align-items:flex-start;gap:.75rem;font-size:.92rem;color:var(--dk-t);line-height:1.6}
+.outcome-item::before{content:'↗';color:var(--accent-light);font-size:.75rem;margin-top:.2rem;flex-shrink:0;font-family:var(--fm)}
+.outcome-item strong{color:var(--dk-h);font-weight:600}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin-top:1.5rem}
+.tl-item{display:grid;grid-template-columns:80px 1fr;gap:1.5rem;position:relative;padding-bottom:2rem}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::after{content:'';position:absolute;left:39px;top:28px;bottom:0;width:1px;background:var(--dk-border)}
+.tl-item:last-child::after{display:none}
+.tl-marker{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding-top:.25rem}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.2);flex-shrink:0}
+.tl-time{font-family:var(--fm);font-size:.5rem;color:var(--dk-m);letter-spacing:.08em;text-transform:uppercase;text-align:center;line-height:1.3}
+.tl-content{padding-top:.1rem}
+.tl-heading{font-family:var(--fh);font-size:.95rem;font-weight:700;color:var(--dk-h);margin-bottom:.35rem}
+.tl-body{font-size:.84rem;color:var(--dk-t);line-height:1.7}
+
+/* CTA SECTION */
+.cta-section{background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);border-radius:20px;padding:3rem;text-align:center;margin:5rem 0 3rem}
+.cta-title{font-family:var(--fh);font-size:1.8rem;font-weight:900;color:var(--dk-h);letter-spacing:-.03em;margin-bottom:.75rem}
+.cta-sub{font-size:.95rem;color:var(--dk-t);margin-bottom:2rem;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:10px;text-decoration:none;background:var(--accent);color:#fff;border:1.5px solid var(--accent);transition:all .25s}
+.btn-primary:hover{background:#6d28d9;border-color:#6d28d9}
+.btn-ghost{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:10px;text-decoration:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.18);transition:all .25s}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);color:#fff}
+
+/* PAGE NAV */
+.page-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;border-top:1px solid var(--dk-border);margin-top:1rem}
+.pn-link{font-family:var(--fm);font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dk-m);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:color .2s}
+.pn-link:hover{color:var(--dk-h)}
+.pn-link.disabled{opacity:.3;pointer-events:none}
+.pn-center{font-family:var(--fm);font-size:.55rem;color:var(--dk-m);letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.pn-center a{color:var(--accent-light);text-decoration:none}
+.pn-center a:hover{color:#fff}
+
+/* FOOTER */
+footer{background:var(--dk);border-top:1px solid var(--dk-border);padding:1.5rem 2rem;text-align:center}
+footer p{font-family:var(--fm);font-size:.55rem;color:var(--dk-m);letter-spacing:.08em}
+
+/* FADE IN */
+.fi{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.fi.vis{opacity:1;transform:none}
+
+@media(max-width:700px){
+  .two-col,.three-col{grid-template-columns:1fr}
+  .hero-metrics{flex-direction:column}
+  nav{padding:0 1.25rem}
+  .container{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">B<span>.</span>Lee</a>
+  <a href="index.html#programs" class="nav-back">← All Programs</a>
+  <a href="index.html" onclick="setTimeout(()=>document.getElementById('talkModal').classList.add('open'),200);return false;" class="nav-cta">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">National Expansion · 2021–2023</div>
+    <h1 class="page-title">Gig Aggregation<br><span>Launch → Expansion</span></h1>
+    <p class="page-lead">Built the program architecture, governance model, and operational infrastructure for a national gig-aggregation platform — scaling from 3 markets to 25+ in 9 months, 60% ahead of corporate roadmap.</p>
+    <div class="hero-metrics">
+      <div class="hm"><div class="hm-num">25<span>+</span></div><div class="hm-lbl">Markets Launched</div></div>
+      <div class="hm"><div class="hm-num">9<span>mo</span></div><div class="hm-lbl">Full National Scale</div></div>
+      <div class="hm"><div class="hm-num">60<span>%</span></div><div class="hm-lbl">Ahead of Roadmap</div></div>
+      <div class="hm"><div class="hm-num">0</div><div class="hm-lbl">P0/P1 Incidents</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATION -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Situation</div>
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">A national rollout with no playbook</h2>
+        <p class="body-text">The organization had a mandate to launch a gig-aggregation platform nationally — but no program infrastructure to execute it. No repeatable launch model, no cross-functional governance, no SLA framework, and an aggressive corporate timeline that had already been deemed unrealistic by internal stakeholders.</p>
+        <p class="body-text">Three markets were live. The ask was 25+. The window was less than a year.</p>
+      </div>
+      <div>
+        <div class="challenge-block">
+          <p>"We had the product. We had the ambition. What we didn't have was a program architecture that could scale a market launch every two to three weeks without breaking — across vendor dependencies, regulatory requirements, and distributed ops teams."</p>
+        </div>
+        <div class="outcome-list">
+          <div class="outcome-item">No standardized launch playbook across markets</div>
+          <div class="outcome-item">8-week market cycle with no compression model</div>
+          <div class="outcome-item">Risk and dependency management done ad hoc</div>
+          <div class="outcome-item">No executive visibility layer across the portfolio</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Approach</div>
+    <h2 class="section-title">Architecture before acceleration</h2>
+    <p class="body-text">The instinct in high-pressure rollouts is to move fast and fix things later. The decision here was the opposite — <strong>invest two weeks in infrastructure before touching velocity</strong>. That discipline is what made the compression possible.</p>
+    <div class="three-col" style="margin-top:2rem">
+      <div class="pillar fi">
+        <div class="pillar-icon">⬡</div>
+        <div class="pillar-title">Launch Architecture</div>
+        <div class="pillar-text">Designed a repeatable market-launch framework — standardized phases, decision gates, vendor onboarding sequences, and go/no-go criteria that could run in parallel across multiple markets simultaneously.</div>
+      </div>
+      <div class="pillar fi">
+        <div class="pillar-icon">◈</div>
+        <div class="pillar-title">Governance at Scale</div>
+        <div class="pillar-text">Built a full SLA, risk, and dependency governance model — with escalation paths, accountability matrices, and cadence structures that kept distributed teams aligned without creating coordination overhead.</div>
+      </div>
+      <div class="pillar fi">
+        <div class="pillar-icon">◎</div>
+        <div class="pillar-title">Cycle Compression</div>
+        <div class="pillar-text">Systematically identified the critical path constraints in the 8-week cycle. Restructured sequencing, parallelized workstreams, and pre-staged dependencies to cut the launch cycle to 4 weeks.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTION TIMELINE -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Execution</div>
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">How 3 became 25+</h2>
+        <p class="body-text">The rollout wasn't a single sprint — it was a compounding system. Each market launch refined the playbook. Each cycle got tighter. By month six, the team was launching markets in parallel with a reliability rate that had never been seen at this scale.</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-time">Mo 1–2</div></div>
+          <div class="tl-content">
+            <div class="tl-heading">Infrastructure Sprint</div>
+            <div class="tl-body">Built launch framework, governance model, SLA structure, and risk register. Staffed cross-functional pod. Established baseline cycle time and identified compression levers.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-time">Mo 3–4</div></div>
+          <div class="tl-content">
+            <div class="tl-heading">Pilot Markets & Cycle Compression</div>
+            <div class="tl-body">Launched markets 4–8 using new framework. Compressed cycle from 8 to 6 weeks. Identified remaining critical path bottlenecks in vendor and regulatory dependencies.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-time">Mo 5–7</div></div>
+          <div class="tl-content">
+            <div class="tl-heading">Parallel Launch Cadence</div>
+            <div class="tl-body">Achieved 4-week cycle. Began running 2–3 market launches simultaneously. Zero P0/P1 incidents across the portfolio. Roadmap moved from 18 months to 9.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker"><div class="tl-dot"></div><div class="tl-time">Mo 8–9</div></div>
+          <div class="tl-content">
+            <div class="tl-heading">National Scale Achieved</div>
+            <div class="tl-body">25+ markets live. Full SLA compliance. Program governance handed to steady-state ops. Documentation and playbooks transferred for ongoing replication.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Outcomes</div>
+    <h2 class="section-title">What got delivered</h2>
+    <div class="three-col" style="margin-top:1.5rem">
+      <div class="stat-card">
+        <div class="num">25<span>+</span></div>
+        <div class="lbl">Markets launched with zero P0/P1 incidents across the entire portfolio</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">4<span>wk</span></div>
+        <div class="lbl">Launch cycle — compressed from 8 weeks through systematic restructuring</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">60<span>%</span></div>
+        <div class="lbl">Ahead of corporate roadmap — 9 months vs. projected 18+ months</div>
+      </div>
+    </div>
+    <div class="outcome-list" style="margin-top:2rem">
+      <div class="outcome-item"><strong>Repeatable launch playbook</strong> adopted as the organizational standard for future market expansion</div>
+      <div class="outcome-item"><strong>Full SLA, risk, and dependency governance</strong> operating at scale across all 25+ markets simultaneously</div>
+      <div class="outcome-item"><strong>Executive decision layer</strong> providing real-time portfolio visibility — replaced ad-hoc status reporting entirely</div>
+      <div class="outcome-item"><strong>Cross-functional program infrastructure</strong> transferred to steady-state ops with zero knowledge loss</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="container">
+  <div class="cta-section fi">
+    <h2 class="cta-title">Interested in what this kind of thinking<br>could do for your organization?</h2>
+    <p class="cta-sub">Program architecture at scale is a discipline, not a title. If you're navigating a complex rollout, a scaling inflection point, or a governance gap — let's talk.</p>
+    <div class="cta-btns">
+      <a href="mailto:brandonlee.pm@gmail.com" class="btn-primary">Start a Conversation</a>
+      <a href="index.html#programs" class="btn-ghost">View All Programs</a>
+    </div>
+  </div>
+
+  <!-- PAGE NAV -->
+  <div class="page-nav">
+    <a href="#" class="pn-link disabled">← Previous</a>
+    <div class="pn-center"><a href="index.html#programs">All Programs</a></div>
+    <a href="command-hub.html" class="pn-link">Command Hub →</a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 Brandon Lee · Strategic Program Manager</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); }});
+}, {threshold:.12});
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
