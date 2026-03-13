@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Command Hub Platform · Brandon Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --dk:#0d0d12;--dk2:#13131e;--dk3:#1a1a28;--dk4:#21212e;
+  --dk-border:rgba(255,255,255,.08);--dk-border2:rgba(255,255,255,.14);
+  --lt:#ffffff;--lt2:#f6f5fa;
+  --dk-h:#f0eeff;--dk-t:#c0b8d8;--dk-m:#7a7095;
+  --accent:#2563eb;--accent-light:#93c5fd;--accent-dim:#bfdbfe;
+  --fh:'Figtree',sans-serif;--fm:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--dk);font-family:var(--fh);font-size:16px;line-height:1.7;overflow-x:hidden;color:var(--dk-t)}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:300;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(13,13,18,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--dk-border)}
+.nav-logo{font-family:var(--fh);font-weight:800;font-size:1rem;color:#fff;text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--accent-light)}
+.nav-back{font-family:var(--fm);font-size:.6rem;color:#a098c0;text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.nav-back:hover{color:#fff}
+.nav-cta{font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1.15rem;border-radius:8px;background:#7c3aed;color:#fff;text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:#6d28d9}
+
+.page-hero{padding:120px 0 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--dk-border)}
+.page-hero::before{content:'';position:absolute;top:-100px;left:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(37,99,235,.15) 0%,transparent 65%);pointer-events:none}
+.page-hero::after{content:'';position:absolute;bottom:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 65%);pointer-events:none}
+.container{max-width:900px;margin:0 auto;padding:0 2rem}
+.eyebrow{font-family:var(--fm);font-size:.58rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.eyebrow::before{content:'';display:inline-block;width:28px;height:1.5px;background:var(--accent);border-radius:2px}
+.page-title{font-family:var(--fh);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:900;line-height:1.06;letter-spacing:-.04em;color:var(--dk-h);margin-bottom:1.25rem}
+.page-title span{color:var(--accent-light)}
+.page-lead{font-size:1.1rem;color:var(--dk-t);line-height:1.85;max-width:680px;margin-bottom:2.5rem}
+.hero-metrics{display:flex;gap:1rem;flex-wrap:wrap}
+.hm{background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);border-radius:14px;padding:1.1rem 1.4rem;min-width:160px}
+.hm-num{font-family:var(--fh);font-size:2rem;font-weight:900;color:var(--dk-h);letter-spacing:-.04em;line-height:1}
+.hm-num span{color:var(--accent-light);font-size:1.2rem}
+.hm-lbl{font-family:var(--fm);font-size:.52rem;color:#a098c0;letter-spacing:.1em;text-transform:uppercase;margin-top:.35rem;line-height:1.4}
+
+.section{padding:4rem 0;border-bottom:1px solid var(--dk-border)}
+.section:last-of-type{border-bottom:none}
+.section-label{font-family:var(--fm);font-size:.55rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.section-label::before{content:'';display:inline-block;width:20px;height:1.5px;background:var(--accent);border-radius:2px}
+.section-title{font-family:var(--fh);font-size:1.6rem;font-weight:800;color:var(--dk-h);letter-spacing:-.025em;margin-bottom:1rem;line-height:1.2}
+.body-text{font-size:.97rem;color:var(--dk-t);line-height:1.9;margin-bottom:1.25rem}
+.body-text strong{color:var(--dk-h);font-weight:600}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:start}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem}
+
+.challenge-block{background:rgba(255,255,255,.03);border:1px solid var(--dk-border);border-left:3px solid var(--accent);border-radius:0 12px 12px 0;padding:1.5rem 1.75rem;margin:1.5rem 0}
+.challenge-block p{font-size:.95rem;color:var(--dk-t);line-height:1.85;font-style:italic}
+
+.stat-card{background:rgba(255,255,255,.04);border:1px solid var(--dk-border);border-radius:16px;padding:1.5rem;text-align:center}
+.stat-card .num{font-family:var(--fh);font-size:2.2rem;font-weight:900;color:var(--dk-h);letter-spacing:-.04em;line-height:1}
+.stat-card .num span{color:var(--accent-light)}
+.stat-card .lbl{font-family:var(--fm);font-size:.52rem;color:#a098c0;letter-spacing:.1em;text-transform:uppercase;margin-top:.4rem;line-height:1.5}
+
+.pillar{background:rgba(255,255,255,.03);border:1px solid var(--dk-border);border-radius:14px;padding:1.4rem 1.5rem;transition:border-color .25s,background .25s}
+.pillar:hover{border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.05)}
+.pillar-icon{font-size:1.4rem;margin-bottom:.75rem}
+.pillar-title{font-family:var(--fh);font-size:.95rem;font-weight:800;color:var(--dk-h);margin-bottom:.5rem}
+.pillar-text{font-size:.84rem;color:var(--dk-t);line-height:1.7}
+
+.outcome-list{display:flex;flex-direction:column;gap:.75rem;margin-top:1.25rem}
+.outcome-item{display:flex;align-items:flex-start;gap:.75rem;font-size:.92rem;color:var(--dk-t);line-height:1.6}
+.outcome-item::before{content:'↗';color:var(--accent-light);font-size:.75rem;margin-top:.2rem;flex-shrink:0;font-family:var(--fm)}
+.outcome-item strong{color:var(--dk-h);font-weight:600}
+
+/* PLATFORM LAYERS */
+.layer-stack{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem}
+.layer{display:grid;grid-template-columns:120px 1fr;gap:1.25rem;align-items:center;background:rgba(255,255,255,.03);border:1px solid var(--dk-border);border-radius:12px;padding:1rem 1.25rem;transition:border-color .25s}
+.layer:hover{border-color:rgba(37,99,235,.3)}
+.layer-label{font-family:var(--fm);font-size:.5rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-light);text-align:center}
+.layer-desc{font-size:.85rem;color:var(--dk-t);line-height:1.6}
+.layer-desc strong{color:var(--dk-h);font-weight:600}
+
+.cta-section{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:20px;padding:3rem;text-align:center;margin:5rem 0 3rem}
+.cta-title{font-family:var(--fh);font-size:1.8rem;font-weight:900;color:var(--dk-h);letter-spacing:-.03em;margin-bottom:.75rem}
+.cta-sub{font-size:.95rem;color:var(--dk-t);margin-bottom:2rem;line-height:1.7}
+.cta-btns{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:10px;text-decoration:none;background:#7c3aed;color:#fff;border:1.5px solid #7c3aed;transition:all .25s}
+.btn-primary:hover{background:#6d28d9;border-color:#6d28d9}
+.btn-ghost{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--fm);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.85rem 1.6rem;border-radius:10px;text-decoration:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.18);transition:all .25s}
+.btn-ghost:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);color:#fff}
+
+.page-nav{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;border-top:1px solid var(--dk-border);margin-top:1rem}
+.pn-link{font-family:var(--fm);font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--dk-m);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:color .2s}
+.pn-link:hover{color:var(--dk-h)}
+.pn-center{font-family:var(--fm);font-size:.55rem;color:var(--dk-m);letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.pn-center a{color:#93c5fd;text-decoration:none}
+.pn-center a:hover{color:#fff}
+
+footer{background:var(--dk);border-top:1px solid var(--dk-border);padding:1.5rem 2rem;text-align:center}
+footer p{font-family:var(--fm);font-size:.55rem;color:var(--dk-m);letter-spacing:.08em}
+
+.fi{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.fi.vis{opacity:1;transform:none}
+
+@media(max-width:700px){
+  .two-col,.three-col{grid-template-columns:1fr}
+  .layer{grid-template-columns:1fr}
+  nav{padding:0 1.25rem}
+  .container{padding:0 1.25rem}
+}
+
+/* Let's Connect Modal */
+.tm-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.tm-overlay.open{opacity:1;pointer-events:all}
+.tm-box{background:#0f0f1a;border:1px solid rgba(255,255,255,.1);border-radius:22px;width:92%;max-width:500px;overflow:hidden;transform:translateY(22px) scale(.97);transition:transform .3s}
+.tm-overlay.open .tm-box{transform:translateY(0) scale(1)}
+.tm-head{display:flex;align-items:center;gap:1.1rem;padding:1.75rem 1.75rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.07);position:relative}
+.tm-avatar{width:62px;height:62px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(255,255,255,.12)}
+.tm-head-text h2{font-family:var(--fh);font-size:1.55rem;font-weight:900;color:#fff;letter-spacing:-.035em;margin:0 0 .3rem}
+.tm-head-text p{font-family:var(--fm);font-size:.5rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.38);margin:0}
+.tm-close{position:absolute;top:1.1rem;right:1.1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.55);font-size:1.15rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1}
+.tm-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.tm-body{padding:1.5rem 1.75rem 1.75rem}
+.tm-section-label{font-family:var(--fm);font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.32);display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem}
+.tm-section-label::before{content:'';display:inline-block;width:22px;height:1px;background:rgba(255,255,255,.2)}
+.tm-open-text{font-size:1rem;color:rgba(255,255,255,.75);line-height:1.8;margin-bottom:1.6rem}
+.tm-links{display:flex;flex-direction:column;gap:.6rem}
+.tm-link{display:flex;align-items:center;gap:.9rem;padding:.95rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:13px;text-decoration:none;color:#fff;font-size:.92rem;font-weight:600;transition:all .2s}
+.tm-link:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
+.tm-icon{width:36px;height:36px;border-radius:9px;background:rgba(109,72,210,.2);border:1px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tm-icon svg{width:17px;height:17px;color:#a78bfa}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">B<span>.</span>Lee</a>
+  <a href="index.html#programs" class="nav-back">← All Programs</a>
+  <a href="#" onclick="document.getElementById('talkModal').classList.add('open');return false;" class="nav-cta">Let's Talk</a>
+</nav>
+
+<!-- Let's Connect Modal -->
+<div class="tm-overlay" id="talkModal">
+  <div class="tm-box">
+    <div class="tm-head">
+      <img src="avatar.jpg" alt="Brandon Lee" class="tm-avatar" onerror="this.style.display='none'">
+      <div class="tm-head-text">
+        <h2>Let's Connect</h2>
+        <p>Program Manager &nbsp;&middot;&nbsp; PMO Architect &nbsp;&middot;&nbsp; Austin, TX</p>
+      </div>
+      <button class="tm-close" onclick="document.getElementById('talkModal').classList.remove('open')">&times;</button>
+    </div>
+    <div class="tm-body">
+      <div class="tm-section-label">Open To</div>
+      <p class="tm-open-text">Strategic Program Management, PMO Architecture, and Strategic Advisory roles — high-stakes environments demanding systems design, infrastructure optimization, or Responsible AI execution.</p>
+      <div class="tm-section-label">Get In Touch</div>
+      <div class="tm-links">
+        <a href="mailto:lee.brandon.anthony@gmail.com" class="tm-link">
+          <span class="tm-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg></span>
+          lee.brandon.anthony@gmail.com
+        </a>
+        <a href="https://linkedin.com/in/brandonl33" target="_blank" rel="noopener" class="tm-link">
+          <span class="tm-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+          linkedin.com/in/brandonl33
+        </a>
+        <a href="brandon-lee-resume.pdf" download="Brandon_Lee_Resume.pdf" class="tm-link">
+          <span class="tm-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg></span>
+          View Resume
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">Operational Intelligence · 2021–2023</div>
+    <h1 class="page-title">Command Hub<br><span>Platform</span></h1>
+    <p class="page-lead">Designed and built a centralized operational intelligence platform — integrating program data, real-time dashboards, and executive decision visibility across distributed teams and 25+ markets.</p>
+    <div class="hero-metrics">
+      <div class="hm"><div class="hm-num">25<span>+</span></div><div class="hm-lbl">Markets Unified</div></div>
+      <div class="hm"><div class="hm-num">1</div><div class="hm-lbl">Source of Truth</div></div>
+      <div class="hm"><div class="hm-num">0</div><div class="hm-lbl">Fragmented Reports</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATION -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Situation</div>
+    <div class="two-col">
+      <div>
+        <h2 class="section-title">25 markets. No shared view of any of them.</h2>
+        <p class="body-text">As the gig-aggregation platform scaled nationally, a second problem emerged: the organization had no centralized way to see what was happening across the portfolio. Each market reported differently. KPIs lived in separate tools. Executive visibility required manual aggregation — a process that was slow, inconsistent, and error-prone.</p>
+        <p class="body-text">Leadership was making decisions on data that was days old, siloed by team, and impossible to reconcile across markets.</p>
+      </div>
+      <div>
+        <div class="challenge-block">
+          <p>"We were running 25 markets and reading them like 25 separate businesses. The coordination overhead alone was becoming a drag on decision velocity — and decisions at scale are the whole game."</p>
+        </div>
+        <div class="outcome-list">
+          <div class="outcome-item">Fragmented reporting across teams and tools</div>
+          <div class="outcome-item">No real-time KPI visibility at the executive layer</div>
+          <div class="outcome-item">Manual aggregation creating latency in decision-making</div>
+          <div class="outcome-item">No standardized operational definitions across markets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Approach</div>
+    <h2 class="section-title">One platform. Three layers of intelligence.</h2>
+    <p class="body-text">The Command Hub wasn't a dashboard project — it was an <strong>operational architecture decision</strong>. The design question wasn't "what do we show?" but "what does each layer of the organization need to act on, and how fast do they need it?"</p>
+    <div class="layer-stack" style="margin-top:2rem">
+      <div class="layer fi">
+        <div class="layer-label">Data Layer</div>
+        <div class="layer-desc"><strong>Unified program data model</strong> — standardized definitions, ingestion pipelines, and a single source of truth replacing fragmented market-level reporting across 25+ distributed teams.</div>
+      </div>
+      <div class="layer fi">
+        <div class="layer-label">Operations Layer</div>
+        <div class="layer-desc"><strong>Real-time KPI dashboards</strong> — live market health indicators, SLA tracking, incident status, and dependency flags surfaced to operational leads without manual aggregation.</div>
+      </div>
+      <div class="layer fi">
+        <div class="layer-label">Executive Layer</div>
+        <div class="layer-desc"><strong>Decision intelligence surface</strong> — portfolio-level visibility, cross-market trend analysis, and synthesized status briefings that reduced coordination overhead and accelerated strategic decisions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN DECISIONS -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Design Decisions</div>
+    <h2 class="section-title">What made it work</h2>
+    <div class="three-col" style="margin-top:1.5rem">
+      <div class="pillar fi">
+        <div class="pillar-icon">⬡</div>
+        <div class="pillar-title">Standardization First</div>
+        <div class="pillar-text">Before any dashboard was built, every operational metric was defined, debated, and agreed on across teams. Without semantic alignment, unified visibility is just unified noise.</div>
+      </div>
+      <div class="pillar fi">
+        <div class="pillar-icon">◈</div>
+        <div class="pillar-title">Audience-Specific Views</div>
+        <div class="pillar-text">Ops leads, market managers, and executives needed fundamentally different things. The platform served three distinct views from a single data model — no one got a dashboard that wasn't designed for them.</div>
+      </div>
+      <div class="pillar fi">
+        <div class="pillar-icon">◎</div>
+        <div class="pillar-title">Latency as a Design Constraint</div>
+        <div class="pillar-text">Real-time wasn't a feature request — it was a business requirement. Decisions delayed by stale data cost money. Every pipeline was designed around minimum viable latency for each decision type.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Outcomes</div>
+    <h2 class="section-title">What changed</h2>
+    <div class="three-col" style="margin-top:1.5rem">
+      <div class="stat-card">
+        <div class="num">25<span>+</span></div>
+        <div class="lbl">Markets with unified real-time operational visibility</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">1<span>×</span></div>
+        <div class="lbl">Source of truth replacing fragmented multi-tool reporting</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">↓<span> </span></div>
+        <div class="lbl">Executive coordination overhead reduced significantly through decision layer</div>
+      </div>
+    </div>
+    <div class="outcome-list" style="margin-top:2rem">
+      <div class="outcome-item"><strong>Real-time KPI dashboards</strong> replaced all manual aggregation — ops leads had current market health at a glance</div>
+      <div class="outcome-item"><strong>Executive decision velocity improved</strong> — leadership acting on live data instead of compiled reports days behind reality</div>
+      <div class="outcome-item"><strong>Cross-market trend identification</strong> now possible for the first time — patterns that were invisible across siloed reports became actionable signals</div>
+      <div class="outcome-item"><strong>Platform became organizational infrastructure</strong> — adopted as the operational backbone for the national program, not just a reporting tool</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="container">
+  <div class="cta-section fi">
+    <h2 class="cta-title">Interested in what this kind of thinking<br>could do for your organization?</h2>
+    <p class="cta-sub">Operational intelligence is a competitive advantage when it's built right. If your teams are making decisions on fragmented data — or not making them fast enough — let's talk about what's possible.</p>
+    <div class="cta-btns">
+      <a href="#" onclick="document.getElementById('talkModal').classList.add('open');return false;" class="btn-primary">Start a Conversation</a>
+      <a href="index.html#programs" class="btn-ghost">View All Programs</a>
+    </div>
+  </div>
+  <div class="page-nav">
+    <a href="aggregation.html" class="pn-link">← Gig Aggregation</a>
+    <div class="pn-center"><a href="index.html#programs">All Programs</a></div>
+    <a href="ai-automation.html" class="pn-link">AI Operations →</a>
+  </div>
+</div>
+
+<footer><p>© 2026 Brandon Lee · Strategic Program Manager</p></footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('vis'); obs.unobserve(e.target); }});},{ threshold:0.15 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var modal = document.getElementById('talkModal');
+  if (!modal) return;
+  modal.addEv
