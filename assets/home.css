@@ -325,3 +325,6 @@ footer p{font-size:.62rem}
 .hero{display:flex!important;align-items:center;justify-content:center}
 .hero>.container{width:100%}
 @media(max-width:900px){.hero-right{display:none}}
+/* five programs: flagship + 2x2 */
+.prog-grid{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.prog-grid{grid-template-columns:1fr}}
