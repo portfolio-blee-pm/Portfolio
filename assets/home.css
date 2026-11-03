@@ -297,3 +297,31 @@ footer p{font-family:var(--fm);font-size:.55rem;color:var(--dk-m);letter-spacing
   .exp-row{grid-template-columns:1fr}
   .fu{opacity:1;transform:none}
 }
+
+/* ── v3: readability, 3-up grid, motion ── */
+.hm-lbl{font-size:.6rem}
+.prog-eyebrow{font-size:.62rem}
+.prog-link{font-size:.62rem}
+.vp-num{font-size:.58rem}
+.vp-stat-label{font-size:.58rem}
+.bio-stat-lbl{font-size:.62rem}
+.edu-card-ey{font-size:.6rem}
+.edu-status{font-size:.58rem}
+.cert{font-size:.64rem}
+.sys-tag{font-size:.6rem}
+.ey{font-size:.64rem}
+.hero-pos{font-size:.7rem}
+.nav-links a{font-size:.66rem}
+.nav-cta{font-size:.64rem}
+.btn-ghost{font-size:.64rem}
+footer p{font-size:.62rem}
+.prog-grid{grid-template-columns:repeat(3,1fr)}
+.prog-card.feat{grid-column:1/-1}
+.prog-card.feat .prog-desc{max-width:820px;font-size:.95rem}
+@media(max-width:1000px){.prog-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.prog-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.fu{opacity:1!important;transform:none!important;transition:none!important}.scroll-arrow{animation:none}#starCanvas{display:none}}
+/* hero layout fix: center the two-column hero across the full width */
+.hero{display:flex!important;align-items:center;justify-content:center}
+.hero>.container{width:100%}
+@media(max-width:900px){.hero-right{display:none}}
