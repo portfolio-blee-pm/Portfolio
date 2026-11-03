@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Enterprise Platform Delivery · Brandon Lee</title>
+<meta name="description" content="End-to-end ownership of a commercial platform: integration architecture, release governance, and enterprise implementation through production."/>
+<meta property="og:title" content="Enterprise Platform Delivery · Brandon Lee"/>
+<meta property="og:description" content="End-to-end ownership of a commercial platform: integration architecture, release governance, and enterprise implementation through production."/>
+<link rel="icon" href="avatar.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/case.css"/>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">B<span>.</span>Lee</a>
+  <div class="nav-right">
+    <a href="index.html#work" class="nav-back">← All Work</a>
+    <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="nav-back">Resume</a>
+    <a href="index.html#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow">KT Impact · Mar 2023 – Jun 2024</div>
+    <h1 class="page-title">Enterprise Platform<br><span>Delivery: Build → Production</span></h1>
+    <p class="page-lead">Owned delivery of a new commercial platform from development through enterprise production: the integration architecture, the release and SLA governance, and the go-live of the first enterprise accounts. The platform matched electric freight fleets with charging availability.</p>
+    <div class="meta">Role: Program Manager, Platform Delivery &amp; Enterprise Implementation · Teams: Product, Engineering, Data, Operations</div>
+    <div class="hero-metrics"><div class="hm"><div class="hm-num">35<span>%</span></div><div class="hm-lbl">Faster time-to-launch</div></div><div class="hm"><div class="hm-num">10<span>+</span></div><div class="hm-lbl">Enterprise accounts in production</div></div><div class="hm"><div class="hm-num">8.5→6.6<span>%</span></div><div class="hm-lbl">Production downtime</div></div><div class="hm"><div class="hm-num">3</div><div class="hm-lbl">External data domains integrated</div></div></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Context &amp; my role</div>
+    <div class="two-col"><div><h2 class="section-title">A new platform with enterprise customers waiting</h2><p class="body-text">KT Impact was building a platform for commercial electric fleets: given a freight lane, find where and when trucks can charge. The product only works if three external data domains (vehicle telematics, routing, and charging networks) arrive on time and in a shape the platform can trust.</p><p class="body-text">Enterprise fleet customers were lined up before the platform was production-ready, so delivery and customer implementation had to run in parallel instead of in sequence.</p></div><div class="role-box"><div class="role-row"><div class="role-k">I owned</div><div class="role-v">Delivery plan and roadmap sequencing, program budget, vendor selection, release cadence, and the enterprise implementation path.</div></div><div class="role-row"><div class="role-k">I influenced</div><div class="role-v">Integration architecture and data schemas (defined with Engineering), product scope trade-offs, and SLA thresholds.</div></div><div class="role-row"><div class="role-k">Partners</div><div class="role-v">Product, Engineering, Data, Operations, external telematics and charging-network providers, and customer fleet teams.</div></div></div></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Problem &amp; constraints</div>
+    <div class="two-col"><div><h2 class="section-title">Integration risk and customer pressure at the same time</h2><p class="body-text">Each data provider had its own formats, update frequency, and failure modes. Without agreed contracts, every new fleet customer turned into a custom integration, and production issues landed on whichever engineer was closest.</p></div><div class="outcome-list" style="margin-top:0"><div class="outcome-item">No written API contracts or schemas for the three external feeds</div><div class="outcome-item">Enterprise go-lives scheduled before the platform was production-stable</div><div class="outcome-item">Production downtime around 8.5%, with no shared way to rank issues</div><div class="outcome-item">Small team and a fixed budget: every vendor and scope decision had a cost</div></div></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Key decisions</div>
+    <h2 class="section-title">Two calls that shaped the program</h2><div class="decision"><h3>Define integration contracts before taking more customers live</h3><div class="dgrid"><div class="dk">Options</div><div class="dv">(a) Keep taking customers live and build integrations case by case · (b) Pause new go-lives to write API contracts and data schemas for each feed first</div><div class="dk">Chose</div><div class="dv"><strong>Contracts first, with go-lives sequenced right behind them</strong></div><div class="dk">Tradeoff</div><div class="dv">It cost a few weeks up front, and some customer conversations had to be reset. In return, every later account used the same integration path instead of a custom build. That reuse is the main reason time-to-launch dropped 35%.</div></div></div><div class="decision"><h3>Rank engineering issues by customer impact instead of by who escalated loudest</h3><div class="dgrid"><div class="dk">Options</div><div class="dv">(a) Let each team triage its own issues · (b) Hold one weekly cross-team triage, ranked by customer impact</div><div class="dk">Chose</div><div class="dv"><strong>One weekly triage, ranked by customer impact</strong></div><div class="dk">Tradeoff</div><div class="dv">Some internal and tech-debt items waited longer. In return, the issues causing the most customer-facing downtime were fixed first, and blockers that crossed team lines had a single forum to get resolved.</div></div></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Execution</div>
+    <h2 class="section-title">How the delivery ran</h2><p class="body-text">Four mechanisms connected the platform build to customer go-lives.</p><div class="mech"><div class="pillar"><div class="pillar-title">Integration contracts</div><div class="pillar-text">Wrote the API contracts, data schemas, and integration requirements for the telematics, routing, and charging-network feeds with Engineering. Each new enterprise account then followed a known path.</div></div><div class="pillar"><div class="pillar-title">Release cadence &amp; scope controls</div><div class="pillar-text">Set a fixed release cadence with capacity planning and scope controls, so customer commitments matched what Engineering could actually ship.</div></div><div class="pillar"><div class="pillar-title">SLA thresholds</div><div class="pillar-text">Defined SLA thresholds for production readiness. These set the bar a release had to meet before an enterprise account was moved onto it.</div></div><div class="pillar"><div class="pillar-title">Weekly impact-ranked triage</div><div class="pillar-text">A cross-team triage each week, with issues ranked by customer impact. Blockers that crossed team lines had an owner and a date before the meeting ended.</div></div></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Artifact</div>
+    <h2 class="section-title">Platform data flow</h2><p class="body-text">How the three external domains fed the platform, and where triage connected production back to the roadmap.</p><figure class="artifact"><svg viewBox="0 0 780 360" role="img" aria-label="Data flow for the EV lane-matching platform" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b39dff"/></marker><marker id="ahs" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b39dff"/></marker></defs><rect x="20" y="30" width="200" height="60" rx="10" fill="#14121f" stroke="#2563eb" stroke-opacity=".6"/><text x="120.0" y="53.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Telematics feeds</text><text x="120.0" y="71.0" text-anchor="middle" dominant-baseline="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">location · charge state</text><rect x="20" y="150" width="200" height="60" rx="10" fill="#14121f" stroke="#2563eb" stroke-opacity=".6"/><text x="120.0" y="173.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Routing / freight lanes</text><text x="120.0" y="191.0" text-anchor="middle" dominant-baseline="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">lane + load data</text><rect x="20" y="270" width="200" height="60" rx="10" fill="#14121f" stroke="#2563eb" stroke-opacity=".6"/><text x="120.0" y="293.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Charging networks</text><text x="120.0" y="311.0" text-anchor="middle" dominant-baseline="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">availability · location</text><rect x="300" y="120" width="200" height="120" rx="10" fill="#14121f" stroke="#7c3aed" stroke-opacity=".6"/><text x="400.0" y="180.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Lane-matching platform</text><text x="400" y="200" text-anchor="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">API contracts · data schemas</text><text x="400" y="216" text-anchor="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">SLA thresholds</text><rect x="580" y="90" width="180" height="70" rx="10" fill="#14121f" stroke="#16a34a" stroke-opacity=".6"/><text x="670.0" y="118.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Enterprise accounts</text><text x="670.0" y="136.0" text-anchor="middle" dominant-baseline="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">10+ live in production</text><rect x="580" y="220" width="180" height="70" rx="10" fill="#14121f" stroke="#f59e0b" stroke-opacity=".6"/><text x="670.0" y="248.0" text-anchor="middle" dominant-baseline="middle" fill="#f0eeff" font-family="Figtree,sans-serif" font-size="14" font-weight="700">Weekly triage</text><text x="670.0" y="266.0" text-anchor="middle" dominant-baseline="middle" fill="#a098c0" font-family="JetBrains Mono,monospace" font-size="10">ranked by customer impact</text><line x1="220" y1="60" x2="298" y2="150" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><line x1="220" y1="180" x2="298" y2="180" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><line x1="220" y1="300" x2="298" y2="210" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><line x1="500" y1="160" x2="578" y2="125" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><text x="528" y="112" text-anchor="middle" fill="#c0b8d8" font-family="JetBrains Mono,monospace" font-size="10">go-live</text><line x1="670" y1="160" x2="670" y2="218" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><text x="712" y="192" text-anchor="middle" fill="#c0b8d8" font-family="JetBrains Mono,monospace" font-size="10">incidents</text><line x1="578" y1="255" x2="502" y2="215" stroke="#b39dff" stroke-width="1.5" marker-end="url(#ah)"/><text x="520" y="262" text-anchor="middle" fill="#c0b8d8" font-family="JetBrains Mono,monospace" font-size="10">fixes / scope</text></svg><figcaption>Illustrative reconstruction. Structure reflects the actual program; names, fields, and values are generalized and contain no client data.</figcaption></figure>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Results</div>
+    <h2 class="section-title">Baseline → outcome</h2><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Metric</th><th>Before</th><th>After</th><th>How it was measured</th></tr></thead><tbody><tr><td>Time-to-launch per account</td><td class="num">Baseline</td><td class="num">−35%</td><td>Elapsed time from signed account to production use, compared before and after the contract-first implementation path</td></tr><tr><td>Production downtime</td><td class="num">8.5%</td><td class="num">6.6%</td><td>Share of time the platform was unavailable to customers, tracked in the triage review</td></tr><tr><td>Enterprise accounts in production</td><td class="num">0</td><td class="num">10+</td><td>Enterprise accounts live on the platform</td></tr></tbody></table></div>
+  </div>
+</section>
+
+<section class="section fi">
+  <div class="container">
+    <div class="section-label">Retrospective</div>
+    <h2 class="section-title">What I'd do differently</h2><div class="lesson"><p><strong>Set an SLO target at the start, not only thresholds.</strong> Downtime improved from 8.5% to 6.6%, which is real progress but still too high for an enterprise product. A stated reliability target and an error budget from the beginning would have made the case for reliability work earlier and with more force.</p></div><div class="lesson"><p><strong>Put customer-side integration testing in the contract.</strong> Several go-live delays came from differences in how each customer's own systems behaved. A required test stage on the customer's side would have caught those before go-live.</p></div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="cta-section fi">
+    <h2 class="cta-title">Want to go deeper on this program?</h2>
+    <p class="cta-sub">I'm happy to walk through the plan, the tradeoffs, and what I'd change, in an interview or a short call.</p>
+    <div class="cta-btns">
+      <a href="mailto:lee.brandon.anthony@gmail.com" class="btn-primary">Email me</a>
+      <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="btn-ghost">Resume (PDF)</a>
+    </div>
+  </div>
+  <div class="page-nav">
+    <span></span>
+    <div class="pn-center"><a href="index.html#work">All Work</a></div>
+    <a href="aggregation.html" class="pn-link">National Expansion →</a>
+  </div>
+</div>
+<footer><p>© 2026 Brandon Lee · Senior Program Manager · Austin, TX · <a href="mailto:lee.brandon.anthony@gmail.com" style="color:inherit">lee.brandon.anthony@gmail.com</a></p></footer>
+<script>
+(function(){
+  var els=document.querySelectorAll('.fi');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('vis')});return;}
+  var o=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');o.unobserve(e.target);}})},{threshold:0.05});
+  els.forEach(function(e){o.observe(e)});
+  setTimeout(function(){els.forEach(function(e){e.classList.add('vis')})},900);
+})();
+</script>
+</body>
+</html>
