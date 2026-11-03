@@ -328,3 +328,47 @@ footer p{font-size:.62rem}
 /* five programs: flagship + 2x2 */
 .prog-grid{grid-template-columns:repeat(2,1fr)}
 @media(max-width:900px){.prog-grid{grid-template-columns:1fr}}
+
+/* ── v4: larger, bolder hero ── */
+.hero>.container{max-width:1280px!important;grid-template-columns:minmax(0,1fr) 460px!important;gap:5rem!important;padding:0 2.5rem}
+.hero-pos{font-size:.85rem;letter-spacing:.2em;margin-bottom:1.75rem}
+.hero-title{font-size:clamp(3.6rem,7.2vw,7rem);line-height:.98;margin-bottom:1.75rem}
+.hero-statement{font-size:clamp(1.2rem,1.55vw,1.45rem);line-height:1.6;max-width:680px;margin-bottom:1rem;color:#ddd6f3}
+.hero-sub{font-size:1.02rem;line-height:1.7;color:#a59cc4;max-width:640px;margin-bottom:2.5rem}
+.hero-metrics{gap:1.1rem;margin-bottom:2.75rem;max-width:720px}
+.hm{padding:1.35rem 1.4rem;border-radius:14px}
+.hm-num{font-size:clamp(2.1rem,3vw,2.8rem)}
+.hm-num span{font-size:1.4rem}
+.hm-lbl{font-size:.72rem;letter-spacing:.08em;margin-top:.55rem;line-height:1.45}
+.hero-btns .btn-ghost{font-size:.78rem;padding:1.05rem 1.75rem;border-radius:12px}
+.sys-photo{padding:2rem 1rem 1.5rem}
+.sys-photo img{width:132px;height:132px}
+.sys-name{font-size:1.4rem}
+.sys-name span{font-size:.68rem}
+.sys-body{padding:1.5rem 1.75rem 1.75rem}
+.sys-tag{font-size:.7rem;padding:.38rem .85rem}
+.sys-row-lbl{font-size:.95rem}
+.sys-row-lbl strong{font-size:1rem}
+.sys-icon{width:34px;height:34px}
+nav{height:64px}
+.nav-logo{font-size:1.15rem}
+.nav-links a{font-size:.74rem}
+.nav-cta{font-size:.72rem!important;padding:.6rem 1.3rem}
+.hero{padding-top:64px}
+/* section headings a step larger */
+#work h2,#principles h2,#capabilities h2{font-size:clamp(2.3rem,4vw,3.4rem)!important}
+.prog-title{font-size:1.4rem}
+.prog-card.feat .prog-title{font-size:1.75rem}
+.prog-desc{font-size:.95rem}
+.prog-impact{font-size:.88rem}
+@media(max-width:1100px){.hero>.container{grid-template-columns:minmax(0,1fr) 380px!important;gap:3rem!important}}
+@media(max-width:900px){.hero>.container{grid-template-columns:1fr!important;padding:0 1.25rem}.hero-title{font-size:clamp(3rem,13vw,4.4rem)}}
+@media(max-width:640px){.hero-metrics{grid-template-columns:1fr!important}.hero-btns .btn-ghost{padding:.9rem 1.3rem;font-size:.7rem}.hero>.container{padding:0 1rem}}
+@media(max-width:900px){.hero{padding-top:6.5rem!important;padding-bottom:3.5rem!important}}
+@media(max-width:640px){
+  .hero-metrics{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:.6rem}
+  .hm{padding:.9rem .75rem}
+  .hm-num{font-size:1.6rem}.hm-num span{font-size:1rem}
+  .hm-lbl{font-size:.58rem;letter-spacing:.04em}
+  .hero-pos{font-size:.72rem}
+}
