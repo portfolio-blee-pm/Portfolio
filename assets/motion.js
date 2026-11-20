@@ -148,6 +148,17 @@
     var d = svg.__dg; if (!d || svg.__played) return; svg.__played = true;
     d.nodes.forEach(function (n, i) { n.style.transitionDelay = (i * 90) + 'ms'; n.classList.add('in'); });
     var base = d.nodes.length * 90 + 250;
+    var total = base + d.edges.length * 140 + 900;
+    setTimeout(function () {
+      function sweep() {
+        if (document.hidden) return;
+        d.nodes.forEach(function (n, i) {
+          if (!n.querySelector('text')) return;
+          setTimeout(function () { n.classList.add('ping'); setTimeout(function () { n.classList.remove('ping'); }, 900); }, i * 260);
+        });
+      }
+      sweep(); setInterval(sweep, 5200);
+    }, total);
     d.edges.forEach(function (e, i) {
       var delay = base + i * 140;
       setTimeout(function () {
@@ -158,6 +169,7 @@
           e.el.style.transition = ''; e.el.style.strokeDasharray = e.origDash || ''; e.el.style.strokeDashoffset = '';
           if (e.marker) e.el.setAttribute('marker-end', e.marker);
           if (e.markerStart) e.el.setAttribute('marker-start', e.markerStart);
+          if (e.origDash) e.el.classList.add('dg-march');
           if (!e.origDash && (e.marker || e.markerStart)) {
             var f = e.el.cloneNode(false);
             f.removeAttribute('marker-end'); f.removeAttribute('marker-start'); f.removeAttribute('style');
