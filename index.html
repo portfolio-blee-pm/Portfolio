@@ -16,6 +16,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/home.css"/>
+<link rel="stylesheet" href="assets/motion.css"/>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 
@@ -317,17 +319,6 @@
 
 <footer class="footer"><div class="wrap">© 2026 Brandon Lee · Senior Technical Program Manager · Austin, TX</div></footer>
 
-<script>
-(function(){
-  var els=document.querySelectorAll('.fu');
-  if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('vis')});return;}
-  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}})},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(el){io.observe(el)});
-  setTimeout(function(){els.forEach(function(el){el.classList.add('vis')})},1500);
-  var nav=document.querySelector('.nav');
-  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>8)}
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-})();
-</script>
+<script src="assets/motion.js" defer></script>
 </body>
 </html>
