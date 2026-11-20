@@ -66,3 +66,27 @@
   .principle[class*="t-"]::after{transform:none;transition:none}
   .progress{display:none}
 }
+
+/* ── Diagram motion ── */
+.dg .dg-node{opacity:0;transform:translateY(10px) scale(.98);transform-box:fill-box;transform-origin:center;
+  transition:opacity .7s var(--ease-out),transform .8s var(--ease-out)}
+.dg .dg-node.in{opacity:1;transform:none}
+.dg .dg-label{opacity:0;transition:opacity .6s ease .35s}
+.dg .dg-label.in{opacity:1}
+.dg .dg-node.in{cursor:default}
+.dg .dg-node rect{transition:stroke-opacity .3s,filter .3s}
+.dg .dg-node.in:hover{transform:translateY(-2px);transition:transform .35s var(--ease-out)}
+.dg .dg-node.in:hover rect{stroke-opacity:1;filter:drop-shadow(0 6px 14px rgba(0,0,0,.08))}
+/* faint data pulses travelling along each connector */
+.dg-flow{stroke:var(--acc,#6e6e73)!important;stroke-opacity:.9;stroke-width:2.2!important;stroke-linecap:round;
+  stroke-dasharray:1.5 26;animation:dgFlow 2.4s linear infinite;pointer-events:none}
+@keyframes dgFlow{from{stroke-dashoffset:55}to{stroke-dashoffset:0}}
+
+/* ── Table rows ── */
+.tr-in{opacity:0;transform:translateY(6px);transition:opacity .6s var(--ease-out),transform .7s var(--ease-out)}
+.rows-in .tr-in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .dg .dg-node,.dg .dg-label,.tr-in{opacity:1!important;transform:none!important;transition:none!important}
+  .dg-flow{display:none}
+}
