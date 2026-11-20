@@ -248,3 +248,11 @@ ul{list-style:none}
 .profile{padding:32px 28px 24px}
 .profile-list dd{font-size:13.5px;line-height:1.45}
 @media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
+/* six themes: 3-up grid */
+.pillars{grid-template-columns:repeat(3,1fr)}
+.pillar{padding:34px 30px 30px}
+.pillar h3{font-size:24px}
+.pillar p{font-size:16px}
+@media(max-width:1000px){.pillars{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.pillars{grid-template-columns:1fr}}
+.profile-list>div{grid-template-columns:98px 1fr}
