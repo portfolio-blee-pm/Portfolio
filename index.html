@@ -4,246 +4,312 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Brandon Lee · Senior Program Manager</title>
-<meta name="description" content="Brandon Lee, Senior Program Manager in Austin, TX. Platform delivery, systems integration, and launches at scale: an enterprise platform, a 25-market national rollout, and enterprise revenue systems."/>
+<meta name="description" content="Brandon Lee, Senior Program Manager in Austin, TX. I own complex programs end to end, from strategy and systems design to launch: an enterprise platform, a 25-market national rollout, and enterprise revenue systems."/>
 <meta property="og:title" content="Brandon Lee · Senior Program Manager"/>
-<meta property="og:description" content="Platform delivery, systems integration, and launches at scale. Case studies with baselines, decisions, and measured results."/>
+<meta property="og:description" content="I own complex programs end to end, from strategy and systems design to launch. Case studies with baselines, decisions, and measured results."/>
 <meta property="og:image" content="https://portfolio-blee-pm.github.io/Portfolio/og.png"/>
 <meta property="og:type" content="website"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#fbfbfd"/>
 <link rel="icon" href="avatar.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="assets/home.css"/>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="index.html">BL<span>.</span></a>
-  <div class="nav-links">
-    <a href="#work">Work</a>
-    <a href="pmo.html" class="hide-sm">How I Operate</a>
-    <a href="#about" class="hide-sm">About</a>
-    <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="hide-sm">Resume</a>
-    <a class="nav-cta" href="#contact">Contact</a>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">Brandon Lee</a>
+    <div class="nav-links">
+      <a href="#leadership" class="hide-sm">Leadership</a>
+      <a href="#work">Work</a>
+      <a href="pmo.html" class="hide-sm">Operating Model</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="hide-sm">Resume</a>
+      <a class="nav-cta" href="#contact">Contact</a>
+    </div>
   </div>
 </nav>
 
-<section class="hero s-dark" id="home" style="overflow:hidden">
-  <canvas id="starCanvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.55"></canvas>
-  <div class="hero-orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,.12),transparent);top:-100px;left:-100px;filter:blur(80px)"></div>
-  <div class="container" style="display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:center;width:100%;max-width:1100px;position:relative;z-index:1">
+<!-- HERO -->
+<header class="hero" id="home">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow fu">Senior Program Manager · Austin, TX</p>
+      <h1 class="hero-title fu">Brandon Lee.</h1>
+      <p class="hero-lede fu">I take ownership of complex programs and drive them to launch.</p>
+      <p class="hero-sub fu">Fourteen years leading Product, Engineering, Data, and Operations through platform builds, systems integrations, and national rollouts. I set the strategy, go deep on the systems, make the calls, and stay accountable for the result.</p>
+      <div class="hero-btns fu">
+        <a href="#work" class="btn btn-dark">See the work</a>
+        <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="btn btn-light">Resume (PDF)</a>
+        <a href="https://linkedin.com/in/brandonl33" target="_blank" rel="noopener" class="link">LinkedIn <span aria-hidden="true">›</span></a>
+      </div>
+    </div>
+    <aside class="profile fu" aria-label="Profile summary">
+      <img class="profile-photo" src="avatar.png" alt="Brandon Lee"/>
+      <div class="profile-name">Brandon Lee</div>
+      <div class="profile-role">Senior Program Manager</div>
+      <dl class="profile-list">
+        <div><dt>Owns</dt><dd>Strategy → systems → launch</dd></div>
+        <div><dt>Focus</dt><dd>Platform, infrastructure &amp; enterprise systems</dd></div>
+        <div><dt>Technical</dt><dd>APIs · data models · SQL · Python</dd></div>
+        <div><dt>Education</dt><dd>MBA, IT Management</dd></div>
+      </dl>
+    </aside>
+  </div>
+
+  <div class="wrap">
+    <div class="stats fu">
+      <div class="stat"><div class="stat-num">25+</div><div class="stat-lbl">Markets launched in 9 months, zero P0/P1 incidents</div></div>
+      <div class="stat"><div class="stat-num">−35%</div><div class="stat-lbl">Platform time-to-launch</div></div>
+      <div class="stat"><div class="stat-num">91%</div><div class="stat-lbl">Forecast accuracy, up from 78%</div></div>
+      <div class="stat"><div class="stat-num">18%</div><div class="stat-lbl">Operating cost cut, payback under 4 months</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- LEADERSHIP -->
+<section class="section section-alt" id="leadership">
+  <div class="wrap">
+    <p class="eyebrow fu">How I lead</p>
+    <h2 class="h2 fu">I own it. I set direction.<br><span class="muted">I go deep. I deliver.</span></h2>
+    <p class="intro fu">Four things hiring teams can expect from me on day one, each backed by a result.</p>
+    <div class="pillars">
+      <article class="pillar fu">
+        <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.8 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg></div>
+        <h3>Ownership</h3>
+        <p>I take full accountability for the outcome, not just the plan. At Recyclops I owned product, platform, integrations, data, and the go/no-go call for every launch. At KT Impact I owned delivery, budget, vendors, and roadmap.</p>
+        <div class="proof">End-to-end owner · 0 → 25+ markets</div>
+      </article>
+      <article class="pillar fu">
+        <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
+        <h3>Strategy</h3>
+        <p>I set direction and make the hard trade-offs. I paused new enterprise go-lives to standardize API contracts first, a short-term cost that made every later launch 35% faster. At FIFCO I held P&amp;L authority for a multiyear transformation.</p>
+        <div class="proof">Business case · sequencing · decision rights</div>
+      </article>
+      <article class="pillar fu">
+        <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/></svg></div>
+        <h3>Technical depth</h3>
+        <p>I work at the level of the systems. I specify API contracts, data schemas, and reconciliation logic with Engineering, and build parts of it myself. I integrated 5 systems through APIs and rebuilt a Salesforce/SAP-to-Tableau forecasting pipeline.</p>
+        <div class="proof">APIs · schemas · SQL · Python · Salesforce · SAP</div>
+      </article>
+      <article class="pillar fu">
+        <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+        <h3>Execution</h3>
+        <p>I take charge and ship. Readiness gates with one accountable owner each, a single triage list ranked by customer impact, and a clear go/no-go. The result: 25+ markets in 9 months, 60% ahead of roadmap.</p>
+        <div class="proof">Readiness gates · go/no-go · hypercare</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="wrap">
+    <p class="eyebrow fu">Selected work</p>
+    <h2 class="h2 fu">Five programs I owned.<br><span class="muted">From first plan to measured result.</span></h2>
+    <p class="intro fu">Each case study covers what I owned, the decisions and trade-offs I made, real artifacts, results against a baseline, and what I'd do differently.</p>
+
+    <a href="aggregation.html" class="card card-feature fu">
+      <div class="card-feature-copy">
+        <div class="card-meta">Flagship · Recyclops · 2021–2023</div>
+        <h3 class="card-title">ReDyper: a new service model, from zero to national.</h3>
+        <div class="owned"><span>I owned</span> Product, platform, integrations, data, and launch, end to end</div>
+        <p class="card-desc">I led new product introduction on a new gig-aggregation platform: the platform rebuild plan, API data flows and reconciliation (specified with Engineering, partly built myself), the data model, and the go/no-go decision for every market.</p>
+        <span class="link">Read the case study <span aria-hidden="true">›</span></span>
+      </div>
+      <div class="card-feature-stats">
+        <div><b>25+</b><span>markets in 9 months, 60% ahead of roadmap</span></div>
+        <div><b>0</b><span>P0/P1 incidents across every launch</span></div>
+        <div><b>5</b><span>systems integrated through APIs</span></div>
+        <div><b>−18%</b><span>operating cost, payback under 4 months</span></div>
+      </div>
+    </a>
+
+    <div class="card-grid">
+      <a href="enterprise-platform.html" class="card fu">
+        <div class="card-meta">Platform delivery · KT Impact · 2023–2024</div>
+        <h3 class="card-title">Enterprise platform, build to production.</h3>
+        <div class="owned"><span>I owned</span> Delivery, budget, vendors, and roadmap</div>
+        <p class="card-desc">Took a new commercial platform from development into enterprise production, with API contracts and data schemas across three external data domains.</p>
+        <ul class="results"><li><b>−35%</b> time-to-launch</li><li><b>10+</b> enterprise accounts live</li><li><b>8.5% → 6.6%</b> downtime</li></ul>
+        <span class="link">Read the case study <span aria-hidden="true">›</span></span>
+      </a>
+      <a href="ai-automation.html" class="card fu">
+        <div class="card-meta">Delivery systems + AI · 2024–2026</div>
+        <h3 class="card-title">Delivery systems and AI-assisted reporting.</h3>
+        <div class="owned"><span>I owned</span> Governance of 15–20 concurrent initiatives</div>
+        <p class="card-desc">Drove a Monday.com–Jira integration from discovery to cutover, consolidated 12 report sources into one, and introduced AI-drafted reports with human sign-off.</p>
+        <ul class="results"><li><b>−50%</b> reporting effort</li><li><b>90%</b> sustained adoption</li><li><b>25–30%</b> shorter planning cycles</li></ul>
+        <span class="link">Read the case study <span aria-hidden="true">›</span></span>
+      </a>
+      <a href="revenue-systems.html" class="card fu">
+        <div class="card-meta">Enterprise systems · YETI · 2020–2021</div>
+        <h3 class="card-title">Revenue systems, CPQ to forecast.</h3>
+        <div class="owned"><span>I owned</span> Requirements, delivery, and data reconciliation</div>
+        <p class="card-desc">Rebuilt Salesforce CPQ for wholesale and direct-to-consumer, then defined the Salesforce/SAP-to-Tableau forecasting pipeline.</p>
+        <ul class="results"><li><b>25%</b> faster quote-to-cash</li><li><b>78% → 91%</b> forecast accuracy</li><li><b>6</b> business units aligned</li></ul>
+        <span class="link">Read the case study <span aria-hidden="true">›</span></span>
+      </a>
+      <a href="transformation.html" class="card fu">
+        <div class="card-meta">Transformation · FIFCO USA · 2010–2018</div>
+        <h3 class="card-title">Digital transformation, legacy to CMS/CRM.</h3>
+        <div class="owned"><span>I owned</span> The program as Product Owner, with P&amp;L authority</div>
+        <p class="card-desc">Led a multiyear, phased migration of retail and distributor channels from legacy systems to CMS/CRM, from business case through adoption.</p>
+        <ul class="results"><li><b>+28%</b> e-commerce revenue</li><li><b>OKR-driven</b> targets exceeded</li><li><b>3</b> functions on shared systems</li></ul>
+        <span class="link">Read the case study <span aria-hidden="true">›</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATING MODEL -->
+<section class="section section-alt" id="principles">
+  <div class="wrap">
+    <p class="eyebrow fu">Operating model</p>
+    <h2 class="h2 fu">Systems thinking,<br><span class="muted">turned into process.</span></h2>
+    <p class="intro fu">I map the program as a system, find the constraint, design a mechanism that removes it, and measure whether it worked. Then I standardize it so the organization keeps it after I hand off.</p>
+    <div class="principles">
+      <a class="principle fu" href="enterprise-platform.html">
+        <div class="principle-num">01</div>
+        <h3>Contracts before code.</h3>
+        <p>I paused new go-lives to define API contracts and schemas for three external data feeds. Every account after reused the same path.</p>
+        <div class="principle-stat"><b>−35%</b> time-to-launch</div>
+      </a>
+      <a class="principle fu" href="aggregation.html">
+        <div class="principle-num">02</div>
+        <h3>Gates, not heroics.</h3>
+        <p>Every market passed four readiness gates, each with one accountable owner. Launches fail at the handoffs, so I designed the handoffs.</p>
+        <div class="principle-stat"><b>0</b> P0/P1 across 25+ markets</div>
+      </a>
+      <a class="principle fu" href="enterprise-platform.html">
+        <div class="principle-num">03</div>
+        <h3>Rank by customer impact.</h3>
+        <p>One weekly cross-team triage, ranked by what customers felt, replaced each team triaging its own issues.</p>
+        <div class="principle-stat"><b>8.5% → 6.6%</b> downtime</div>
+      </a>
+      <a class="principle fu" href="ai-automation.html">
+        <div class="principle-num">04</div>
+        <h3>Automate assembly, keep judgment.</h3>
+        <p>An LLM drafts status reports from structured fields; a PM reviews and publishes. Every update keeps an accountable author.</p>
+        <div class="principle-stat"><b>−50%</b> reporting effort</div>
+      </a>
+    </div>
+    <a href="pmo.html" class="link link-lg fu">See the full operating model <span aria-hidden="true">›</span></a>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="section" id="capabilities">
+  <div class="wrap">
+    <p class="eyebrow fu">Capabilities</p>
+    <h2 class="h2 fu">Strategic and technical.<br><span class="muted">In the same person.</span></h2>
+    <div class="caps fu">
+      <div class="cap">
+        <h3>Strategy &amp; leadership</h3>
+        <ul>
+          <li>End-to-end program ownership</li>
+          <li>Business cases, roadmaps &amp; sequencing</li>
+          <li>Executive decision rights &amp; prioritization</li>
+          <li>Budget, vendor &amp; capacity planning</li>
+          <li>P&amp;L accountability</li>
+          <li>Change management &amp; adoption</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Technical &amp; systems</h3>
+        <ul>
+          <li>API contracts &amp; data schemas</li>
+          <li>Integration requirements &amp; testing</li>
+          <li>Data models, governance &amp; reconciliation</li>
+          <li>Reporting pipelines &amp; dashboards</li>
+          <li>AI-assisted workflow automation</li>
+          <li>Incident triage &amp; SLA thresholds</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <h3>Execution &amp; launch</h3>
+        <ul>
+          <li>Launch frameworks &amp; readiness gates</li>
+          <li>Go/no-go decisions</li>
+          <li>Dependency &amp; critical-path management</li>
+          <li>Release cadence &amp; cutover</li>
+          <li>Hypercare &amp; handoff</li>
+          <li>Agile, Scrum, Kanban, Waterfall</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tools fu">
+      <span class="tools-lbl">Tools</span>
+      <span class="chip">Salesforce</span><span class="chip">SAP</span><span class="chip">Tableau</span><span class="chip">Jira</span><span class="chip">Monday.com</span><span class="chip">SQL</span><span class="chip">Python</span><span class="chip">GitHub</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section section-alt" id="about">
+  <div class="wrap about-grid">
     <div>
-      <div class="hero-pos fu">Senior Program Manager · Austin, TX</div>
-      <h1 class="hero-title fu" style="transition-delay:.1s">Brandon<br><span>Lee.</span></h1>
-      <p class="hero-statement fu" style="transition-delay:.2s">I run programs as systems: mapping how platform, integrations, people, and operations depend on each other, then building the processes and launch mechanisms that let them ship together.</p>
-      <p class="hero-sub fu" style="transition-delay:.25s">14 years leading cross-functional programs across Product, Engineering, Data, and Operations, from new product introduction to national scale.</p>
-      <div class="hero-metrics fu" style="transition-delay:.3s">
-        <div class="hm"><div class="hm-num">25<span>+</span></div><div class="hm-lbl">Markets in 9 months · 0 P0/P1</div></div>
-        <div class="hm"><div class="hm-num">−35<span>%</span></div><div class="hm-lbl">Platform time-to-launch</div></div>
-        <div class="hm"><div class="hm-num">91<span>%</span></div><div class="hm-lbl">Forecast accuracy, up from 78%</div></div>
-      </div>
-      <div class="hero-btns fu" style="transition-delay:.4s">
-        <a href="#work" class="btn-ghost btn-primary">View the work ↓</a>
-        <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="btn-ghost">Resume (PDF)</a>
-        <a href="https://linkedin.com/in/brandonl33" class="btn-ghost" target="_blank" rel="noopener">LinkedIn →</a>
+      <p class="eyebrow fu">About</p>
+      <h2 class="h2 fu">Program manager.<br><span class="muted">Systems thinker.</span></h2>
+      <div class="about-text fu">
+        <p>Every complex program comes down to agreement: between systems that must exchange data, and between people who must commit to the same version of the truth. I've spent fourteen years building that agreement, and then the operating structure that lets an organization act on it at scale.</p>
+        <p>My work sits where platform engineering, enterprise systems, and operations meet. I carried a commercial platform from development into enterprise production. I took ReDyper from concept to 25+ markets in nine months without a single P0/P1 incident, owning everything from the API layer to frontline operations. I rebuilt revenue systems across Salesforce and SAP that lifted forecast accuracy from 78% to 91%. And I governed delivery for Series A–C companies running 15–20 initiatives at once.</p>
+        <p>One conviction runs through all of it: technology should assemble the facts, and people should own the judgment. I'm pursuing Senior Program Manager roles on platform, infrastructure, and enterprise-systems teams, where clarity under complexity is the job.</p>
       </div>
     </div>
-    <div class="hero-right fu" style="transition-delay:.25s">
-      <div class="sys-card">
-        <div class="sys-photo"><img src="avatar.png" alt="Brandon Lee"/><div class="sys-name">Brandon Lee<span>Senior Program Manager</span></div></div>
-        <div class="sys-body">
-          <div class="sys-tags">
-            <span class="sys-tag vt">Systems Thinking</span>
-            <span class="sys-tag vt">Program Leadership</span>
-            <span class="sys-tag vt">Launch &amp; Scale</span>
-            <span class="sys-tag vt">Infrastructure</span>
-            <span class="sys-tag gr">Austin, TX</span>
-            <span class="sys-tag">MBA, IT Mgmt</span>
-          </div>
-          <div class="sys-divider"></div>
-          <div class="sys-row"><div class="sys-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b39dff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><div class="sys-row-lbl"><strong>Platform delivery</strong>Build → production · 10+ enterprise accounts</div></div>
-          <div class="sys-row"><div class="sys-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b39dff" stroke-width="2"><path d="M4 12h16M12 4v16"/></svg></div><div class="sys-row-lbl"><strong>Systems &amp; data</strong>API contracts · schemas · reconciliation</div></div>
-          <div class="sys-row"><div class="sys-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b39dff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="sys-row-lbl"><strong>Launch at scale</strong>Readiness gates · go/no-go</div></div>
-        </div>
+    <div class="about-side fu">
+      <h3 class="side-h">Experience</h3>
+      <ul class="timeline">
+        <li><div><b>Independent Consultant</b><span>Program Manager, Systems Implementation &amp; Delivery</span></div><time>2024–2026</time></li>
+        <li><div><b>KT Impact</b><span>Program Manager, Platform Delivery &amp; Enterprise Implementation</span></div><time>2023–2024</time></li>
+        <li><div><b>Recyclops</b><span>Program Manager, Strategic Initiatives &amp; Operations</span></div><time>2021–2023</time></li>
+        <li><div><b>YETI</b><span>Project Manager, Corporate Sales Enablement &amp; Operations</span></div><time>2020–2021</time></li>
+        <li><div><b>FIFCO USA</b><span>Project Manager, then Product Owner, Digital Transformation</span></div><time>2010–2018</time></li>
+      </ul>
+      <h3 class="side-h">Education</h3>
+      <ul class="timeline">
+        <li><div><b>MBA, IT Management</b><span>Western Governors University</span></div><time>2026</time></li>
+        <li><div><b>BA, Communications · Minor, Business</b><span>University of Washington</span></div><time></time></li>
+      </ul>
+      <div class="certs">
+        <span class="chip">Google Project Management</span>
+        <span class="chip">Google Data Analytics</span>
+        <span class="chip">Agile Project Management</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="s-white sp" id="work">
-  <div class="container">
-    <div class="ey dk fu">Selected Work</div>
-    <h2 class="fu" style="font-family:var(--fh);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:900;color:var(--lt-h);letter-spacing:-.04em;margin-bottom:.6rem">Five programs. <span style="color:#9890b0;font-weight:400">Infrastructure, ownership, execution.</span></h2>
-    <p class="fu" style="font-size:.95rem;color:#5a5275;max-width:600px;margin-bottom:3rem;line-height:1.7">Each case study opens with an at-a-glance summary, then covers what I owned, built, and influenced, the trade-offs I made, real artifacts, results against a baseline, and what I'd do differently.</p>
-    <div class="prog-grid">
-      <a href="aggregation.html" class="prog-card c-violet fu feat">
-        <div class="prog-eyebrow">Flagship · Recyclops · 2021–2023</div>
-        <div class="prog-title">Recyclops Enterprise Program: ReDyper, 0 → National</div>
-        <div class="prog-role">Owned product, platform, integrations, data, and launch, end to end</div>
-        <div class="prog-desc">Owned ReDyper end to end, a new service model on a new gig-aggregation platform, from concept to 25+ markets. I led new product introduction, the platform rebuild plan, API data flows and reconciliation (specified with Engineering, partly built myself), the data model, and go/no-go for every launch.</div>
-        <div class="prog-impacts"><div class="prog-impact">25+ markets in 9 months, 60% ahead of roadmap, zero P0/P1 incidents</div><div class="prog-impact">5 systems integrated through APIs; launch, dispatch, and billing synced automatically</div><div class="prog-impact">Time-to-launch halved; operating cost down 18%, payback in under 4 months</div></div>
-        <div class="prog-link">Read the case study →</div>
-      </a>
-      <a href="enterprise-platform.html" class="prog-card c-blue fu">
-        <div class="prog-eyebrow">Platform Delivery · KT Impact · 2023–2024</div>
-        <div class="prog-title">Enterprise Platform Delivery: Build → Production</div>
-        <div class="prog-role">Owned delivery, budget, vendors, and roadmap</div>
-        <div class="prog-desc">Owned delivery of a new commercial platform from development to enterprise production, with API contracts and data schemas across three external data domains.</div>
-        <div class="prog-impacts"><div class="prog-impact">Time-to-launch down 35%</div><div class="prog-impact">10+ enterprise accounts in production</div><div class="prog-impact">Downtime from 8.5% to 6.6%</div></div>
-        <div class="prog-link">Read the case study →</div>
-      </a>
-      <a href="ai-automation.html" class="prog-card c-pink fu">
-        <div class="prog-eyebrow">Delivery Systems + AI · 2024–2026</div>
-        <div class="prog-title">Delivery Systems &amp; AI-Assisted Reporting</div>
-        <div class="prog-role">Governed 15–20 concurrent initiatives</div>
-        <div class="prog-desc">A Monday.com–Jira integration from discovery to cutover, 12 report sources consolidated into one, and AI-drafted reports with a human sign-off.</div>
-        <div class="prog-impacts"><div class="prog-impact">Reporting effort down 50%</div><div class="prog-impact">90% sustained adoption</div><div class="prog-impact">Planning cycles 25–30% shorter</div></div>
-        <div class="prog-link">Read the case study →</div>
-      </a>
-      <a href="revenue-systems.html" class="prog-card c-green fu">
-        <div class="prog-eyebrow">Enterprise Systems · YETI · 2020–2021</div>
-        <div class="prog-title">Revenue Systems: CPQ → Forecast</div>
-        <div class="prog-role">Owned requirements, delivery, and reconciliation</div>
-        <div class="prog-desc">Rebuilt Salesforce CPQ for wholesale and direct-to-consumer, then defined the Salesforce/SAP-to-Tableau pipeline.</div>
-        <div class="prog-impacts"><div class="prog-impact">Quote-to-cash 25% faster</div><div class="prog-impact">Forecast accuracy 78% → 91%</div><div class="prog-impact">6 business units aligned</div></div>
-        <div class="prog-link">Read the case study →</div>
-      </a>
-      <a href="transformation.html" class="prog-card c-gold fu">
-        <div class="prog-eyebrow">Transformation · FIFCO USA · 2010–2018</div>
-        <div class="prog-title">Digital Transformation: Legacy → CMS/CRM</div>
-        <div class="prog-role">Project Manager → Product Owner with P&amp;L authority</div>
-        <div class="prog-desc">A multiyear, phased migration of retail and distributor channels from legacy systems to CMS/CRM, from business case through adoption.</div>
-        <div class="prog-impacts"><div class="prog-impact">28% e-commerce revenue growth</div><div class="prog-impact">Revenue targets exceeded with OKR-driven execution</div><div class="prog-impact">Sales, Ops, and Marketing on shared systems</div></div>
-        <div class="prog-link">Read the case study →</div>
-      </a>
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="wrap contact-inner fu">
+    <p class="eyebrow">Contact</p>
+    <h2 class="contact-title">Let's talk about your next launch.</h2>
+    <p class="contact-sub">Open to Senior Program Manager roles leading platform, infrastructure, and enterprise-systems programs. Based in Austin, TX.</p>
+    <div class="contact-btns">
+      <a href="mailto:lee.brandon.anthony@gmail.com" class="btn btn-blue">Email me</a>
+      <a href="https://linkedin.com/in/brandonl33" target="_blank" rel="noopener" class="btn btn-light">LinkedIn</a>
+      <a href="PM_Brandon_Lee.pdf" target="_blank" rel="noopener" class="btn btn-light">Resume (PDF)</a>
     </div>
+    <p class="contact-email">lee.brandon.anthony@gmail.com</p>
   </div>
 </section>
 
-<section class="s-white" style="padding:1rem 0 5rem" id="principles">
-  <div class="container">
-    <div class="ey dk fu">Systems Thinking</div>
-    <h2 class="fu" style="font-family:var(--fh);font-size:clamp(1.9rem,3.5vw,2.7rem);font-weight:900;color:var(--lt-h);letter-spacing:-.04em;line-height:1.1">Systems thinking, <span style="color:var(--lt-m);font-weight:400">turned into process.</span></h2>
-    <p class="fu" style="font-size:.95rem;color:#5a5275;max-width:640px;margin-top:.9rem;line-height:1.7">Every program is a system of people, dependencies, data, and decisions. I map it, find the constraint, design a mechanism that removes it, and measure whether it worked. Then I standardize that mechanism into a process the organization keeps after I hand it off. Four examples, each with a result behind it:</p>
-    <div class="vp-grid fu"><div class="vp-card vp-open"><div class="vp-num vp-num-lt">01 — Contracts before code</div><div class="vp-h-lt">Agree on the interface first.</div><div class="vp-rule"></div><div class="vp-body-lt">At KT Impact, I paused new enterprise go-lives to define API contracts and schemas for three external data feeds. Every account after that reused the same path, and time-to-launch dropped 35%.</div><a class="vp-link" href="enterprise-platform.html">Enterprise platform →</a></div><div class="vp-card vp-open"><div class="vp-num vp-num-lt">02 — Gates, not heroics</div><div class="vp-h-lt">Launches fail at the handoffs.</div><div class="vp-rule"></div><div class="vp-body-lt">At Recyclops, every ReDyper market went through four readiness gates, and each gate had one accountable owner. Across 25+ markets, launches caused zero P0/P1 incidents.</div><a class="vp-link" href="aggregation.html">Recyclops program →</a></div><div class="vp-card vp-dark vd-v"><div class="vp-num vp-num-dk">03 — Rank by customer impact</div><div class="vp-stat"><span class="vp-stat-num" style="color:#b39dff">8.5→6.6%</span><span class="vp-stat-label">Downtime</span></div><div class="vp-h-dk">One triage, one priority list.</div><div class="vp-body-dk">Weekly cross-team triage, ranked by what customers felt, replaced each team triaging its own issues. Production downtime fell from 8.5% to 6.6%.</div><a class="vp-link" href="enterprise-platform.html">Enterprise platform →</a></div><div class="vp-card vp-dark vd-b"><div class="vp-num vp-num-dk">04 — Automate assembly, keep judgment</div><div class="vp-stat"><span class="vp-stat-num" style="color:#93c5fd">50%</span><span class="vp-stat-label">Less reporting effort</span></div><div class="vp-h-dk">AI drafts, people decide.</div><div class="vp-body-dk">Status reports drafted by an LLM from structured fields, then reviewed and published by a PM. Reporting overhead dropped 50% and every update still had an accountable author.</div><a class="vp-link" href="ai-automation.html">AI-assisted reporting →</a></div></div>
-    <a href="pmo.html" class="vp-link" style="font-size:.62rem">See the full operating model →</a>
-  </div>
-</section>
-
-<section class="s-lt sp" id="capabilities">
-  <div class="container">
-    <div class="ey dk fu">Capabilities</div>
-    <h2 class="fu" style="font-family:var(--fh);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:900;color:var(--lt-h);letter-spacing:-.04em;margin-bottom:2.5rem">What I bring to a program.</h2>
-    <div class="cap-grid fu"><div class="cap-card"><div class="cap-icon" style="background:rgba(124,58,237,.12);border:1px solid rgba(124,58,237,.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><div class="cap-title">Program Leadership &amp; Launch</div><div class="cap-sub">Owning outcomes from strategy to steady state</div><div class="cap-items"><div class="cap-item" style="border-color:rgba(124,58,237,.3)">End-to-end program ownership</div><div class="cap-item" style="border-color:rgba(124,58,237,.3)">Roadmap sequencing &amp; release cadence</div><div class="cap-item" style="border-color:rgba(124,58,237,.3)">Launch frameworks, readiness gates &amp; go/no-go</div><div class="cap-item" style="border-color:rgba(124,58,237,.3)">Dependency &amp; critical-path management</div><div class="cap-item" style="border-color:rgba(124,58,237,.3)">Budget, vendor &amp; capacity planning</div><div class="cap-item" style="border-color:rgba(124,58,237,.3)">Cutover, hypercare &amp; handoff</div></div></div><div class="cap-card"><div class="cap-icon" style="background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div><div class="cap-title">Infrastructure, Systems &amp; Data</div><div class="cap-sub">Making the systems agree with each other</div><div class="cap-items"><div class="cap-item" style="border-color:rgba(37,99,235,.3)">API contracts &amp; data schemas</div><div class="cap-item" style="border-color:rgba(37,99,235,.3)">Integration requirements &amp; testing</div><div class="cap-item" style="border-color:rgba(37,99,235,.3)">Data governance &amp; reconciliation</div><div class="cap-item" style="border-color:rgba(37,99,235,.3)">Reporting pipelines &amp; dashboards</div><div class="cap-item" style="border-color:rgba(37,99,235,.3)">Salesforce, SAP, Tableau, Jira, Monday.com</div><div class="cap-item" style="border-color:rgba(37,99,235,.3)">SQL · Python · GitHub</div></div></div><div class="cap-card"><div class="cap-icon" style="background:rgba(247,37,133,.12);border:1px solid rgba(247,37,133,.3)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f72585" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg></div><div class="cap-title">Systems Thinking &amp; Process</div><div class="cap-sub">Designing how the organization runs</div><div class="cap-items"><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Systems mapping: dependencies, constraints, feedback loops</div><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Process design that scales with the team</div><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Intake, prioritization &amp; executive decision rights</div><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Incident triage &amp; SLA thresholds</div><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Change management &amp; adoption</div><div class="cap-item" style="border-color:rgba(247,37,133,.3)">Agile, Scrum, Kanban, Waterfall</div></div></div></div>
-  </div>
-</section>
-
-<section class="s-white sp" id="about">
-  <div class="container">
-    <div class="ey dk fu">About</div>
-    <div class="bio-grid fu">
-      <div>
-        <h2 style="font-family:var(--fh);font-size:clamp(1.8rem,3vw,2.4rem);font-weight:900;color:var(--lt-h);letter-spacing:-.04em;margin-bottom:1.5rem;line-height:1.1">Program manager.<br><span style="color:var(--violet)">Systems thinker.</span></h2>
-        <p class="bio-text" style="margin-bottom:1.25rem">Every complex program is, at its core, a question of agreement: between systems that must exchange data, and between people who must commit to the same version of the truth. Brandon Lee has spent fourteen years building that agreement, and then the operating architecture that lets an organization act on it at scale.</p>
-        <p class="bio-text" style="margin-bottom:1.25rem">He approaches every program as a system, and his work sits where platform engineering, enterprise systems, and operations meet. He carried a commercial platform from development into enterprise production. He took ReDyper, a new service model on a new gig-aggregation platform, from concept to more than twenty-five markets in nine months without a single P0/P1 incident, owning everything from the API layer to frontline operations. He rebuilt revenue systems across Salesforce and SAP that lifted forecast accuracy from 78% to 91%. He governed delivery for Series A–C companies running fifteen to twenty initiatives at once.</p>
-        <p class="bio-text" style="margin-bottom:1.25rem">One conviction runs through all of it: technology should assemble the facts, and people should own the judgment. That is why his launches ran on readiness gates rather than heroics, and why his AI-assisted reporting cut the effort in half while keeping a person accountable for every update that went out.</p>
-        <p class="bio-text">An MBA in IT Management from WGU (2026) formalized what the work had already taught. Brandon is pursuing Senior Program Manager roles on platform, infrastructure, and enterprise-systems teams, where clarity under complexity is the job itself.</p>
-        <div class="exp"><div class="exp-row"><div><b>Independent Consultant</b> <span>· Program Manager, Systems Implementation &amp; Delivery</span></div><div class="yr">2024–2026</div></div><div class="exp-row"><div><b>KT Impact</b> <span>· Program Manager, Platform Delivery &amp; Enterprise Implementation</span></div><div class="yr">2023–2024</div></div><div class="exp-row"><div><b>Recyclops</b> <span>· Program Manager, Strategic Initiatives &amp; Operations</span></div><div class="yr">2021–2023</div></div><div class="exp-row"><div><b>YETI</b> <span>· Project Manager, Corporate Sales Enablement &amp; Operations</span></div><div class="yr">2020–2021</div></div><div class="exp-row"><div><b>FIFCO USA</b> <span>· Project Manager, then Product Owner, Digital Transformation</span></div><div class="yr">2010–2018</div></div></div>
-        <div style="margin-top:2rem">
-          <div class="edu-grid" style="margin-bottom:1rem">
-            <div class="edu-card"><div class="edu-card-ey">Graduate</div><div class="edu-card-title">MBA, IT Management</div><div class="edu-card-sub">Western Governors University</div><span class="edu-status done">2026</span></div>
-            <div class="edu-card"><div class="edu-card-ey">Undergraduate</div><div class="edu-card-title">BA, Communications · Minor, Business</div><div class="edu-card-sub">University of Washington</div><span class="edu-status done">Completed</span></div>
-          </div>
-          <div class="certs">
-            <span class="cert">Google Project Management</span>
-            <span class="cert">Google Data Analytics</span>
-            <span class="cert">Agile Project Management</span>
-          </div>
-        </div>
-      </div>
-      <div class="bio-aside">
-        <div class="bio-stat" style="background:linear-gradient(145deg,#0f0e1a,#13101f);border:1px solid rgba(124,58,237,.2)"><div class="bio-stat-num">25<span>+</span></div><div class="bio-stat-lbl">Markets launched, zero P0/P1</div></div>
-        <div class="bio-stat" style="background:linear-gradient(145deg,#0f0e1a,#13101f);border:1px solid rgba(37,99,235,.2)"><div class="bio-stat-num" style="color:var(--ba)">10<span style="color:var(--ba)">+</span></div><div class="bio-stat-lbl">Enterprise accounts in production</div></div>
-        <div class="bio-stat" style="background:linear-gradient(145deg,#0f0e1a,#13101f);border:1px solid rgba(22,163,74,.2)"><div class="bio-stat-num" style="color:var(--gra)">18<span style="color:var(--gra)">%</span></div><div class="bio-stat-lbl">Operating cost cut, payback &lt;4 months</div></div>
-        <div class="bio-stat" style="background:linear-gradient(145deg,#0f0e1a,#13101f);border:1px solid rgba(247,37,133,.2)"><div class="bio-stat-num" style="color:var(--pa)">90<span style="color:var(--pa)">%</span></div><div class="bio-stat-lbl">Adoption on a new integrated workflow</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="s-dark sp" id="contact" style="border-top:1px solid var(--dk-border)">
-  <div class="container">
-    <div class="contact-inner fu">
-      <div class="ey" style="justify-content:center">Contact</div>
-      <div class="contact-title">Let's talk about<br>your next launch.</div>
-      <p class="contact-sub">Open to Senior Program Manager roles leading platform, infrastructure, and enterprise-systems programs. Based in Austin, TX.</p>
-      <div class="contact-links">
-        <a href="mailto:lee.brandon.anthony@gmail.com" class="btn-ghost btn-primary">Email me</a>
-        <a href="https://linkedin.com/in/brandonl33" class="btn-ghost" target="_blank" rel="noopener">LinkedIn →</a>
-        <a href="PM_Brandon_Lee.pdf" class="btn-ghost" target="_blank" rel="noopener">Resume (PDF)</a>
-      </div>
-      <p style="margin-top:1.5rem;font-family:var(--fm);font-size:.65rem;color:#8878b0">lee.brandon.anthony@gmail.com</p>
-    </div>
-  </div>
-</section>
-
-<footer><p>© 2026 Brandon Lee · Senior Program Manager · Austin, TX</p></footer>
+<footer class="footer"><div class="wrap">© 2026 Brandon Lee · Senior Program Manager · Austin, TX</div></footer>
 
 <script>
 (function(){
   var els=document.querySelectorAll('.fu');
-  if('IntersectionObserver' in window){
-    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}})},{threshold:0.04});
-    els.forEach(function(el){io.observe(el)});
-  }
-  setTimeout(function(){els.forEach(function(el){el.classList.add('vis')})},800);
-})();
-</script>
-<script>
-(function(){
-  var canvas = document.getElementById('starCanvas');
-  if(!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var stars = [];
-  function resize(){
-    var hero = canvas.parentElement;
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight;
-    initStars();
-  }
-  function initStars(){
-    stars = [];
-    var cx = canvas.width * 0.62, cy = canvas.height * 0.5;
-    var maxR = Math.max(canvas.width, canvas.height) * 0.58;
-    for(var i=0; i<120; i++){
-      var angle = Math.random() * Math.PI * 2;
-      var dist = 60 + Math.random() * maxR;
-      var p = Math.random();
-      var color = p < 0.6 ? 'rgba(255,255,255,' : (p < 0.82 ? 'rgba(179,157,255,' : 'rgba(124,106,255,');
-      stars.push({cx:cx,cy:cy,angle:angle,dist:dist,color:color,
-        size:0.4+Math.random()*1.6,
-        speed:(0.00012+Math.random()*0.00022)*(Math.random()<.5?1:-1),
-        opBase:0.25+Math.random()*0.55,
-        opSpd:0.005+Math.random()*0.012,
-        opPh:Math.random()*Math.PI*2,t:0});
-    }
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    for(var i=0;i<stars.length;i++){
-      var s=stars[i]; s.angle+=s.speed; s.t+=0.016;
-      var op=Math.max(0.05,Math.min(1,s.opBase+Math.sin(s.t*s.opSpd*60+s.opPh)*0.2));
-      ctx.beginPath();
-      ctx.arc(s.cx+Math.cos(s.angle)*s.dist, s.cy+Math.sin(s.angle)*s.dist, s.size, 0, Math.PI*2);
-      ctx.fillStyle=s.color+op+')';
-      ctx.fill();
-    }
-    requestAnimationFrame(draw);
-  }
-  resize();
-  window.addEventListener('resize',resize);
-  requestAnimationFrame(draw);
+  if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('vis')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}})},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
+  els.forEach(function(el){io.observe(el)});
+  setTimeout(function(){els.forEach(function(el){el.classList.add('vis')})},1500);
+  var nav=document.querySelector('.nav');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>8)}
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
 })();
 </script>
 </body>
