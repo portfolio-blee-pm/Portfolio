@@ -1,0 +1,68 @@
+/* Brandon Lee · Portfolio — motion layer (loaded after page styles) */
+:root{--ease-out:cubic-bezier(.16,1,.3,1)}
+
+/* Reveal: fade, rise and un-blur, with per-item stagger (--d) */
+.js .fu,.js .fi{opacity:0;transform:translateY(28px);filter:blur(6px);
+  transition:opacity 1s var(--ease-out),transform 1.1s var(--ease-out),filter 1s var(--ease-out);
+  transition-delay:var(--d,0ms)}
+.js .fu.vis,.js .fi.vis{opacity:1;transform:none;filter:none}
+/* once revealed, drop the delay so hover effects respond instantly */
+.js .fu.settled,.js .fi.settled{transition-delay:0ms;
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),background .45s,opacity .3s,filter .3s}
+.js .stag{opacity:0;transform:translateY(16px);transition:opacity .9s var(--ease-out),transform 1s var(--ease-out);transition-delay:calc(var(--d,0ms) + 120ms)}
+.js .stag.vis{opacity:1;transform:none}
+
+/* Headlines: second (muted) line follows the first */
+.js .h2.fu .muted,.js .page-title span{display:inline-block;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease-out) .22s,transform 1s var(--ease-out) .22s}
+.js .h2.fu.vis .muted{opacity:1;transform:none}
+.js .page-title span{animation:lineIn 1s var(--ease-out) .35s forwards}
+@keyframes lineIn{to{opacity:1;transform:none}}
+
+/* Hero name: letter-spacing settles in */
+.js .hero-title{transition:opacity 1s var(--ease-out),transform 1.1s var(--ease-out),filter 1s var(--ease-out),letter-spacing 1.4s var(--ease-out)}
+.js .hero-title:not(.vis){letter-spacing:-.02em}
+
+/* Pillar icons pop in after their card */
+.js .pillar .pillar-icon{transform:scale(.7);opacity:0;transition:transform .7s cubic-bezier(.34,1.56,.64,1) calc(var(--d,0ms) + 250ms),opacity .5s ease calc(var(--d,0ms) + 250ms)}
+.js .pillar.vis .pillar-icon{transform:none;opacity:1}
+.pillar:hover .pillar-icon svg{transform:rotate(-8deg) scale(1.08)}
+.pillar-icon svg{transition:transform .5s var(--ease-out)}
+
+/* Operating-model accent bar draws across */
+.principle{position:relative}
+.js .principle[class*="t-"]{box-shadow:none}
+.principle[class*="t-"]::after{content:'';position:absolute;left:0;right:0;top:0;height:3px;border-radius:22px 22px 0 0;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--ease-out) calc(var(--d,0ms) + 300ms)}
+.principle.vis::after{transform:scaleX(1)}
+.js .principle[class*="t-"]:hover{box-shadow:var(--shadow-hover)}
+
+/* Cursor spotlight */
+.spot{position:relative;isolation:isolate}
+.spot::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;opacity:0;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),var(--acc-tint,#eef0f3),transparent 60%);transition:opacity .4s}
+.spot:hover::before{opacity:1}
+.card.spot::before{background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),var(--acc-tint,#f5f5f7),transparent 62%)}
+
+/* Profile card tilt */
+.profile{transform-style:preserve-3d;will-change:transform}
+.profile.settled{transition:transform .5s var(--ease-out),box-shadow .5s var(--ease-out)}
+.profile.settled:hover{box-shadow:0 24px 60px rgba(0,0,0,.08)}
+.profile-photo{transition:transform .6s var(--ease-out)}
+.profile:hover .profile-photo{transform:scale(1.04)}
+
+/* Buttons: soft press + arrow nudge */
+.btn{transition:background .2s,color .2s,box-shadow .2s,transform .35s var(--ease-out)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:scale(.97)}
+
+/* Reading progress line */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;background:var(--ink,#1d1d1f);opacity:.55;transform:scaleX(0);transform-origin:left;z-index:400;pointer-events:none}
+
+/* Numbers don't jitter while counting */
+.stat-num,.card-feature-stats b,.principle-stat b,.results li b,.hm-num{font-variant-numeric:tabular-nums}
+
+/* Reduced motion: everything static and visible */
+@media (prefers-reduced-motion:reduce){
+  .js .fu,.js .fi,.js .stag,.js .h2.fu .muted,.js .page-title span,.js .pillar .pillar-icon{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
+  .principle[class*="t-"]::after{transform:none;transition:none}
+  .progress{display:none}
+}
