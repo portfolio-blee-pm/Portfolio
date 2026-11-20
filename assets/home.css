@@ -46,13 +46,11 @@ ul{list-style:none}
 .btn:active{transform:scale(.98)}
 .btn-dark{background:var(--ink);color:#fff}
 .btn-dark:hover{background:#000}
-.btn-blue{background:var(--blue);color:#fff}
-.btn-blue:hover{background:var(--blue-hover)}
 .btn-light{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
 .btn-light:hover{box-shadow:inset 0 0 0 1px var(--ink)}
-.link{color:var(--blue);font-size:17px;font-weight:400;display:inline-flex;align-items:center;gap:4px}
+.link{color:var(--ink);font-size:17px;font-weight:500;display:inline-flex;align-items:center;gap:4px;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:4px;transition:text-decoration-color .2s}
 .link span{transition:transform .25s var(--ease)}
-.link:hover{text-decoration:underline}
+.link:hover,a:hover>.link{text-decoration-color:currentColor}
 .link:hover span,a:hover>.link span{transform:translateX(3px)}
 .link-lg{font-size:19px;margin-top:40px}
 
