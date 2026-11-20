@@ -202,3 +202,45 @@ ul{list-style:none}
   .hero-btns .link{margin-left:0}
   .contact{padding:96px 0}
 }
+
+/* ── MUTED ACCENTS ── */
+:root{
+  --sage:#6b8f71;--sage-ink:#4a6a50;--sage-tint:#eef2ec;
+  --blue-m:#6a82a0;--blue-ink:#475f7d;--blue-tint:#ecf0f5;
+  --clay:#b07a62;--clay-ink:#8a5741;--clay-tint:#f5ede8;
+  --plum:#8c7b9e;--plum-ink:#64547a;--plum-tint:#f0edf3;
+  --sand:#a8915c;--sand-ink:#776534;--sand-tint:#f4f0e4;
+}
+.t-sage{--acc:var(--sage);--acc-ink:var(--sage-ink);--acc-tint:var(--sage-tint)}
+.t-blue{--acc:var(--blue-m);--acc-ink:var(--blue-ink);--acc-tint:var(--blue-tint)}
+.t-clay{--acc:var(--clay);--acc-ink:var(--clay-ink);--acc-tint:var(--clay-tint)}
+.t-plum{--acc:var(--plum);--acc-ink:var(--plum-ink);--acc-tint:var(--plum-tint)}
+.t-sand{--acc:var(--sand);--acc-ink:var(--sand-ink);--acc-tint:var(--sand-tint)}
+
+/* pillars: tinted icon tile, accent rule */
+.pillar[class*="t-"] .pillar-icon{background:var(--acc-tint)}
+.pillar[class*="t-"] .pillar-icon svg{stroke:var(--acc-ink)}
+.pillar[class*="t-"] .proof{color:var(--acc-ink);border-top-color:var(--acc-tint)}
+
+/* work cards: soft matte tint instead of gray */
+.card[class*="t-"]{background:var(--acc-tint)}
+.card[class*="t-"]:hover{background:#fff}
+.card[class*="t-"] .card-meta{color:var(--acc-ink)}
+.card[class*="t-"] .owned span{color:var(--acc-ink)}
+.card[class*="t-"]:hover .owned{background:var(--acc-tint)}
+.card[class*="t-"] .results li{border-top-color:rgba(0,0,0,.08)}
+.card-feature[class*="t-"] .card-feature-stats div{border-top-color:rgba(0,0,0,.1)}
+
+/* operating model: colored number + top accent */
+.principle[class*="t-"]{box-shadow:inset 0 3px 0 var(--acc)}
+.principle[class*="t-"]:hover{box-shadow:inset 0 3px 0 var(--acc),var(--shadow-hover)}
+.principle[class*="t-"] .principle-num{color:var(--acc-ink)}
+
+/* small touches */
+.profile{background:var(--sand-tint)}
+.profile-list,.profile-list>div{border-color:rgba(0,0,0,.08)}
+.tools .chip:nth-of-type(5n+1){background:var(--sage-tint);color:var(--sage-ink)}
+.tools .chip:nth-of-type(5n+2){background:var(--blue-tint);color:var(--blue-ink)}
+.tools .chip:nth-of-type(5n+3){background:var(--clay-tint);color:var(--clay-ink)}
+.tools .chip:nth-of-type(5n+4){background:var(--plum-tint);color:var(--plum-ink)}
+.tools .chip:nth-of-type(5n+5){background:var(--sand-tint);color:var(--sand-ink)}
