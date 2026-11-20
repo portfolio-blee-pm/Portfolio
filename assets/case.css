@@ -178,3 +178,25 @@ footer p{font-size:12px;color:var(--faint)}
   .page-nav{flex-wrap:wrap}
   .fi{opacity:1;transform:none}
 }
+
+/* ── MUTED ACCENTS (per page) ── */
+:root{
+  --sage:#6b8f71;--sage-ink:#4a6a50;--sage-tint:#eef2ec;
+  --blue-m:#6a82a0;--blue-ink:#475f7d;--blue-tint:#ecf0f5;
+  --clay:#b07a62;--clay-ink:#8a5741;--clay-tint:#f5ede8;
+  --plum:#8c7b9e;--plum-ink:#64547a;--plum-tint:#f0edf3;
+  --sand:#a8915c;--sand-ink:#776534;--sand-tint:#f4f0e4;
+  --acc:var(--ink);--acc-ink:var(--faint);--acc-tint:var(--bg-alt);
+}
+.t-sage{--acc:var(--sage);--acc-ink:var(--sage-ink);--acc-tint:var(--sage-tint)}
+.t-blue{--acc:var(--blue-m);--acc-ink:var(--blue-ink);--acc-tint:var(--blue-tint)}
+.t-clay{--acc:var(--clay);--acc-ink:var(--clay-ink);--acc-tint:var(--clay-tint)}
+.t-plum{--acc:var(--plum);--acc-ink:var(--plum-ink);--acc-tint:var(--plum-tint)}
+.t-sand{--acc:var(--sand);--acc-ink:var(--sand-ink);--acc-tint:var(--sand-tint)}
+.eyebrow,.section-label{color:var(--acc-ink)}
+.glance{background:var(--acc-tint)}
+.glance-head{color:var(--acc-ink)}
+.role-k{color:var(--acc-ink)}
+.lesson,.challenge-block{border-left-color:var(--acc)}
+.outcome-item::before,.tl-dot{background:var(--acc)}
+.cta-section{background:var(--acc-tint)}
