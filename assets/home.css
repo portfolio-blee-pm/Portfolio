@@ -68,7 +68,7 @@ ul{list-style:none}
 .profile-name{font-size:21px;font-weight:600;letter-spacing:-.02em}
 .profile-role{font-size:14px;color:var(--muted);margin-bottom:22px}
 .profile-list{text-align:left;border-top:1px solid var(--line)}
-.profile-list>div{display:grid;grid-template-columns:86px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.profile-list>div{display:grid;grid-template-columns:84px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
 .profile-list>div:last-child{border-bottom:none;padding-bottom:0}
 .profile-list dt{font-size:12px;font-weight:600;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
 .profile-list dd{font-size:14px;color:var(--ink);line-height:1.4}
@@ -244,3 +244,7 @@ ul{list-style:none}
 .tools .chip:nth-of-type(5n+3){background:var(--clay-tint);color:var(--clay-ink)}
 .tools .chip:nth-of-type(5n+4){background:var(--plum-tint);color:var(--plum-ink)}
 .tools .chip:nth-of-type(5n+5){background:var(--sand-tint);color:var(--sand-ink)}
+.hero-grid{grid-template-columns:minmax(0,1fr) 380px}
+.profile{padding:32px 28px 24px}
+.profile-list dd{font-size:13.5px;line-height:1.45}
+@media(max-width:860px){.hero-grid{grid-template-columns:1fr}}
