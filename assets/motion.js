@@ -12,7 +12,7 @@
   var revealEls = document.querySelectorAll('.fu, .fi');
 
   /* ── Stagger: items inside grids reveal one after another ── */
-  var groups = ['.hero-copy', '.stats', '.pillars', '.card-grid', '.principles', '.caps', '.hero-metrics', '.mech', '.glance-grid', '.three-col'];
+  var groups = ['.hero-copy', '.stats', '.pillars', '.traits', '.card-grid', '.principles', '.caps', '.hero-metrics', '.mech', '.glance-grid', '.three-col'];
   groups.forEach(function (sel) {
     document.querySelectorAll(sel).forEach(function (g) {
       var kids = g.querySelectorAll(':scope > .fu, :scope > .fi, :scope > *');
@@ -205,7 +205,7 @@
   if (reduce || !finePointer) return;
 
   /* ── Cursor spotlight on cards ── */
-  document.querySelectorAll('.card, .pillar, .principle, .about-side, .decision, .glance, .role-box').forEach(function (c) {
+  document.querySelectorAll('.card, .pillar, .trait, .principle, .about-side, .decision, .glance, .role-box').forEach(function (c) {
     c.classList.add('spot');
     c.addEventListener('pointermove', function (e) {
       var r = c.getBoundingClientRect();

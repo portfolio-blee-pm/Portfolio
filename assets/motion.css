@@ -23,8 +23,8 @@
 .js .hero-title:not(.vis){letter-spacing:-.02em}
 
 /* Pillar icons pop in after their card */
-.js .pillar .pillar-icon{transform:scale(.7);opacity:0;transition:transform .7s cubic-bezier(.34,1.56,.64,1) calc(var(--d,0ms) + 250ms),opacity .5s ease calc(var(--d,0ms) + 250ms)}
-.js .pillar.vis .pillar-icon{transform:none;opacity:1}
+.js .trait .pillar-icon,.js .pillar .pillar-icon{transform:scale(.7);opacity:0;transition:transform .7s cubic-bezier(.34,1.56,.64,1) calc(var(--d,0ms) + 250ms),opacity .5s ease calc(var(--d,0ms) + 250ms)}
+.js .trait.vis .pillar-icon,.js .pillar.vis .pillar-icon{transform:none;opacity:1}
 .pillar:hover .pillar-icon svg{transform:rotate(-8deg) scale(1.08)}
 .pillar-icon svg{transition:transform .5s var(--ease-out)}
 
@@ -62,7 +62,7 @@
 
 /* Reduced motion: everything static and visible */
 @media (prefers-reduced-motion:reduce){
-  .js .fu,.js .fi,.js .stag,.js .h2.fu .muted,.js .page-title span,.js .pillar .pillar-icon{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
+  .js .fu,.js .fi,.js .stag,.js .h2.fu .muted,.js .page-title span,.js .trait .pillar-icon,.js .pillar .pillar-icon{opacity:1!important;transform:none!important;filter:none!important;transition:none!important;animation:none!important}
   .principle[class*="t-"]::after{transform:none;transition:none}
   .progress{display:none}
 }
