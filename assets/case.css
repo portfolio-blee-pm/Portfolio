@@ -200,3 +200,4 @@ footer p{font-size:12px;color:var(--faint)}
 .lesson,.challenge-block{border-left-color:var(--acc)}
 .outcome-item::before,.tl-dot{background:var(--acc)}
 .cta-section{background:var(--acc-tint)}
+html{scroll-padding-top:64px}
