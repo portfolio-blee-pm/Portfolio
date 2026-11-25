@@ -275,3 +275,8 @@ ul{list-style:none}
 .trait-proof b{color:var(--ink);font-weight:700}
 @media(max-width:860px){.traits{grid-template-columns:1fr}}
 @media(max-width:640px){.trait{padding:28px 24px}.trait h3{font-size:21px}.trait-thesis{font-size:17px}}
+
+/* ── Menu jumps land below the fixed nav ── */
+html{scroll-padding-top:64px}
+#how-i-work{scroll-margin-top:72px}
+#how-i-work .eyebrow{padding-top:8px}
