@@ -256,3 +256,22 @@ ul{list-style:none}
 @media(max-width:1000px){.pillars{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.pillars{grid-template-columns:1fr}}
 .profile-list>div{grid-template-columns:98px 1fr}
+
+/* ── HOW I WORK ── */
+.traits-sec{padding-top:0}
+.traits{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.trait{background:#fff;border-radius:var(--radius);padding:36px 36px 30px;display:flex;flex-direction:column;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.trait:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.trait-head{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.trait-head .pillar-icon{margin:0;flex-shrink:0}
+.trait[class*="t-"] .pillar-icon{background:var(--acc-tint)}
+.trait[class*="t-"] .pillar-icon svg{stroke:var(--acc-ink)}
+.trait h3{font-size:24px;font-weight:700;letter-spacing:-.03em}
+.trait-thesis{font-size:18px;line-height:1.45;color:var(--ink);font-weight:500;letter-spacing:-.015em;margin-bottom:18px}
+.trait-list{margin-bottom:22px;flex:1}
+.trait-list li{position:relative;font-size:15.5px;line-height:1.5;color:var(--ink-2);padding:9px 0 9px 20px;border-top:1px solid var(--line-soft)}
+.trait-list li::before{content:'';position:absolute;left:2px;top:17px;width:6px;height:6px;border-radius:50%;background:var(--acc,var(--ink))}
+.trait-proof{font-size:14.5px;line-height:1.5;color:var(--muted);background:var(--acc-tint,var(--bg-alt));border-radius:14px;padding:14px 16px}
+.trait-proof b{color:var(--ink);font-weight:700}
+@media(max-width:860px){.traits{grid-template-columns:1fr}}
+@media(max-width:640px){.trait{padding:28px 24px}.trait h3{font-size:21px}.trait-thesis{font-size:17px}}
